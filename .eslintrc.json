@@ -9,7 +9,8 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
-    "plugin:storybook/recommended"
+    "plugin:storybook/recommended",
+    "prettier" // prettierの記述は一番最後にすること。
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
