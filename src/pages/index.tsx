@@ -1,9 +1,14 @@
 import { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import IconImage from '../../public/images/icon.jpg'
 import SkillsImage from '../../public/images/pc.jpg'
-import NavBar from '../components/NavBar'
+import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg'
+import { AnimatedText } from 'components/AnimatedText'
+import { HireMe } from 'components/HireMe'
+import { LinkArrow } from 'components/Icons'
+import { Layout } from 'components/Layout'
 
 export default function Home() {
   return (
@@ -38,7 +43,50 @@ export default function Home() {
         </div>
       </header> */}
 
-      <section className="text-gray-700" id="home">
+      <main className="flex items-center text-dark w-full min-h-screen">
+        <Layout className="pt-0">
+          <div className="flex items-center justify-between w-full">
+            <div className="w-1/2 p-8">
+              <Image src={IconImage} alt="Joji.Iba" className="w-full h-auto" />
+            </div>
+            <div className="w-1/2 flex flex-col items-center self-center">
+              <AnimatedText
+                text="Turning Vision Into Reality With Code And Design."
+                className="!text-6xl !text-left"
+              />
+              <p className="my-4 text-base font-medium">
+                As a skilled full-stack developer, I am dedicated to turning
+                ideas into innovative web applications. Explore my latest
+                projects and articles, showcasing my expertise in React.js and
+                web development.
+              </p>
+              <div className="flex items-center self-start mt-2">
+                <Link
+                  href="/dummy.pdf"
+                  target={'_blank'}
+                  className="flex items-center bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold hover:bg-light hover:text-dark border-2 border-solid border-transparent hover:border-dark"
+                  download={true}
+                >
+                  Resume <LinkArrow className={'w-6 ml-1'} />
+                </Link>
+                <Link
+                  href="mailto:jmry18.0921@gmail.com"
+                  target={'_blank'}
+                  className="ml-4 text-lg font-medium capitalize text-dark underline"
+                >
+                  Contact
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Layout>
+        <HireMe />
+        <div className="absolute right-8 bottom-8 inline-block w-24">
+          <Image src={LightBulbSvg} alt="Joji Iba" className="w-full h-auto" />
+        </div>
+      </main>
+
+      <section className="text-dark min-h-screen" id="home">
         <div className="container mx-auto flex flex-col items-center px-5 py-20 md:flex-row">
           <div className="mb-16 flex-grow text-center md:w-1/2 md:pr-16 md:text-left lg:pr-24">
             <h1 className="mb-4 text-3xl font-medium text-gray-900 sm:text-6xl">
@@ -63,7 +111,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-gray-200 text-gray-700" id="about">
+      <section
+        className="border-t border-gray-200 text-dark min-h-screen"
+        id="about"
+      >
         <div className="container mx-auto px-5 py-24">
           <div className="mb-20 text-center">
             <h1 className="mb-2 text-2xl font-medium text-gray-900 sm:text-3xl">
@@ -108,10 +159,16 @@ export default function Home() {
                       />
                     </svg>
                   </div>
-                  <h2 className="text-gray-900 text-lg font-medium ml-2">Web Developer</h2>
+                  <h2 className="text-gray-900 text-lg font-medium ml-2">
+                    Web Developer
+                  </h2>
                 </div>
                 <div>
-                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium voluptate temporibus sunt harum a aspernatur cumque error ex dolore eius.</p>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Accusantium voluptate temporibus sunt harum a aspernatur
+                    cumque error ex dolore eius.
+                  </p>
                   <a href="#" className="flex mt-3 text-green-500 items-center">
                     もっと見る
                     <svg
@@ -147,10 +204,16 @@ export default function Home() {
                       />
                     </svg>
                   </div>
-                  <h2 className="text-gray-900 text-lg font-medium ml-2">Web Developer</h2>
+                  <h2 className="text-gray-900 text-lg font-medium ml-2">
+                    Web Developer
+                  </h2>
                 </div>
                 <div>
-                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium voluptate temporibus sunt harum a aspernatur cumque error ex dolore eius.</p>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Accusantium voluptate temporibus sunt harum a aspernatur
+                    cumque error ex dolore eius.
+                  </p>
                   <a href="#" className="flex mt-3 text-green-500 items-center">
                     もっと見る
                     <svg
@@ -186,10 +249,16 @@ export default function Home() {
                       />
                     </svg>
                   </div>
-                  <h2 className="text-gray-900 text-lg font-medium ml-2">Web Developer</h2>
+                  <h2 className="text-gray-900 text-lg font-medium ml-2">
+                    Web Developer
+                  </h2>
                 </div>
                 <div>
-                  <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusantium voluptate temporibus sunt harum a aspernatur cumque error ex dolore eius.</p>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Accusantium voluptate temporibus sunt harum a aspernatur
+                    cumque error ex dolore eius.
+                  </p>
                   <a href="#" className="flex mt-3 text-green-500 items-center">
                     もっと見る
                     <svg
@@ -212,7 +281,10 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-gray-200 text-gray-700" id="skills">
+      <section
+        className="border-t border-gray-200 text-dark min-h-screen"
+        id="skills"
+      >
         <div className="container mx-auto px-5 py-24 flex flex-wrap">
           {/* left side */}
           <div className="mb-10 lg:mb-0 w-full lg:w-1/2 flex justify-center">
@@ -220,29 +292,43 @@ export default function Home() {
           </div>
           {/* rigtt side */}
           <div className="lg:pl-12 lg:py-6 w-full lg:w-1/2">
-            <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-10 text-center lg:text-left">My Skill</h1>
+            <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-10 text-center lg:text-left">
+              My Skill
+            </h1>
             <div className="w-full">
               <h2>HTML</h2>
               <div className="shadow bg-green-100 mt-2 w-full">
-                <div className="bg-green-600 text-xs leading-none py-1 text-center text-white" style={{width: "85%"}}>
+                <div
+                  className="bg-green-600 text-xs leading-none py-1 text-center text-white"
+                  style={{ width: '85%' }}
+                >
                   85%
                 </div>
               </div>
               <h2>CSS</h2>
               <div className="shadow bg-green-100 mt-2 w-full">
-                <div className="bg-green-600 text-xs leading-none py-1 text-center text-white" style={{width: "75%"}}>
+                <div
+                  className="bg-green-600 text-xs leading-none py-1 text-center text-white"
+                  style={{ width: '75%' }}
+                >
                   75%
                 </div>
               </div>
               <h2>JavaScript</h2>
               <div className="shadow bg-green-100 mt-2 w-full">
-                <div className="bg-green-600 text-xs leading-none py-1 text-center text-white" style={{width: "65%"}}>
+                <div
+                  className="bg-green-600 text-xs leading-none py-1 text-center text-white"
+                  style={{ width: '65%' }}
+                >
                   65%
                 </div>
               </div>
               <h2>HTML</h2>
               <div className="shadow bg-green-100 mt-2 w-full">
-                <div className="bg-green-600 text-xs leading-none py-1 text-center text-white" style={{width: "85%"}}>
+                <div
+                  className="bg-green-600 text-xs leading-none py-1 text-center text-white"
+                  style={{ width: '85%' }}
+                >
                   85%
                 </div>
               </div>
@@ -251,12 +337,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-t border-gray-200 text-gray-700" id="projects">
-        <div className="container mx-auto px-5 py-24 flex flex-wrap">
-
-        </div>
+      <section
+        className="border-t border-gray-200 text-dark min-h-screen"
+        id="projects"
+      >
+        <div className="container mx-auto px-5 py-24 flex flex-wrap"></div>
       </section>
-
     </>
   )
 }

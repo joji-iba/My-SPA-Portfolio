@@ -1,13 +1,13 @@
-import Link from 'next/link';
-import Logo from './Logo';
-import { useRouter } from 'next/router';
-import { TwitterIcon, GithubIcon } from './Icons';
-import { motion } from 'framer-motion';
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { TwitterIcon, GithubIcon } from './Icons'
+import Logo from './Logo'
 
 // ヘッダーリンクのコンポーネント
 const CustomLink = ({ href, title, className = '' }) => {
   // 各ページ滞在時のメニューの下線表示キープ（パス情報と各リンクの一致を検知）
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -20,8 +20,8 @@ const CustomLink = ({ href, title, className = '' }) => {
         &nbsp;
       </span>
     </Link>
-  );
-};
+  )
+}
 
 export default function NavBar() {
   return (
@@ -64,5 +64,5 @@ export default function NavBar() {
         </div>
       </div>
     </header>
-  );
+  )
 }
