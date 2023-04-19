@@ -1,13 +1,13 @@
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { TwitterIcon, GithubIcon } from './Icons'
-import Logo from './Logo'
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { TwitterIcon, GithubIcon } from './Icons';
+import Logo from './Logo';
 
 // ヘッダーリンクのコンポーネント
 const CustomLink = ({ href, title, className = '' }) => {
   // 各ページ滞在時のメニューの下線表示キープ（パス情報と各リンクの一致を検知）
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -20,15 +20,15 @@ const CustomLink = ({ href, title, className = '' }) => {
         &nbsp;
       </span>
     </Link>
-  )
-}
+  );
+};
 
 export default function NavBar() {
   return (
-    <header className="w-full px-32 py-8 font-medium flex items-center justify-between bg-white border-b border-gray-200 text-gray-700">
-      <div className="container mx-auto flex flex-row items-center p-5">
+    <header className="w-full px-32 py-8 font-medium flex items-center justify-between border-b border-gray-200 text-gray-700">
+      <div className="container mx-auto flex justify-between flex-row items-center p-5">
         {/* ヘッダーメニュー */}
-        <nav>
+        <nav className="flex items-center justify-center">
           <CustomLink href="/" title="Home" className="mr-4" />
           <CustomLink href="/about" title="About" className="mx-4" />
           <CustomLink href="/skills" title="Skills" className="mx-4" />
@@ -57,12 +57,12 @@ export default function NavBar() {
             <GithubIcon />
           </motion.a>
         </nav>
+      </div>
 
-        {/* ロゴ */}
-        <div className="absolute left-[50%] top-2 translate-x-[-50%]">
-          <Logo />
-        </div>
+      {/* ロゴ */}
+      <div className="absolute left-[50%] top-2 translate-x-[-50%]">
+        <Logo />
       </div>
     </header>
-  )
+  );
 }

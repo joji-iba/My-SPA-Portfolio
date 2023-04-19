@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </main>
 
-      <section className="text-dark min-h-screen" id="home">
+      {/* <section className="text-dark min-h-screen" id="home">
         <div className="container mx-auto flex flex-col items-center px-5 py-20 md:flex-row">
           <div className="mb-16 flex-grow text-center md:w-1/2 md:pr-16 md:text-left lg:pr-24">
             <h1 className="mb-4 text-3xl font-medium text-gray-900 sm:text-6xl">
@@ -140,7 +140,6 @@ export default function Home() {
               reiciendis voluptatibus.
             </p>
           </div>
-          {/* カードのdivタグ */}
           <div className="flex flex-wrap">
             <div className="md:w-1/3 p-4">
               <div className="rounded-lg bg-gray-200 p-8">
@@ -286,11 +285,9 @@ export default function Home() {
         id="skills"
       >
         <div className="container mx-auto px-5 py-24 flex flex-wrap">
-          {/* left side */}
           <div className="mb-10 lg:mb-0 w-full lg:w-1/2 flex justify-center">
             <Image src={SkillsImage} className="rounded" />
           </div>
-          {/* rigtt side */}
           <div className="lg:pl-12 lg:py-6 w-full lg:w-1/2">
             <h1 className="text-2xl sm:text-3xl font-medium text-gray-900 mb-10 text-center lg:text-left">
               My Skill
@@ -342,7 +339,7 @@ export default function Home() {
         id="projects"
       >
         <div className="container mx-auto px-5 py-24 flex flex-wrap"></div>
-      </section>
+      </section> */}
     </>
   )
 }
