@@ -1,14 +1,14 @@
-import { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import IconImage from '../../public/images/icon.jpg'
-import SkillsImage from '../../public/images/pc.jpg'
-import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg'
-import { AnimatedText } from 'components/AnimatedText'
-import { HireMe } from 'components/HireMe'
-import { LinkArrow } from 'components/Icons'
-import { Layout } from 'components/Layout'
+import { NextPage } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import IconImage from '../../public/images/icon.jpg';
+import SkillsImage from '../../public/images/pc.jpg';
+import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg';
+import { AnimatedText } from 'components/AnimatedText';
+import { HireMe } from 'components/HireMe';
+import { LinkArrow } from 'components/Icons';
+import { Layout } from 'components/Layout';
 
 export default function Home() {
   return (
@@ -109,9 +109,9 @@ export default function Home() {
             <Image src={IconImage} />
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section
+      {/* <section
         className="border-t border-gray-200 text-dark min-h-screen"
         id="about"
       >
@@ -278,9 +278,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section
+      {/* <section
         className="border-t border-gray-200 text-dark min-h-screen"
         id="skills"
       >
@@ -332,14 +332,14 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      <section
+      {/* <section
         className="border-t border-gray-200 text-dark min-h-screen"
         id="projects"
       >
         <div className="container mx-auto px-5 py-24 flex flex-wrap"></div>
       </section> */}
     </>
-  )
+  );
 }

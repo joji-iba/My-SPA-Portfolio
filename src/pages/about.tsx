@@ -5,14 +5,15 @@ import { useEffect, useRef } from 'react';
 import ProfilePic from '../../public/images/icon.jpg';
 import { AnimatedText } from 'components/AnimatedText';
 import { Layout } from 'components/Layout';
+import Skills from 'components/Skills';
 
-// 数値のカウントアップ実装
+// valueで渡した数値までのカウントアップ実装
 const AnimatedNumbers = ({ value }) => {
   const ref = useRef(null);
 
   const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, { duration: 3000 });
-  const isInview = useInView(ref, { once: true });
+  const springValue = useSpring(motionValue, { duration: 3000 }); // アニメーションの制御
+  const isInview = useInView(ref, { once: true }); // 画面内表示を1度だけ検知
 
   useEffect(() => {
     if (isInview) {
@@ -83,7 +84,7 @@ const about = () => {
                   <AnimatedNumbers value={29} />+
                 </span>
                 <h2 className="text-xl font-medium capitalize text-dark/75">
-                  Age
+                  age
                 </h2>
               </div>
               <div className="flex flex-col items-end justify-center">
@@ -104,6 +105,7 @@ const about = () => {
               </div>
             </div>
           </div>
+          <Skills />
         </Layout>
       </main>
     </>
