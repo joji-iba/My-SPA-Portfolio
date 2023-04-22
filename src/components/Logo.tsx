@@ -13,12 +13,11 @@ function Logo() {
         className="w-16 h-16 bg-dark text-light flex items-center justify-center rounded-full text-2xl font-bold  border border-solid border-transparent dark:border-light"
         whileHover={{
           backgroundColor: [
-            '#121212',
-            'rgba(131,58,180,1)',
-            'rgba(253,29,29,1)',
-            'rgba(252,176,69,1)',
-            'rgba(131,58,180,1)',
-            '#121212',
+            'rgba(69, 69, 82, 1)',
+            'rgba(232, 90, 112, 1)',
+            'rgba(78, 161, 213, 1)',
+            'rgba(234, 234, 234, 1)',
+            'rgba(69, 69, 82, 1)',
           ],
           transition: {
             duration: 1,

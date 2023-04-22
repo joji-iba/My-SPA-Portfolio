@@ -52,8 +52,7 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
         </p>
         <div className="mt-2 flex items-center">
           <Link href={github} target="_blank" className="w-10">
-            {' '}
-            <GithubIcon />{' '}
+            <GithubIcon />
           </Link>
           <Link
             href={link}

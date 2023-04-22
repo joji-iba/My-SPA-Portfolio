@@ -7,11 +7,11 @@ export const useThemeSwitcher = () => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(preferDarkQuery);
-    const userPref = window.localStorage.getItem('theme');
+    const userPref = window.localStorage.getItem('theme'); // テーマの値を取得
 
     const handleChange = () => {
       if (userPref) {
-        const check = userPref === 'dark' ? 'dark' : 'light';
+        let check = userPref === 'dark' ? 'dark' : 'light';
         setMode(check);
         if (check === 'dark') {
           document.documentElement.classList.add('dark');
@@ -19,9 +19,8 @@ export const useThemeSwitcher = () => {
           document.documentElement.classList.remove('dark');
         }
       } else {
-        const check = mediaQuery.matches ? 'dark' : 'light';
+        let check = mediaQuery.matches ? 'dark' : 'light';
         setMode(check);
-        window.localStorage.setItem('theme', check);
         if (check === 'dark') {
           document.documentElement.classList.add('dark');
         } else {
