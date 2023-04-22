@@ -23,6 +23,7 @@ module.exports = {
         coolAqua: "#4EA1D5",
         coolGray: "#EAEAEA",
         coolBlack: "#454552",
+        errorRed: "#e3342f",
       },
       animation: {
         'spin-slow': 'spin 8s linear infinite',
