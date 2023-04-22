@@ -11,7 +11,9 @@ import { LinkArrow } from 'components/Icons';
 import { Layout } from 'components/Layout';
 import { TransitionEffect } from 'components/TransitionEffect';
 
-export default function Home() {
+type HomeProps = {};
+
+const Home: NextPage<HomeProps> = () => {
   return (
     <>
       <Head>
@@ -71,4 +73,6 @@ export default function Home() {
       </main>
     </>
   );
-}
+};
+
+export default Home;

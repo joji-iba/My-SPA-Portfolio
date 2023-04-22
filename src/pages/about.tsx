@@ -1,23 +1,30 @@
 import { useInView, useMotionValue, useSpring } from 'framer-motion';
+import { MotionValue, TargetAndTransition } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
+import { InViewHookResponse } from 'react-intersection-observer';
 import ProfilePic from '../../public/images/icon.jpg';
 import { AnimatedText } from 'components/AnimatedText';
 import { Layout } from 'components/Layout';
 import Skills from 'components/Skills';
 import { TransitionEffect } from 'components/TransitionEffect';
 
+// 型定義
+type AnimatedNumbersProps = {
+  value: number;
+};
+
 // valueで渡した数値までのカウントアップ実装
-const AnimatedNumbers = ({ value }) => {
-  const ref = useRef(null);
+const AnimatedNumbers: FC<AnimatedNumbersProps> = ({ value }) => {
+  const ref = useRef<HTMLSpanElement>(null);
 
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, { duration: 3000 }); // アニメーションの制御
-  const isInview = useInView(ref, { once: true }); // 画面内表示を1度だけ検知
+  const isInview: InViewHookResponse = useInView(ref, { once: true }); // 画面内表示を1度だけ検知
 
   useEffect(() => {
-    if (isInview) {
+    if (isInview && motionValue.get() !== value) {
       motionValue.set(value);
     }
   }, [isInview, value, motionValue]);
