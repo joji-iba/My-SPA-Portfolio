@@ -11,6 +11,7 @@ import { Layout } from 'components/Layout';
 
 const FramerImage = motion(Image);
 
+// メインプロジェクト
 const FeaturedProject = ({ type, title, summary, img, link, github }) => {
   return (
     <article className="w-full flex items-center justify-between relative rounded-br-2xl rounded-3xl border border-solid border-dark bg-light shadow-2xl p-12 dark:bg-dark dark:border-light">
@@ -26,6 +27,10 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
           className="w-full h-auto"
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.2 }}
+          priority
+          sizes="(max-width: 768px) 100vw,
+              (max-width: 1200px) 50vw,
+              50vw"
         />
       </Link>
       <div className="w-1/2 flex flex-col items-start justify-between pl-6">
@@ -60,6 +65,7 @@ const FeaturedProject = ({ type, title, summary, img, link, github }) => {
   );
 };
 
+// サブプロジェクト
 const Project = ({ title, type, img, link, github }) => {
   return (
     <article className="w-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light p-6 relative dark:bg-dark dark:border-light">
@@ -110,7 +116,7 @@ const projects = () => {
     <>
       <Head>
         <title>Joji Iba | Projects Page</title>
-        <meta name="description" content="any description" />
+        <meta name="description" content="私の実績" />
       </Head>
       <main className="w-full mb-16 flex flex-col items-center justify-center dark:text-light">
         <Layout className="pt-16">
