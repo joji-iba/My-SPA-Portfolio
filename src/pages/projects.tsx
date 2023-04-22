@@ -8,6 +8,7 @@ import Project3 from '../../public/images/project3.jpg';
 import { AnimatedText } from 'components/AnimatedText';
 import { GithubIcon } from 'components/Icons';
 import { Layout } from 'components/Layout';
+import { TransitionEffect } from 'components/TransitionEffect';
 
 const FramerImage = motion(Image);
 
@@ -122,6 +123,7 @@ const projects = () => {
         <title>Joji Iba | Projects Page</title>
         <meta name="description" content="私の実績" />
       </Head>
+      <TransitionEffect />
       <main className="w-full mb-16 flex flex-col items-center justify-center dark:text-light">
         <Layout className="pt-16">
           <AnimatedText

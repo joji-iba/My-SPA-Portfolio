@@ -6,6 +6,7 @@ import ProfilePic from '../../public/images/icon.jpg';
 import { AnimatedText } from 'components/AnimatedText';
 import { Layout } from 'components/Layout';
 import Skills from 'components/Skills';
+import { TransitionEffect } from 'components/TransitionEffect';
 
 // valueで渡した数値までのカウントアップ実装
 const AnimatedNumbers = ({ value }) => {
@@ -39,6 +40,7 @@ const about = () => {
         <title>Joji Iba | About Page</title>
         <meta name="description" content="私について" />
       </Head>
+      <TransitionEffect />
       <main className="flex w-full flex-col items-center justify-center dark:text-light">
         <Layout className="pt-16">
           <AnimatedText
