@@ -1,9 +1,9 @@
 // アニメーションの実装
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import React from 'react'
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import React from 'react';
 
-const MotionLink = motion(Link)
+const MotionLink = motion(Link);
 
 function Logo() {
   return (
@@ -28,7 +28,7 @@ function Logo() {
         J.I
       </MotionLink>
     </div>
-  )
+  );
 }
 
-export default Logo
+export default Logo;

@@ -11,7 +11,7 @@ export const useThemeSwitcher = () => {
 
     const handleChange = () => {
       if (userPref) {
-        let check = userPref === 'dark' ? 'dark' : 'light';
+        const check = userPref === 'dark' ? 'dark' : 'light';
         setMode(check);
         if (check === 'dark') {
           document.documentElement.classList.add('dark');
@@ -19,7 +19,7 @@ export const useThemeSwitcher = () => {
           document.documentElement.classList.remove('dark');
         }
       } else {
-        let check = mediaQuery.matches ? 'dark' : 'light';
+        const check = mediaQuery.matches ? 'dark' : 'light';
         setMode(check);
         if (check === 'dark') {
           document.documentElement.classList.add('dark');

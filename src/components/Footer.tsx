@@ -9,7 +9,9 @@ export const Footer = () => {
         <span>{new Date().getFullYear()} &copy; All Rights Reserved.</span>
         <div className="flex items-center lg:py-2">
           Build Width
-          <span className="text-emerald-500 dark:text-primaryDark text-2xl px-1">&#9827;</span>{' '}
+          <span className="text-emerald-500 dark:text-primaryDark text-2xl px-1">
+            &#9827;
+          </span>{' '}
           by&nbsp;
           <Link href="/" className="underline underline-offset-2">
             JOJI IBA INC.

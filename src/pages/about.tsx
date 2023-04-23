@@ -1,5 +1,10 @@
-import { useInView, useMotionValue, useSpring } from 'framer-motion';
-import { MotionValue, TargetAndTransition } from 'framer-motion';
+import {
+  useInView,
+  useMotionValue,
+  useSpring,
+  MotionValue,
+  TargetAndTransition,
+} from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
 import { FC, useEffect, useRef } from 'react';

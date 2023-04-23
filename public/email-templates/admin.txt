@@ -1,0 +1,8 @@
+【ポートフォリオサイトからお問い合わせがありました】
+
+以下の内容が送信されました。
+
+Name: %NAME%
+Email: %EMAIL%
+Message:
+%MESSAGE%
