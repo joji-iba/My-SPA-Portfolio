@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import IconImage from '../../public/images/icon.jpg';
-import SkillsImage from '../../public/images/pc.jpg';
 import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg';
 import { AnimatedText } from 'components/AnimatedText';
 import { HireMe } from 'components/HireMe';
@@ -11,7 +10,7 @@ import { LinkArrow } from 'components/Icons';
 import { Layout } from 'components/Layout';
 import { TransitionEffect } from 'components/TransitionEffect';
 
-type HomeProps = {};
+type HomeProps = object;
 
 const Home: NextPage<HomeProps> = () => {
   return (
@@ -37,14 +36,14 @@ const Home: NextPage<HomeProps> = () => {
             </div>
             <div className="w-1/2 flex flex-col items-center self-center lg:w-full lg:text-center">
               <AnimatedText
-                text="Turning Vision Into Reality With Code And Design."
+                text="Try&Error! 挑戦することで、 自分を超える。"
                 className="!text-6xl !text-left xl:!text-5xl lg:!text-center lg:!text-6xl md:!text-5xl sm:!text-3xl"
               />
               <p className="my-4 text-base font-medium md:text-sm sm:text-xs">
-                As a skilled full-stack developer, I am dedicated to turning
-                ideas into innovative web applications. Explore my latest
-                projects and articles, showcasing my expertise in React.js and
-                web development.
+                プログラミングをこよなく愛し、モダンな技術習得に向け日夜技術研磨に励んでいるフロントエンドエンジニアです。
+                React/Next.js、TypeScriptを中心に学んでいます。<br/>
+                革新的なアイデアと共に、ユーザーにとって「面白い」「使いやすい」「ハイパフォーマンス」なWebアプリケーション開発に専念致します。<br/>
+                これまで携わったプロジェクトや個人開発の作品集をご覧下さい！
               </p>
               <div className="flex items-center self-start mt-2 lg:self-center">
                 <Link

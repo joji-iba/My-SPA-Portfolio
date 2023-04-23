@@ -16,6 +16,7 @@ interface Form {
 }
 
 const Contact = () => {
+  // 送信中/後の状態管理
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -61,7 +62,7 @@ const Contact = () => {
       <main className="flex w-full flex-col items-center justify-center dark:text-light">
         <Layout className="pt-16">
           <AnimatedText
-            text="お問い合わせ"
+            text="Contact"
             className="mb-16 lg:!text-7xl sm:mb-8 sm:!text-6xl xs:!text-4xl"
           />
           <div className="relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 sm:p-5 dark:bg-dark dark:border-light xl:col-span-4 md:order-1 md:col-span-8">
@@ -134,6 +135,7 @@ const Contact = () => {
                 </div>
               </form>
             ) : (
+              // 送信後に出力
               <div>
                 <p className="w-full block text-center text-gray-700 font-bold mb-2 dark:text-light md:text-start sm:p-3">
                   この度は、お問い合わせ頂き、誠にありがとうございました。
