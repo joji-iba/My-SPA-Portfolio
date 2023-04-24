@@ -41,8 +41,10 @@ const Home: NextPage<HomeProps> = () => {
               />
               <p className="my-4 text-base font-medium md:text-sm sm:text-xs">
                 プログラミングをこよなく愛し、モダンな技術習得に向け日夜技術研磨に励んでいるフロントエンドエンジニアです。
-                React/Next.js、TypeScriptを中心に学んでいます。<br/>
-                革新的なアイデアと共に、ユーザーにとって「面白い」「使いやすい」「ハイパフォーマンス」なWebアプリケーション開発に専念致します。<br/>
+                React/Next.js、TypeScriptを中心に学んでいます。
+                <br />
+                革新的なアイデアと共に、ユーザーにとって「面白い」「使いやすい」「ハイパフォーマンス」なWebアプリケーション開発に専念致します。
+                <br />
                 これまで携わったプロジェクトや個人開発の作品集をご覧下さい！
               </p>
               <div className="flex items-center self-start mt-2 lg:self-center">

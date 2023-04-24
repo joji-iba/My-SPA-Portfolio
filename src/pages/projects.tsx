@@ -1,8 +1,9 @@
 import { motion } from 'framer-motion';
 import Head from 'next/head';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
+import BestProject from '../../public/images/myportfolio.jpg';
 import Project1 from '../../public/images/project1.jpg';
 import Project2 from '../../public/images/project2.jpg';
 import Project3 from '../../public/images/project3.jpg';
@@ -18,7 +19,7 @@ interface FeaturedProjectProps {
   type: string;
   title: string;
   summary: string;
-  img: string;
+  img: StaticImageData;
   link: string;
   github: string;
 }
@@ -26,7 +27,7 @@ interface FeaturedProjectProps {
 interface ProjectProps {
   title: string;
   type: string;
-  img: string;
+  img: StaticImageData;
   link: string;
   github: string;
 }
@@ -156,11 +157,10 @@ const projects = () => {
             className="mb-16 lg:!text-7xl sm:mb-8 sm:!text-6xl xs:!text-4xl"
           />
           <div className="grid grid-cols-12 gap-24 gap-y-32 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0">
-
             <div className="col-span-12">
               <FeaturedProject
                 title="Joji.Iba Portfolio Site"
-                img={Project2}
+                img={BestProject}
                 summary="React、Next.js、TypeScript、TailwindCSSを用いて作成した私のポートフォリオサイトです。
                 ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、などのReact/Next.jsによる機能を数多く実装しています。今後実装予定の機能として、✅FireBaseでの認証機能、✅microCMSを用いた動的ルーティングでのページ実装の2点を予定しております。"
                 link="/"
@@ -172,9 +172,6 @@ const projects = () => {
               <Project
                 title="Modern Website"
                 img={Project2}
-                summary="A feature-rich Crypto Screener App using React, Tailwind CSS, Context API, React Router and Recharts.
-                        It shows detail regarding almost all the cryptocurrency. You can easily convert the price in your
-                        local currency."
                 link="https://joji-iba.github.io/Markup_and_JS_only_Website/"
                 github="https://github.com/joji-iba/Markup_and_JS_only_Website"
                 type="Website（個人開発）"
@@ -184,9 +181,6 @@ const projects = () => {
               <Project
                 title="Wrink Fade"
                 img={Project3}
-                summary="A feature-rich Crypto Screener App using React, Tailwind CSS, Context API, React Router and Recharts.
-                        It shows detail regarding almost all the cryptocurrency. You can easily convert the price in your
-                        local currency."
                 link="https://joji-iba.github.io/wrink_fade/"
                 github="https://github.com/joji-iba/wrink_fade"
                 type="Landing Page"

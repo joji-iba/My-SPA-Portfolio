@@ -6,8 +6,15 @@ import { TwitterIcon, GithubIcon, SunIcon, MoonIcon } from './Icons';
 import Logo from './Logo';
 import { useThemeSwitcher } from './hooks/useThemeSwitcher';
 
+interface CustomLinkProps {
+  href: string;
+  title: string;
+  className?: string;
+  toggle: () => void;
+}
+
 // ヘッダーリンクのコンポーネント
-const CustomLink = ({ href, title, className = '' }) => {
+const CustomLink = ({ href, title, className = '' }: CustomLinkProps) => {
   // 各ページ滞在時のメニューの下線表示キープ（パス情報と各リンクの一致を検知）
   const router = useRouter();
 
@@ -25,7 +32,12 @@ const CustomLink = ({ href, title, className = '' }) => {
   );
 };
 
-const CustomMobileLink = ({ href, title, className = '', toggle }) => {
+const CustomMobileLink = ({
+  href,
+  title,
+  className = '',
+  toggle,
+}: CustomLinkProps) => {
   // 各ページ滞在時のメニューの下線表示キープ（パス情報と各リンクの一致を検知）
   const router = useRouter();
 
@@ -117,7 +129,11 @@ export default function NavBar() {
 
           {/* ダークモード切替ボタン */}
           <button
-            onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+            onClick={() =>
+              (setMode as React.Dispatch<React.SetStateAction<string>>)(
+                mode === 'light' ? 'dark' : 'light',
+              )
+            }
             className={`ml-3 flex items-center justify-center rounded-full p-1
             ${mode === 'light' ? 'bg-dark text-light' : 'bg-light text-dark'}
             `}
@@ -189,7 +205,11 @@ export default function NavBar() {
 
             {/* ダークモード切替ボタン */}
             <button
-              onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+              onClick={() =>
+                (setMode as React.Dispatch<React.SetStateAction<string>>)(
+                  mode === 'light' ? 'dark' : 'light',
+                )
+              }
               className={`ml-3 flex items-center justify-center rounded-full p-1
             ${mode === 'light' ? 'bg-dark text-light' : 'bg-light text-dark'}
             `}

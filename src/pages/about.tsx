@@ -2,8 +2,8 @@ import {
   useInView,
   useMotionValue,
   useSpring,
-  MotionValue,
-  TargetAndTransition,
+  // MotionValue,
+  // TargetAndTransition,
 } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -26,7 +26,7 @@ const AnimatedNumbers: FC<AnimatedNumbersProps> = ({ value }) => {
 
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, { duration: 3000 }); // アニメーションの制御
-  const isInview: InViewHookResponse = useInView(ref, { once: true }); // 画面内表示を1度だけ検知
+  const isInview: InViewHookResponse = useInView(ref, { once: true });
 
   useEffect(() => {
     if (isInview && motionValue.get() !== value) {
@@ -65,18 +65,21 @@ const about = () => {
                 私について
               </h2>
               <p className="font-medium">
-                - 【経歴：小学校教員→住宅設計職→Webエンジニア】<br/>
+                - 【経歴：小学校教員→住宅設計職→Webエンジニア】
+                <br />
                 2020年にプログラミングと出会い、独学でWeb制作分野を学び、コーダーとしてWebマーケティング会社に転職を果たし、2年間コーディングとマーケティング業務に携わりました。
                 現在は、Web開発分野のスキルアップに励みつつ、フリーとしても活動しています！
               </p>
               <p className="my-4 font-medium">
-                - 前職のマーケティング会社では、Web上での「表示速度」に拘り抜いてコーディングしていました。
+                -
+                前職のマーケティング会社では、Web上での「表示速度」に拘り抜いてコーディングしていました。
                 CVRにも直結する要素である為、ユーザーにとって、スムーズな「画面遷移」や「レンダリング」は非常に重要な要素だと考えています。
                 ReactやNext.jsを学び始めたことがきっかけで、『UI/UXを意識したエンジニアとしてスキルを磨き、利便性とパフォーマンスの高いSPA開発をしたい』と考えるようになりました。
               </p>
 
               <p className="font-medium">
-                - エンジニアとしての「自走力」と「知的好奇心旺盛さ」をフルに発揮し、ユーザー中心的な考え方をもって実務に取り組みます！
+                -
+                エンジニアとしての「自走力」と「知的好奇心旺盛さ」をフルに発揮し、ユーザー中心的な考え方をもって実務に取り組みます！
                 私のスキルと情熱を発揮する機会を楽しみにしています！！
               </p>
             </div>

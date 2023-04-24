@@ -1,6 +1,11 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 
+interface AnimatedTextProps {
+  text: string;
+  className?: string;
+}
+
 const quote = {
   initial: {
     opacity: 1,
@@ -28,7 +33,7 @@ const singleWord = {
   },
 };
 
-export const AnimatedText = ({ text, className = '' }) => {
+export const AnimatedText = ({ text, className = '' }: AnimatedTextProps) => {
   return (
     <div className="w-full mx-auto py-2 flex flex-col items-center justify-center text-center overflow-hidden sm:py-0">
       <motion.h1
