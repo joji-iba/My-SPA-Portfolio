@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/tailwind-util.css';
 import { AnimatePresence } from 'framer-motion';
 import type { AppProps } from 'next/app';
 import { Montserrat } from 'next/font/google';
