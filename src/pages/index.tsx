@@ -51,7 +51,7 @@ const Home: NextPage<HomeProps> = () => {
                 <Link
                   href="/dummy.pdf"
                   target={'_blank'}
-                  className="flex items-center bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-light hover:text-dark hover:bg-transparent hover:border-dark dark:bg-light dark:text-dark hover:dark:bg-dark  hover:dark:text-light hover:dark:border-light md:p-2 sm:px-4 sm:text-base"
+                  className="flex items-center bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-light hover:text-dark hover:bg-transparent hover:border-dark dark:bg-light dark:text-dark hover:dark:bg-dark  hover:dark:text-light hover:dark:border-light sm:!p-2 sm:!px-4 sm:!text-base"
                   download={true}
                 >
                   Resume <LinkArrow className={'w-6 ml-1'} />
