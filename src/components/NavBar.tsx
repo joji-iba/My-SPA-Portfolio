@@ -109,7 +109,7 @@ export default function NavBar() {
             }}
           />
           <CustomLink
-            href="/About"
+            href="/about"
             title="About"
             className="mx-4"
             toggle={function (): void {
@@ -117,7 +117,7 @@ export default function NavBar() {
             }}
           />
           <CustomLink
-            href="/Projects"
+            href="/projects"
             title="Projects"
             className="mx-4"
             toggle={function (): void {
@@ -125,7 +125,7 @@ export default function NavBar() {
             }}
           />
           <CustomLink
-            href="/Contact"
+            href="/contact"
             title="Contact"
             className="ml-4"
             toggle={function (): void {
@@ -191,19 +191,19 @@ export default function NavBar() {
               toggle={handleClick}
             />
             <CustomMobileLink
-              href="/About"
+              href="/about"
               title="About"
               className=""
               toggle={handleClick}
             />
             <CustomMobileLink
-              href="/Projects"
+              href="/projects"
               title="Projects"
               className=""
               toggle={handleClick}
             />
             <CustomMobileLink
-              href="/Contact"
+              href="/contact"
               title="Contact"
               className=""
               toggle={handleClick}

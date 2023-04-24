@@ -142,7 +142,7 @@ const Project: FC<ProjectProps> = ({ title, type, img, link, github }) => {
   );
 };
 
-const Projects = () => {
+const projects = () => {
   return (
     <>
       <Head>
@@ -229,4 +229,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default projects;

@@ -46,7 +46,7 @@ const AnimatedNumbers: FC<AnimatedNumbersProps> = ({ value }) => {
   return <span ref={ref}></span>;
 };
 
-const About = () => {
+const about = () => {
   return (
     <>
       <Head>
@@ -132,4 +132,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default about;
