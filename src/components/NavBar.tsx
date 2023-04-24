@@ -125,7 +125,7 @@ export default function NavBar() {
             }}
           />
           <CustomLink
-            href="/contact"
+            href="/Contact"
             title="Contact"
             className="ml-4"
             toggle={function (): void {
@@ -203,7 +203,7 @@ export default function NavBar() {
               toggle={handleClick}
             />
             <CustomMobileLink
-              href="/contact"
+              href="/Contact"
               title="Contact"
               className=""
               toggle={handleClick}

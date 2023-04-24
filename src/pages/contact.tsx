@@ -15,7 +15,7 @@ interface Form {
   message: string;
 }
 
-const contact = () => {
+const Contact = () => {
   // 送信中/後の状態管理
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -158,4 +158,4 @@ const contact = () => {
   );
 };
 
-export default contact;
+export default Contact;
