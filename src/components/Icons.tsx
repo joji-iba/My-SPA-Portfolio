@@ -43,8 +43,8 @@ export const TwitterIcon = ({ className, ...rest }: IconProps) => (
 export const MoonIcon = ({ className, ...rest }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width="1em"
+    height="1em"
     viewBox="0 0 24 24"
     {...rest}
     className={`w-full h-auto ${className}`}
@@ -245,8 +245,8 @@ export const MoonIcon = ({ className, ...rest }: IconProps) => (
 export const SunIcon = ({ className, ...rest }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width="1em"
+    height="1em"
     viewBox="0 0 24 24"
     {...rest}
     className={`w-full h-auto ${className}`}
