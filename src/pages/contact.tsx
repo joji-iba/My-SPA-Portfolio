@@ -79,7 +79,7 @@ const Contact = () => {
                   <input
                     type="text"
                     id="name"
-                    name="name"
+                    // name="name"
                     placeholder="田中 太郎"
                     {...register('name')}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
@@ -98,7 +98,7 @@ const Contact = () => {
                   <input
                     type="email"
                     id="email"
-                    name="email"
+                    // name="email"
                     placeholder="sample@gmail.com"
                     {...register('email')}
                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
@@ -116,7 +116,7 @@ const Contact = () => {
                   </label>
                   <textarea
                     id="message"
-                    name="message"
+                    // name="message"
                     placeholder="お問い合わせ内容を入力してください。"
                     {...register('message')}
                     className="shadow appearance-none border rounded w-full h-52 py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"

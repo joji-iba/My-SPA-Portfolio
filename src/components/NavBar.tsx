@@ -48,7 +48,7 @@ const CustomMobileLink = ({
 
   return (
     <button
-      href={href}
+      // href={href}
       className={`${className} relative group text-light dark:text-dark my-2`}
       onClick={handleClick}
     >
@@ -100,10 +100,38 @@ export default function NavBar() {
       <div className="w-full flex justify-between items-center lg:hidden">
         {/* ヘッダーメニュー */}
         <nav className="flex items-center justify-center">
-          <CustomLink href="/" title="Home" className="mr-4" />
-          <CustomLink href="/About" title="About" className="mx-4" />
-          <CustomLink href="/Projects" title="Projects" className="mx-4" />
-          <CustomLink href="/Contact" title="Contact" className="ml-4" />
+          <CustomLink
+            href="/"
+            title="Home"
+            className="mr-4"
+            toggle={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+          />
+          <CustomLink
+            href="/About"
+            title="About"
+            className="mx-4"
+            toggle={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+          />
+          <CustomLink
+            href="/Projects"
+            title="Projects"
+            className="mx-4"
+            toggle={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+          />
+          <CustomLink
+            href="/Contact"
+            title="Contact"
+            className="ml-4"
+            toggle={function (): void {
+              throw new Error('Function not implemented.');
+            }}
+          />
         </nav>
 
         {/* SNSアイコン */}

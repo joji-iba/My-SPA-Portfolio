@@ -8,7 +8,6 @@ import {
 import Head from 'next/head';
 import Image from 'next/image';
 import { FC, useEffect, useRef } from 'react';
-import { InViewHookResponse } from 'react-intersection-observer';
 import ProfilePic from '../../public/images/icon.jpg';
 import { AnimatedText } from 'components/AnimatedText';
 import { Layout } from 'components/Layout';
@@ -26,7 +25,9 @@ const AnimatedNumbers: FC<AnimatedNumbersProps> = ({ value }) => {
 
   const motionValue = useMotionValue(0);
   const springValue = useSpring(motionValue, { duration: 3000 }); // アニメーションの制御
-  const isInview: InViewHookResponse = useInView(ref, { once: true });
+  const isInview = useInView(ref, {
+    once: true,
+  }) as boolean;
 
   useEffect(() => {
     if (isInview && motionValue.get() !== value) {
