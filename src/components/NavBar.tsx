@@ -211,7 +211,7 @@ export default function NavBar() {
           </nav>
 
           {/* SNSアイコン */}
-          <nav className="flex items-center justify-center flex-wrap mt-2">
+          <nav className="flex items-center justify-center mt-2">
             <motion.a
               href="https://mobile.twitter.com/Joji0921jojo"
               target={'_blank'}
@@ -224,7 +224,7 @@ export default function NavBar() {
             <motion.a
               href="https://github.com/joji-iba"
               target={'_blank'}
-              className="w-6 ml-3 bg-light rounded-full dark:bg-dark sm:mx-1"
+              className="w-6 m-1 mx-3 bg-light rounded-full dark:bg-dark sm:mx-1"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
             >

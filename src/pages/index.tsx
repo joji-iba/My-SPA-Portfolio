@@ -39,7 +39,7 @@ const Home: NextPage<HomeProps> = () => {
                 text="Try&Error! 挑戦することで、 自分を超える。"
                 className="!text-6xl !text-left xl:!text-5xl lg:!text-center lg:!text-6xl md:!text-5xl sm:!text-3xl"
               />
-              <p className="my-4 text-base font-medium md:text-sm sm:text-xs">
+              <p className="my-4 text-base font-medium md:text-sm sm:!text-xs">
                 プログラミングをこよなく愛し、モダンな技術習得に向け日夜技術研磨に励んでいるフロントエンドエンジニアです。
                 React/Next.js、TypeScriptを中心に学んでいます。
                 <br />
