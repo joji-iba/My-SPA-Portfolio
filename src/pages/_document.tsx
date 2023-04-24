@@ -6,6 +6,8 @@ export default function Document() {
     <Html lang="ja">
       <Head />
       <body>
+        {/* 初期レンダリング時の表示崩れ防止 */}
+        <script></script>
         {/* ダークモードのリロード時も状態保持するscript */}
         <Script id="theme-switcher" strategy="beforeInteractive">
           {`
