@@ -101,8 +101,8 @@ export default function NavBar() {
         {/* ヘッダーメニュー */}
         <nav className="flex items-center justify-center">
           <CustomLink href="/" title="Home" className="mr-4" />
-          <CustomLink href="/about" title="About" className="mx-4" />
-          <CustomLink href="/projects" title="Projects" className="mx-4" />
+          <CustomLink href="/About" title="About" className="mx-4" />
+          <CustomLink href="/Projects" title="Projects" className="mx-4" />
           <CustomLink href="/Contact" title="Contact" className="ml-4" />
         </nav>
 
@@ -163,13 +163,13 @@ export default function NavBar() {
               toggle={handleClick}
             />
             <CustomMobileLink
-              href="/about"
+              href="/About"
               title="About"
               className=""
               toggle={handleClick}
             />
             <CustomMobileLink
-              href="/projects"
+              href="/Projects"
               title="Projects"
               className=""
               toggle={handleClick}
