@@ -4,6 +4,7 @@ import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import BestProject from '../../public/images/myportfolio.jpg';
+import BestProject02 from '../../public/images/myportfolioDark.jpg';
 import Project1 from '../../public/images/project1.jpg';
 import Project2 from '../../public/images/project2.jpg';
 import Project3 from '../../public/images/project3.jpg';
@@ -143,6 +144,8 @@ const Project: FC<ProjectProps> = ({ title, type, img, link, github }) => {
 };
 
 const projects = () => {
+  const theme = localStorage.getItem('theme');
+
   return (
     <>
       <Head>
@@ -161,11 +164,23 @@ const projects = () => {
               <FeaturedProject
                 title="Joji.Iba Portfolio Site"
                 img={BestProject}
-                summary="React、Next.js、TypeScript、TailwindCSSを用いて作成した私のポートフォリオサイトです。
-                ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、などのReact/Next.jsによる機能を数多く実装しています。今後実装予定の機能として、✅FireBaseでの認証機能、✅microCMSを用いた動的ルーティングでのページ実装の2点を予定しております。"
+                summary="React、Next.js、TypeScript、TailwindCSSを用いて作成した私のSPAポートフォリオです。
+                ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、などのReact/Next.jsによる機能を数多く実装しています。今後実装予定の機能として、FireBaseでの認証機能、microCMSを用いた動的ルーティングでのページ実装などを予定しております。"
                 link="/"
                 github="https://github.com/joji-iba/2023_Next.js_Portfolio"
                 type="Best Feature Project(個人開発)"
+              />
+            </div>
+            <div className="col-span-12">
+              <FeaturedProject
+                title="JoyRoom.2/ジョイルーム"
+                img={Project1}
+                summary="福岡県福岡市早良区西新の斧投げバー：JoyRoom.2のWebサイトです。
+                使用言語はHTML/CSS/Sass/JavaScript/PHP/WordPressです。
+                FV部分のアニメーションはパフォーマンス向上の為にjQueryを一切使わず、全てCSSで実装しています。またページ途中のイラストの動きは、GSAPを用いて、画面内のスクロールと同期させています。私のフリーランスとしての初HP制作案件となります。"
+                link="https://joyroom2.com/"
+                github="https://github.com/joji-iba/Joy_Room2"
+                type="Feature Project"
               />
             </div>
             <div className="col-span-6 sm:col-span-12">
@@ -184,18 +199,6 @@ const projects = () => {
                 link="https://joji-iba.github.io/wrink_fade/"
                 github="https://github.com/joji-iba/wrink_fade"
                 type="Landing Page"
-              />
-            </div>
-            <div className="col-span-12">
-              <FeaturedProject
-                title="JoyRoom.2/ジョイルーム"
-                img={Project1}
-                summary="福岡県福岡市早良区西新の斧投げバー：JoyRoom.2のWebサイトです。
-                使用言語はHTML/CSS/Sass/JavaScript/PHP/WordPressです。
-                FV部分のアニメーションはパフォーマンス向上の為にjQueryを一切使わず、全てCSSで実装しています。またページ途中のイラストの動きは、GSAPを用いて、画面内のスクロールと同期させています。私のフリーランスとしての初HP制作案件となります。"
-                link="https://joyroom2.com/"
-                github="https://github.com/joji-iba/Joy_Room2"
-                type="Feature Project"
               />
             </div>
             {/* <div className="col-span-6 sm:col-span-12">
