@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
+import ChatGPTClone from '../../public/images/chatgptclone.jpg';
 import BestProject from '../../public/images/myportfolio.jpg';
 import BestProject02 from '../../public/images/myportfolioDark.jpg';
 import Project1 from '../../public/images/project1.jpg';
@@ -144,7 +145,9 @@ const Project: FC<ProjectProps> = ({ title, type, img, link, github }) => {
 };
 
 const projects = () => {
-  const theme = localStorage.getItem('theme');
+  // ダークモードでの画像切替
+  const theme = localStorage.getItem('theme') || 'light';
+  const imgSrc = theme === 'dark' ? BestProject : BestProject02;
 
   return (
     <>
@@ -163,12 +166,22 @@ const projects = () => {
             <div className="col-span-12">
               <FeaturedProject
                 title="Joji.Iba Portfolio Site"
-                img={BestProject}
+                img={imgSrc}
                 summary="React、Next.js、TypeScript、TailwindCSSを用いて作成した私のSPAポートフォリオです。
                 ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、などのReact/Next.jsによる機能を数多く実装しています。今後実装予定の機能として、FireBaseでの認証機能、microCMSを用いた動的ルーティングでのページ実装などを予定しております。"
                 link="/"
                 github="https://github.com/joji-iba/2023_Next.js_Portfolio"
                 type="Best Feature Project(個人開発)"
+              />
+            </div>
+            <div className="col-span-12">
+              <FeaturedProject
+                title="ChatGPT-Clone"
+                img={ChatGPTClone}
+                summary="Next.js/TypeScript/TailwindCSSを用いて作成したChatGPTのクローンアプリです。OpenAIのAPIキーを叩いている為、「gpt-3.5-turbo」と実際にやり取りができます。作成した理由は、API連携の知識と技術を定着させたかったことと、その成果物として何か形にしたかったことの2点です。非常にシンプルに作成していますが、Vercelにもデプロイ済ですので、一度お試し下さい。"
+                link="https://chat-gpt-clone-blue.vercel.app/"
+                github="https://github.com/joji-iba/ChatGPT-Clone"
+                type="Feature Project(個人開発)"
               />
             </div>
             <div className="col-span-12">
@@ -212,8 +225,8 @@ const projects = () => {
                 github="/"
                 type="Feature Project"
               />
-            </div>
-            <div className="col-span-6 sm:col-span-12">
+            </div> */}
+            {/* <div className="col-span-6 sm:col-span-12">
               <Project
                 title="Crypto Screener Application"
                 img={Project1}
