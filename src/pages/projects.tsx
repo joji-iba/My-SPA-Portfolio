@@ -4,6 +4,7 @@ import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import ChatGPTClone from '../../public/images/chatgptclone.jpg';
+import Coming from '../../public/images/coming.jpg';
 import BestProject from '../../public/images/myportfolio.jpg';
 import BestProject02 from '../../public/images/myportfolioDark.jpg';
 import Project1 from '../../public/images/project1.jpg';
@@ -207,11 +208,11 @@ const projects = () => {
             </div>
             <div className="col-span-6 sm:col-span-12">
               <Project
-                title="Wrink Fade"
-                img={Project3}
-                link="https://joji-iba.github.io/wrink_fade/"
-                github="https://github.com/joji-iba/wrink_fade"
-                type="Landing Page"
+                title="Coming Soon!!"
+                img={Coming}
+                link="/"
+                github="/"
+                type="Coming Soon!!"
               />
             </div>
             {/* <div className="col-span-6 sm:col-span-12">
