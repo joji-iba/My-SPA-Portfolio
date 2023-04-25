@@ -203,7 +203,7 @@ const projects = () => {
                 img={Project2}
                 link="https://joji-iba.github.io/Markup_and_JS_only_Website/"
                 github="https://github.com/joji-iba/Markup_and_JS_only_Website"
-                type="Website（個人開発）"
+                type="Website"
               />
             </div>
             <div className="col-span-6 sm:col-span-12">
