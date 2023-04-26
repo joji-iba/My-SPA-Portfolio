@@ -22,24 +22,28 @@ type AnimatedNumbersProps = {
 
 // valueで渡した数値までのカウントアップ実装
 const AnimatedNumbers: FC<AnimatedNumbersProps> = ({ value }) => {
-  const ref = useRef<HTMLSpanElement>(null);
+  const ref = useRef<HTMLSpanElement>(null); // HTML（spanタグ）へのアクセス
 
-  const motionValue = useMotionValue(0);
+  const motionValue = useMotionValue(0); // 数値の値の変化を監視（初期値0）→valueまで変化
   const springValue = useSpring(motionValue, { duration: 3000 }); // アニメーションの制御
   const isInview = useInView(ref, {
+    // refが画面内に表示されたかを検出
     once: true,
   }) as boolean;
 
   useEffect(() => {
+    // タイマー処理 = 副作用
     if (isInview && motionValue.get() !== value) {
+      // valueに渡した値まで変化する
       motionValue.set(value);
     }
-  }, [isInview, value, motionValue]);
+  }, [isInview, value, motionValue]); // 依存配列のstate更新の度
 
   useEffect(() => {
     springValue.on('change', (latest) => {
+      // springValue変更時に実行される関数の登録（onメソッド）
       if (ref.current && latest.toFixed(0) <= value) {
-        ref.current.textContent = latest.toFixed(0);
+        ref.current.textContent = latest.toFixed(0); // 小数点以下は切り捨て表示
       }
     });
   }, [springValue, value]);
