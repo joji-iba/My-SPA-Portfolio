@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import IconImage from '../../public/images/icon.jpg';
+import IconImage from '../../public/images/patternC01.png';
 import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg';
 import { AnimatedText } from 'components/AnimatedText';
 import { HireMe } from 'components/HireMe';

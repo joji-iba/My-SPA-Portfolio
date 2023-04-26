@@ -8,7 +8,7 @@ import {
 import Head from 'next/head';
 import Image from 'next/image';
 import { FC, useEffect, useRef } from 'react';
-import ProfilePic from '../../public/images/icon.jpg';
+import ProfilePic from '../../public/images/patternB.png';
 import { AnimatedText } from 'components/AnimatedText';
 import { Layout } from 'components/Layout';
 import Skills from 'components/Skills';
