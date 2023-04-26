@@ -71,9 +71,9 @@ const Home: NextPage<HomeProps> = () => {
           </div>
         </Layout>
         <HireMe />
-        <div className="absolute right-8 bottom-8 inline-block w-24 md:hidden">
+        {/* <div className="absolute right-8 bottom-8 inline-block w-24 md:hidden">
           <Image src={LightBulbSvg} alt="Joji Iba" className="w-full h-auto" />
-        </div>
+        </div> */}
       </main>
     </>
   );
