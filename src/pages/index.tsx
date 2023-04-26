@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import IconImage from '../../public/images/patternC01.png';
+import IconImageDark from '../../public/images/patternC02.png';
 import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg';
 import { AnimatedText } from 'components/AnimatedText';
 import { HireMe } from 'components/HireMe';
@@ -13,6 +14,10 @@ import { TransitionEffect } from 'components/TransitionEffect';
 type HomeProps = object;
 
 const Home: NextPage<HomeProps> = () => {
+  // ダークモードでの画像切替
+  const theme = localStorage.getItem('theme') || 'light';
+  const imgSrc = theme === 'dark' ? IconImageDark : IconImage;
+
   return (
     <>
       <Head>
@@ -25,7 +30,7 @@ const Home: NextPage<HomeProps> = () => {
           <div className="flex items-center justify-between w-full lg:flex-col">
             <div className="w-1/2 md:w-full p-8">
               <Image
-                src={IconImage}
+                src={imgSrc}
                 alt="Joji.Iba"
                 className="w-full h-auto lg:hidden md:inline-block md:w-full"
                 priority

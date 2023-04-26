@@ -9,6 +9,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { FC, useEffect, useRef } from 'react';
 import ProfilePic from '../../public/images/patternB.png';
+import ProfilePicDark from '../../public/images/patternB01.png';
 import { AnimatedText } from 'components/AnimatedText';
 import { Layout } from 'components/Layout';
 import Skills from 'components/Skills';
@@ -47,6 +48,10 @@ const AnimatedNumbers: FC<AnimatedNumbersProps> = ({ value }) => {
 };
 
 const about = () => {
+  // ダークモードでの画像切替
+  const theme = localStorage.getItem('theme') || 'light';
+  const imgSrc = theme === 'dark' ? ProfilePicDark : ProfilePic;
+
   return (
     <>
       <Head>
@@ -88,7 +93,7 @@ const about = () => {
             <div className="col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light xl:col-span-4 md:order-1 md:col-span-8">
               <div className="absolute top-0 -right-3 -z-10 w-[102%] h-[103%] rounded-[2rem] bg-dark dark:bg-light" />
               <Image
-                src={ProfilePic}
+                src={imgSrc}
                 alt="Joji Iba"
                 className="w-full h-auto rounded-2xl"
                 priority
