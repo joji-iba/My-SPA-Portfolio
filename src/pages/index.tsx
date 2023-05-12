@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import IconImage from '../../public/images/patternC01.png';
 import IconImageDark from '../../public/images/patternC02.png';
-import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg';
+// import LightBulbSvg from '../../public/images/svgs/miscellaneous_icons_1.svg';
 import { AnimatedText } from 'components/AnimatedText';
 import { HireMe } from 'components/HireMe';
 import { LinkArrow } from 'components/Icons';

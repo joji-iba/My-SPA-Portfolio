@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { auth } from '../firebase';
 import { TwitterIcon, GithubIcon, SunIcon, MoonIcon } from './Icons';
 import Logo from './Logo';
 import { useThemeSwitcher } from './hooks/useThemeSwitcher';
@@ -172,6 +173,14 @@ export default function NavBar() {
               <MoonIcon className={'fill-dark'} />
             )}
           </button>
+
+          {/* サインアウトボタン */}
+          <button
+            onClick={() => auth.signOut()}
+            className="ml-3 bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-light hover:text-dark hover:bg-transparent hover:border-dark dark:bg-light dark:text-dark hover:dark:bg-dark  hover:dark:text-light hover:dark:border-light sm:!p-2 sm:!px-4 sm:!text-base"
+          >
+            Sign Out
+          </button>
         </nav>
       </div>
 
@@ -247,6 +256,14 @@ export default function NavBar() {
               ) : (
                 <MoonIcon className={'fill-dark'} />
               )}
+            </button>
+
+            {/* サインアウトボタン */}
+            <button
+              onClick={() => auth.signOut()}
+              className="ml-3 bg-light text-dark p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-dark hover:text-light hover:bg-transparent hover:border-light dark:bg-dark dark:text-light hover:dark:bg-light  hover:dark:text-dark hover:dark:border-light sm:!p-2 sm:!px-4 sm:!text-base"
+            >
+              Sign Out
             </button>
           </nav>
         </motion.div>
