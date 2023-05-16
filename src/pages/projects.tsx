@@ -3,13 +3,13 @@ import Head from 'next/head';
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
+import ReduxBoardApp from '../../public/images/ReduxBoardApp.jpg';
 import ChatGPTClone from '../../public/images/chatgptclone.jpg';
 import Coming from '../../public/images/coming.jpg';
 import BestProject from '../../public/images/myportfolio.jpg';
 import BestProject02 from '../../public/images/myportfolioDark.jpg';
 import Project1 from '../../public/images/project1.jpg';
 import Project2 from '../../public/images/project2.jpg';
-import Project3 from '../../public/images/project3.jpg';
 import { AnimatedText } from 'components/AnimatedText';
 import { GithubIcon } from 'components/Icons';
 import { Layout } from 'components/Layout';
@@ -89,7 +89,7 @@ const FeaturedProject: FC<FeaturedProjectProps> = ({
             target="_blank"
             className="ml-4 rounded-lg bg-dark text-light p-2 px-6 text-lg font-semibold dark:bg-light dark:text-dark sm:px-4 sm:text-base"
           >
-            Vist Project
+            Visit Project
           </Link>
         </div>
       </div>
@@ -169,10 +169,21 @@ const projects = () => {
                 title="Joji.Iba Portfolio Site"
                 img={imgSrc}
                 summary="React、Next.js、TypeScript、TailwindCSSを用いて作成した私のSPAポートフォリオです。
-                ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、などのReact/Next.jsによる機能を数多く実装しています。今後実装予定の機能として、FireBaseでの認証機能、microCMSを用いた動的ルーティングでのページ実装などを予定しております。"
+                ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、⑥FireBaseでの認証機能などのReact/Next.jsによる機能を数多く実装しています。今後実装予定の機能として、microCMSを用いた動的ルーティングでのページ実装などを予定しております。"
                 link="/"
                 github="https://github.com/joji-iba/2023_Next.js_Portfolio"
                 type="Best Feature Project(個人開発)"
+              />
+            </div>
+            <div className="col-span-12">
+              <FeaturedProject
+                title="Redux-board-app"
+                img={ReduxBoardApp}
+                summary="Reduxで状態管理をし、React/TypeScriptを用いて作成した掲示板型アプリです。
+                作成理由は、Reduxによる状態管理の方法の習得したかった為です。actionの生成→Storeへdispatch→Reducerでの投稿と削除機能の実装、までの一連の流れを掴む為につくりました。"
+                link="https://redux-board-app-nu.vercel.app/"
+                github="https://github.com/joji-iba/redux-board-app"
+                type="Feature Project(個人開発)"
               />
             </div>
             <div className="col-span-12">
