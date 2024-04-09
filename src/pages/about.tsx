@@ -77,14 +77,17 @@ const about = () => {
               <p className="font-medium">
                 -【経歴:教員→住宅設計→Webエンジニア】
                 <br />
-                2020年にプログラミングと出会い、独学でWeb制作分野を学び、コーダーとしてWebマーケティング会社に転職を果たし、2年間コーディングとマーケティング業務に携わりました。
-                現在は、Web開発分野のスキルアップに励みつつ、フリーとしても活動しています！
+                2020年にプログラミングと出会い、独学でフロントエンド分野を学び、Webマーケティング会社や受託開発系企業のWebエンジニアとして、3年間コーディングとマーケティング業務に携わっています。
               </p>
               <p className="my-4 font-medium">
                 -
                 前職のマーケティング会社では、Web上での「表示速度」に拘り抜いてコーディングしていました。
                 CVRにも直結する要素である為、ユーザーにとって、スムーズな「画面遷移」や「レンダリング」は非常に重要な要素だと考えています。
                 ReactやNext.jsを学び始めたことがきっかけで、『UI/UXを意識したエンジニアとしてスキルを磨き、利便性とパフォーマンスの高いSPA開発をしたい』と考えるようになりました。
+              </p>
+              <p className="my-4 font-medium">
+                -
+                現職の受託系開発企業ではReact/Next.js、TypeScriptやAstroなどの技術を用いた開発/制作に従事しております。また、Lighthouse分析でのCore&nbsp;Web&nbsp;Vitalsの数値改善（フロントエンドチューニング）も得意としています。
               </p>
 
               <p className="font-medium">
@@ -110,7 +113,7 @@ const about = () => {
             <div className="col-span-2 flex flex-col items-end justify-between xl:col-span-8 xl:flex-row xl:items-center md:order-3">
               <div className="flex flex-col items-end justify-center xl:items-center">
                 <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
-                  <AnimatedNumbers value={29} />+
+                  <AnimatedNumbers value={30} />+
                 </span>
                 <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm">
                   age
@@ -118,7 +121,7 @@ const about = () => {
               </div>
               <div className="flex flex-col items-end justify-center xl:items-center">
                 <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
-                  <AnimatedNumbers value={2} />+
+                  <AnimatedNumbers value={3} />+
                 </span>
                 <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm">
                   years of experience
