@@ -177,6 +177,18 @@ const projects = () => {
             </div>
             <div className="col-span-12">
               <FeaturedProject
+                title="JoyRoom.2/ジョイルーム"
+                img={Project1}
+                summary="福岡県福岡市早良区西新の斧投げバー：JoyRoom.2のWebサイトです。
+                使用言語はHTML/CSS/Sass/JavaScript/PHP/WordPressです。
+                FV部分のアニメーションはパフォーマンス向上の為にjQueryを一切使わず、全てCSSで実装しています。またページ途中のイラストの動きは、GSAPを用いて、画面内のスクロールと同期させています。私のフリーランスとしての初HP制作案件となります。"
+                link="https://joyroom2.com/"
+                github="https://github.com/joji-iba/Joy_Room2"
+                type="Feature Project"
+              />
+            </div>
+            <div className="col-span-12">
+              <FeaturedProject
                 title="Redux-board-app"
                 img={ReduxBoardApp}
                 summary="Reduxで状態管理をし、React/TypeScriptを用いて作成した掲示板型アプリです。
@@ -194,18 +206,6 @@ const projects = () => {
                 link="https://chat-gpt-clone-blue.vercel.app/"
                 github="https://github.com/joji-iba/ChatGPT-Clone"
                 type="Feature Project(個人開発)"
-              />
-            </div>
-            <div className="col-span-12">
-              <FeaturedProject
-                title="JoyRoom.2/ジョイルーム"
-                img={Project1}
-                summary="福岡県福岡市早良区西新の斧投げバー：JoyRoom.2のWebサイトです。
-                使用言語はHTML/CSS/Sass/JavaScript/PHP/WordPressです。
-                FV部分のアニメーションはパフォーマンス向上の為にjQueryを一切使わず、全てCSSで実装しています。またページ途中のイラストの動きは、GSAPを用いて、画面内のスクロールと同期させています。私のフリーランスとしての初HP制作案件となります。"
-                link="https://joyroom2.com/"
-                github="https://github.com/joji-iba/Joy_Room2"
-                type="Feature Project"
               />
             </div>
             <div className="col-span-6 sm:col-span-12">
