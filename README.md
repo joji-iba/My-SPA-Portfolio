@@ -1,13 +1,13 @@
-## React/Next.js、TypeScript、TailwindCSSを用いて作成した私のSPAポートフォリオです。 
+## This is my SPA portfolio created using React/Next.js, TypeScript, and TailwindCSS.
 
 Live：[joji-iba-portfolio.vercel.app](https://joji-iba-portfolio.vercel.app/)
 
-- ①ダークモード切替機能
-- ②framer-motionによる画面遷移アニメーション
-- ③React-Hook-Formでの問い合わせフォーム
-- ④zod導入によるバリデーション管理
-- ⑤nodemailerとAPI連携によるGメール送信機能
-- ⑥FireBaseでの認証機能
+- ①Dark mode switching function
+- ②Screen transition animation by framer-motion
+- ③Inquiry form with React-Hook-Form
+- ④Validation management by introducing zod
+- ⑤G-mail sending function by linking API with nodemailer
+- ⑥Authentication function with FireBase
 
-React/Next.jsによる機能を数多く実装しています。
-今後実装予定の機能として、microCMSを用いた動的ルーティングでのページ実装などを予定しております。
+I have implemented many functions using React/Next.js.
+I'm planning to implement a number of functions using React/Next.js, such as page implementation with dynamic routing using microCMS.
