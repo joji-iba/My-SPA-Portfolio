@@ -1,6 +1,8 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { auth } from '../firebase';
 import { TwitterIcon, GithubIcon, SunIcon, MoonIcon } from './Icons';
