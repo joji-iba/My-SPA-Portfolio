@@ -10,10 +10,10 @@ import Image from 'next/image';
 import { FC, useEffect, useRef } from 'react';
 import ProfilePic from '../../public/images/patternB.png';
 import ProfilePicDark from '../../public/images/patternB01.png';
-import { AnimatedText } from 'components/AnimatedText';
+import AnimatedText from '../components/AnimatedText';
+import TransitionEffect from '../components/TransitionEffect';
 import { Layout } from 'components/Layout';
 import Skills from 'components/Skills';
-import { TransitionEffect } from 'components/TransitionEffect';
 
 // 型定義
 type AnimatedNumbersProps = {

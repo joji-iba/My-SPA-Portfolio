@@ -10,10 +10,10 @@ import BestProject from '../../public/images/myportfolio.jpg';
 import BestProject02 from '../../public/images/myportfolioDark.jpg';
 import Project1 from '../../public/images/project1.jpg';
 import Project2 from '../../public/images/project2.jpg';
-import { AnimatedText } from 'components/AnimatedText';
+import AnimatedText from '../components/AnimatedText';
+import TransitionEffect from '../components/TransitionEffect';
 import { GithubIcon } from 'components/Icons';
 import { Layout } from 'components/Layout';
-import { TransitionEffect } from 'components/TransitionEffect';
 
 const FramerImage = motion(Image);
 

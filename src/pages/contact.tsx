@@ -3,10 +3,10 @@ import axios from 'axios';
 import Head from 'next/head';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import AnimatedText from '../components/AnimatedText';
+import TransitionEffect from '../components/TransitionEffect';
 import { validationSchema } from '../utils/validationSchema';
-import { AnimatedText } from 'components/AnimatedText';
 import { Layout } from 'components/Layout';
-import { TransitionEffect } from 'components/TransitionEffect';
 
 // フォーム内の型定義
 interface Form {
