@@ -1,3 +1,5 @@
+'use client';
+
 import { motion } from 'framer-motion';
 
 interface SkillProps {
@@ -21,7 +23,7 @@ const Skill = ({ name, x, y }: SkillProps) => {
   );
 };
 
-const Skills = () => {
+export function Skills() {
   return (
     <>
       <h2 className="font-bold text-8xl mt-64 w-full text-center md:text-6xl md:mt-32">
@@ -51,6 +53,4 @@ const Skills = () => {
       </div>
     </>
   );
-};
-
-export default Skills;
+}
