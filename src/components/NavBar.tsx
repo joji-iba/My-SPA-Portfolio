@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { auth } from '../firebase';
 import { TwitterIcon, GithubIcon, SunIcon, MoonIcon } from './Icons';
@@ -19,7 +19,7 @@ interface CustomLinkProps {
 // ヘッダーリンクのコンポーネント
 const CustomLink = ({ href, title, className = '' }: CustomLinkProps) => {
   // 各ページ滞在時のメニューの下線表示キープ（パス情報と各リンクの一致を検知）
-  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <Link href={href} className={`${className} relative group`}>
@@ -27,7 +27,7 @@ const CustomLink = ({ href, title, className = '' }: CustomLinkProps) => {
       <span
         className={`
       h-[1px] inline-block bg-dark absolute left-0 -bottom-0.5 group-hover:w-full transition-[width] ease duration-300
-      ${router.asPath === href ? 'w-full' : 'w-0'} dark:bg-light`}
+      ${pathname === href ? 'w-full' : 'w-0'} dark:bg-light`}
       >
         &nbsp;
       </span>
@@ -42,6 +42,7 @@ const CustomMobileLink = ({
   toggle,
 }: CustomLinkProps) => {
   // 各ページ滞在時のメニューの下線表示キープ（パス情報と各リンクの一致を検知）
+  const pathname = usePathname();
   const router = useRouter();
 
   const handleClick = () => {
@@ -59,7 +60,7 @@ const CustomMobileLink = ({
       <span
         className={`
       h-[1px] inline-block bg-light absolute left-0 -bottom-0.5 group-hover:w-full transition-[width] ease duration-300
-      ${router.asPath === href ? 'w-full' : 'w-0'} dark:bg-dark`}
+      ${pathname === href ? 'w-full' : 'w-0'} dark:bg-dark`}
       >
         &nbsp;
       </span>
