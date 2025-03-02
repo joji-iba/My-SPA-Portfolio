@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import AnimatedText from '../../components/AnimatedText';
 import { Layout } from '../../components/Layout';
-import { Skills } from '../../components/Skills';
 import TransitionEffect from '../../components/TransitionEffect';
 import { AboutClient } from './_components/AboutClient';
+import { Skills } from './_components/Skills';
 
 export const metadata: Metadata = {
   title: 'Joji Iba | About Page',
