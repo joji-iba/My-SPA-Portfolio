@@ -1,6 +1,7 @@
 import { Montserrat } from 'next/font/google';
 import '../styles/globals.css';
 import '../styles/tailwind-util.css';
+import Script from 'next/script';
 import AuthProvider from 'components/AuthProvider';
 
 // ページ全体のフォント読込
@@ -22,6 +23,18 @@ export default function RootLayout({
   return (
     <html lang="ja" className={montserrat.variable}>
       <body>
+        {/* 初期レンダリング時の表示崩れ防止 */}
+        <script></script>
+        {/* ダークモードのリロード時も状態保持するscript */}
+        <Script id="theme-switcher" strategy="beforeInteractive">
+          {`
+          if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+          } else {
+            document.documentElement.classList.remove('dark')
+          }
+          `}
+        </Script>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
