@@ -1,5 +1,6 @@
+'use client';
+
 import { motion } from 'framer-motion';
-import React from 'react';
 
 interface AnimatedTextProps {
   text: string;
@@ -33,7 +34,10 @@ const singleWord = {
   },
 };
 
-export const AnimatedText = ({ text, className = '' }: AnimatedTextProps) => {
+export default function AnimatedText({
+  text,
+  className = '',
+}: AnimatedTextProps) {
   return (
     <div className="w-full mx-auto py-2 flex flex-col items-center justify-center text-center overflow-hidden sm:py-0">
       <motion.h1
@@ -54,4 +58,4 @@ export const AnimatedText = ({ text, className = '' }: AnimatedTextProps) => {
       </motion.h1>
     </div>
   );
-};
+}

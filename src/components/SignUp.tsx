@@ -1,4 +1,5 @@
 import { signInWithPopup } from 'firebase/auth';
+import Image from 'next/image';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, provider } from '../firebase';
 
@@ -26,7 +27,7 @@ const UserInfo = () => {
       <div className="userInfo">
         {currentUser && (
           <div>
-            <img src={auth.currentUser?.photoURL || ''} alt="" />
+            <Image src={auth.currentUser?.photoURL || ''} alt="" />
             <p>{auth.currentUser?.displayName || ''}</p>
           </div>
         )}

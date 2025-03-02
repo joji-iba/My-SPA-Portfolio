@@ -1,7 +1,9 @@
+'use client';
+
 import { motion } from 'framer-motion';
 
 // 画面遷移のアニメーション
-export const TransitionEffect = () => {
+export default function TransitionEffect() {
   return (
     <>
       {/* left block */}
@@ -28,4 +30,4 @@ export const TransitionEffect = () => {
       />
     </>
   );
-};
+}

@@ -1,10 +1,27 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Montserrat } from 'next/font/google';
+import '../styles/globals.css';
+import '../styles/tailwind-util.css';
 import Script from 'next/script';
+import AuthProvider from 'components/AuthProvider';
 
-export default function Document() {
+// ページ全体のフォント読込
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  variable: '--font-mont',
+});
+
+export const metadata = {
+  title: 'Joji.Iba Portfolio',
+  description: 'ポートフォリオサイト',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <Html lang="ja">
-      <Head />
+    <html lang="ja" className={montserrat.variable}>
       <body>
         {/* 初期レンダリング時の表示崩れ防止 */}
         <script></script>
@@ -18,9 +35,8 @@ export default function Document() {
           }
           `}
         </Script>
-        <Main />
-        <NextScript />
+        <AuthProvider>{children}</AuthProvider>
       </body>
-    </Html>
+    </html>
   );
 }
