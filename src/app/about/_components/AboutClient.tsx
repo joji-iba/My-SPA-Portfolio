@@ -28,21 +28,21 @@ export function AboutClient() {
         <p className="font-medium">
           -【経歴:教員→住宅設計→Webエンジニア】
           <br />
-          2020年にプログラミングと出会い、独学でフロントエンド分野を学び、Webマーケティング会社や受託開発系企業のWebエンジニアとして、3年間コーディングとマーケティング業務に携わっています。
+          2020年にプログラミングと出会い、独学でフロントエンド分野を学び、Webマーケティング会社や受託開発、自社開発企業のWebエンジニアとして、5年ほど開発業務に携わっています。現職では主に、フロントエンド及びバックエンド（DB設計/API開発、認証機能、決済機能...etc）開発を中心に担当しています。
         </p>
         <p className="my-4 font-medium">
           -
-          前職のマーケティング会社では、Web上での「表示速度」に拘り抜いてコーディングしていました。
+          Web上での「表示速度」などのパフォーマンスを意識したコーディングを得意としています。
           CVRにも直結する要素である為、ユーザーにとって、スムーズな「画面遷移」や「レンダリング」は非常に重要な要素だと考えています。
-          ReactやNext.jsを学び始めたことがきっかけで、『UI/UXを意識したエンジニアとしてスキルを磨き、利便性とパフォーマンスの高いSPA開発/Webサイト制作をしたい』と考えるようになりました。
+          ReactやNext.jsを学び始めたことがきっかけで、『UI/UXを意識したエンジニアとしてスキルを磨き、利便性とパフォーマンスの高いSPA開発をしたい』と考えるようになりました。
         </p>
         <p className="my-4 font-medium">
           -
-          現職の受託系開発企業ではReact/Next.js、TypeScriptやAstroなどの技術を用いた開発/制作に従事しております。また、Lighthouse分析でのCore&nbsp;Web&nbsp;Vitalsの数値改善（フロントエンドチューニング）も得意としています。
+          現職の自社開発企業ではReact/Next.js、TypeScriptやPHP/Laravel、PostgreSQL、Docker、AWSなどの技術を用いた開発に従事しております。また、Lighthouse分析でのCore&nbsp;Web&nbsp;Vitalsの数値改善（フロントエンドチューニング）も得意としています。
         </p>
         <p className="my-4 font-medium">
           -
-          多くの技術に触れた上で、いつからか「仕様通りのものをただ作るのではなく、ユーザーファーストの思考で開発を進め、リリース後も実際に使ったユーザーの反応を見ながら改善点などを検証し、より価値のあるものを提供できるようになりたい」と考えるようになりました。自分のフロントエンドスキルを、ものづくりを超えて社会課題の解決へと昇華したいと考えています。
+          多くの技術に触れた上で、いつからか「仕様通りのものをただ作るのではなく、ユーザーファーストの思考で開発を進め、リリース後も実際に使ったユーザーの反応を見ながら改善点などを検証し、より価値のあるものを提供できるようになりたい」と考えるようになりました。自分のスキルを、ものづくりを超えて社会課題の解決へと昇華したいと考えています。
         </p>
         <p className="font-medium">
           -
@@ -67,7 +67,7 @@ export function AboutClient() {
       <div className="col-span-2 flex flex-col items-end justify-between xl:col-span-8 xl:flex-row xl:items-center md:order-3">
         <div className="flex flex-col items-end justify-center xl:items-center">
           <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
-            <AnimatedNumbers value={30} />+
+            <AnimatedNumbers value={new Date().getFullYear() - 1993} />+
           </span>
           <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm">
             age
@@ -75,7 +75,7 @@ export function AboutClient() {
         </div>
         <div className="flex flex-col items-end justify-center xl:items-center">
           <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
-            <AnimatedNumbers value={3} />+
+            <AnimatedNumbers value={5} />+
           </span>
           <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm">
             years of experience

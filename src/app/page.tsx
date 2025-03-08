@@ -28,8 +28,8 @@ export default function Home() {
                 className="!text-6xl !text-left xl:!text-5xl lg:!text-center lg:!text-6xl md:!text-5xl sm:!text-3xl"
               />
               <p className="my-4 text-base font-medium md:text-sm sm:!text-xs">
-                プログラミングをこよなく愛し、モダンな技術習得に向け日夜技術研磨に励んでいるフロントエンドエンジニアです。
-                React/Next.js、TypeScriptを中心に学んでいます。
+                モダンな技術習得に向け、技術研磨に励んでいるWeb Developerです。
+                React/Next.js、TypeScript、PHP/Laravel、Docker、AWSを中心に学んでいます。
                 革新的なアイデアと共に、ユーザーにとって「面白い」「使いやすい」「ハイパフォーマンス」なWebアプリケーション開発に専念致します。
                 これまで携わったプロジェクトや個人開発の作品集をご覧下さい！
               </p>
