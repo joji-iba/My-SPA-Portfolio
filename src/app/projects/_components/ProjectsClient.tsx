@@ -30,8 +30,8 @@ export function ProjectsClient() {
         <FeaturedProject
           title="Joji.Iba Portfolio Site"
           img={imgSrc}
-          summary="React、Next.js、TypeScript、TailwindCSSを用いて作成した私のSPAポートフォリオです。
-                ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、⑥FireBaseでの認証機能などのReact/Next.jsによる機能を数多く実装しています。今後実装予定の機能として、microCMSを用いた動的ルーティングでのページ実装などを予定しております。"
+          summary="React/Next.js(App Router)、TypeScript、TailwindCSS、Firebaseを用いて作成した私のSPAポートフォリオです。
+                ①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、⑥FireBaseでの認証機能などのReact/Next.jsによる機能を数多く実装しています。現在Docker環境整備中及びデプロイ先をVercelからAWSへ移行中です。"
           link="/"
           github="https://github.com/joji-iba/2023_Next.js_Portfolio"
           type="Best Feature Project(個人開発)"
