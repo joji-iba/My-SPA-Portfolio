@@ -1,7 +1,12 @@
 node_modules
 .next
-dist
+
 .git
 .DS_Store
+README.md
+
 Dockerfile
 docker-compose.yml
+
+.env.*
+.env
