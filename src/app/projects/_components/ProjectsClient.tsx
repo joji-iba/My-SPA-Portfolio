@@ -1,14 +1,28 @@
 'use client';
 
+import { StaticImageData } from 'next/image';
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import ReduxBoardApp from '../../../../public/images/ReduxBoardApp.jpg';
+import ChatGPTClone from '../../../../public/images/chatgptclone.jpg';
 import Coming from '../../../../public/images/coming.jpg';
 import BestProject from '../../../../public/images/myportfolio.jpg';
 import BestProject02 from '../../../../public/images/myportfolioDark.jpg';
+import Project1 from '../../../../public/images/project1.jpg';
+import Project2 from '../../../../public/images/project2.jpg';
 import { FeaturedProject } from './FeaturedProject';
 import { Project } from './Project';
-import { fetchProjects } from 'lib/api';
-import { Project as ProjectType } from 'types/project';
+import { Project as ProjectType } from '@/types/project';
+
+// 静的画像のマッピング
+const staticImages: { [key: string]: StaticImageData } = {
+  '/images/myportfolio.jpg': BestProject,
+  '/images/myportfolioDark.jpg': BestProject02,
+  '/images/ReduxBoardApp.jpg': ReduxBoardApp,
+  '/images/chatgptclone.jpg': ChatGPTClone,
+  '/images/project1.jpg': Project1,
+  '/images/project2.jpg': Project2,
+};
 
 export function ProjectsClient() {
   const [mounted, setMounted] = useState(false);
@@ -18,7 +32,7 @@ export function ProjectsClient() {
     data: projects,
     error,
     isLoading,
-  } = useSWR<ProjectType[]>('/projects', fetchProjects);
+  } = useSWR<ProjectType[]>('http://localhost:8080/api/projects');
 
   useEffect(() => {
     setMounted(true);
@@ -41,7 +55,7 @@ export function ProjectsClient() {
         <div key={project.id} className="col-span-12">
           <FeaturedProject
             title={project.title}
-            img={project.image}
+            img={staticImages[project.image] || Coming}
             summary={project.description}
             link={project.link}
             github={project.github}
@@ -54,7 +68,7 @@ export function ProjectsClient() {
         <div key={project.id} className="col-span-6 sm:col-span-12">
           <Project
             title={project.title}
-            img={project.image}
+            img={staticImages[project.image] || Coming}
             link={project.link}
             github={project.github}
             type={project.type}
