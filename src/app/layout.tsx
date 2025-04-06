@@ -2,10 +2,8 @@ import { Montserrat } from 'next/font/google';
 import '../styles/globals.css';
 import '../styles/tailwind-util.css';
 import Script from 'next/script';
-import { SWRConfig } from 'swr';
-import AuthProvider from 'components/AuthProvider';
-import { Footer } from 'components/Footer';
-import NavBar from 'components/NavBar';
+import AuthProvider from '@/components/AuthProvider';
+import SWRProvider from '@/components/SWRProvider';
 
 // ページ全体のフォント読込
 const montserrat = Montserrat({
@@ -38,18 +36,9 @@ export default function RootLayout({
           }
           `}
         </Script>
-        <SWRConfig
-          value={{
-            fetcher: (url: string) => fetch(url).then((res) => res.json()),
-            revalidateOnFocus: false,
-          }}
-        >
-          <AuthProvider>
-            <NavBar />
-            {children}
-            <Footer />
-          </AuthProvider>
-        </SWRConfig>
+        <SWRProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </SWRProvider>
       </body>
     </html>
   );
