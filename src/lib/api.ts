@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Project } from 'types/project';
+import { Project } from '@/types/project';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api',
+  baseURL: `${process.env.NEXT_PUBLIC_API_ROUTE}`,
 });
 
 export async function fetchProjects(): Promise<Project[]> {
