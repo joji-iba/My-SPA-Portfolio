@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/backend/go_modules
 
 # testing
 /coverage
