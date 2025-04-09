@@ -7,7 +7,7 @@ WORKDIR /app
 RUN apk add --no-cache git
 
 # Airをインストール（開発用）
-RUN go install github.com/cosmtrek/air@latest
+RUN go install github.com/air-verse/air@latest
 
 # PATH を通す（Go install は /go/bin に入る）
 ENV PATH="/go/bin:$PATH"
