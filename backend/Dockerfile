@@ -20,7 +20,7 @@ RUN go mod download
 COPY . .
 
 # ビルドしてバイナリファイル（main）を作成
-RUN go build -o main ./cmd
+RUN go build -o main ./cmd/main.go
 
 # Stage 2: production runner
 FROM alpine:latest

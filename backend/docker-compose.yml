@@ -9,8 +9,10 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
 
-  backend:
+  backend-go:
     build:
       context: .
       dockerfile: Dockerfile
@@ -26,8 +28,11 @@ services:
       - postgres
     volumes:
       - .:/app
-      - ./logs:/app/logs # 必要に応じてログ出力先など
-    command: ["air"]
+    networks:
+      - app-network
+
+networks:
+  app-network:
 
 volumes:
   postgres_data:
