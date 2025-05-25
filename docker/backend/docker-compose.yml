@@ -14,8 +14,8 @@ services:
 
   backend-go:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../../backend
+      dockerfile: ../../docker/backend/Dockerfile
     ports:
       - "8080:8080"
     environment:

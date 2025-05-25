@@ -1,13 +1,8 @@
-node_modules
-.next
-./backend/go_modules
-
-.git
+go_modules
+tmp
 .DS_Store
 README.md
-
 Dockerfile
 docker-compose.yml
-
 .env.*
 .env

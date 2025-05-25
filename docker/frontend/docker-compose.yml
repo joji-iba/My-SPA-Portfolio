@@ -1,8 +1,8 @@
 services:
   frontend-nextjs:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../../frontend
+      dockerfile: ../../docker/frontend/Dockerfile
     ports:
       - "3000:3000"
     volumes:
