@@ -1,8 +1,0 @@
-go_modules
-tmp
-.DS_Store
-README.md
-Dockerfile
-docker-compose.yml
-.env.*
-.env

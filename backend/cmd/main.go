@@ -18,14 +18,14 @@ import (
 func main() {
 	// Load .env file
 	if err := godotenv.Load(); err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println("Warning: .env file not found, using environment variables")
 	}
 
 	// Database connection
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := gorm.Open("postgres", dbURL)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("DB接続に失敗しました: ", err)
 	}
 	defer db.Close()
 

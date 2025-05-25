@@ -1,8 +1,0 @@
-node_modules
-.next
-.DS_Store
-README.md
-Dockerfile
-docker-compose.yml
-.env.*
-.env
