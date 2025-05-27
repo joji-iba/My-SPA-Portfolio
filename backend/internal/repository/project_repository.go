@@ -1,3 +1,4 @@
+// データの永続化、 DBとの通信を担当する
 package repository
 
 import (
