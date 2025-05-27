@@ -32,6 +32,7 @@ RUN apk add --no-cache ca-certificates
 
 # ビルド済みのバイナリをコピー
 COPY --from=builder /app/main .
+COPY --from=builder /app/.env .
 COPY --from=builder /app/.air.toml .
 
 # ポート公開（必要に応じて）
