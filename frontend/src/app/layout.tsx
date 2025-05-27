@@ -2,7 +2,8 @@ import { Montserrat } from 'next/font/google';
 import '../styles/globals.css';
 import '../styles/tailwind-util.css';
 import Script from 'next/script';
-import AuthProvider from 'components/AuthProvider';
+import AuthProvider from '@/components/AuthProvider';
+import SWRProvider from '@/components/SWRProvider';
 
 // ページ全体のフォント読込
 const montserrat = Montserrat({
@@ -21,7 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={montserrat.variable}>
+    <html lang="ja" className={montserrat.variable} suppressHydrationWarning>
       <body>
         {/* 初期レンダリング時の表示崩れ防止 */}
         <script></script>
@@ -35,7 +36,9 @@ export default function RootLayout({
           }
           `}
         </Script>
-        <AuthProvider>{children}</AuthProvider>
+        <SWRProvider>
+          <AuthProvider>{children}</AuthProvider>
+        </SWRProvider>
       </body>
     </html>
   );

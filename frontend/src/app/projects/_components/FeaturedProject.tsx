@@ -12,7 +12,7 @@ interface FeaturedProjectProps {
   type: string;
   title: string;
   summary: string;
-  img: StaticImageData;
+  img: string | StaticImageData;
   link: string;
   github: string;
 }

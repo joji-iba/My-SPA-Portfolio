@@ -9,7 +9,7 @@ const FramerImage = motion(Image);
 interface ProjectProps {
   title: string;
   type: string;
-  img: StaticImageData;
+  img: string | StaticImageData;
   link: string;
   github: string;
 }
