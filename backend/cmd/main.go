@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
 
@@ -16,6 +17,16 @@ import (
 )
 
 func main() {
+	// コマンドライン引数の解析
+	shouldSeed := flag.Bool("seed", false, "シーダーデータを実行する")
+	flag.Parse()
+
+	// シーダー実行が指定された場合
+	if *shouldSeed {
+		seed()
+		return
+	}
+
 	// Load .env file
 	if err := godotenv.Load(); err != nil {
 		log.Println("Warning: .env file not found, using environment variables")
@@ -25,7 +36,7 @@ func main() {
 	dbURL := os.Getenv("DATABASE_URL")
 	db, err := gorm.Open("postgres", dbURL)
 	if err != nil {
-		log.Fatal("DB接続に失敗しました: ", err)
+		log.Fatal("アプリケーション起動時にDB接続に失敗しました: ", err)
 	}
 	defer db.Close()
 
