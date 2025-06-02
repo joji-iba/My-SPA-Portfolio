@@ -3,7 +3,14 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# 必要なビルドツールをインストール
+RUN apk add --no-cache python3 make g++
+
 COPY package.json package-lock.json ./
+
+# sharpを先にインストール
+RUN npm install --platform=linuxmusl --arch=x64 sharp
+
 RUN npm install
 
 COPY . .
