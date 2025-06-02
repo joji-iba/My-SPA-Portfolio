@@ -34,6 +34,11 @@ func main() {
 
 	// Database connection
 	dbURL := os.Getenv("DATABASE_URL")
+	if dbURL == "" {
+		log.Fatal("DATABASE_URL environment variable is not set")
+	}
+	log.Printf("Connecting to database: %s", dbURL)
+
 	db, err := gorm.Open("postgres", dbURL)
 	if err != nil {
 		log.Fatal("アプリケーション起動時にDB接続に失敗しました: ", err)
@@ -41,7 +46,10 @@ func main() {
 	defer db.Close()
 
 	// Auto migrate the schema
-	db.AutoMigrate(&models.Project{})
+	if err := db.AutoMigrate(&models.Project{}).Error; err != nil {
+		log.Fatal("スキーマのマイグレーションに失敗しました: ", err)
+	}
+	log.Println("スキーマのマイグレーションが完了しました")
 
 	// Initialize dependencies
 	projectRepo := repository.NewProjectRepository(db)
@@ -82,6 +90,7 @@ func main() {
 		port = "8080"
 	}
 
+	log.Printf("Server starting on port %s", port)
 	if err := r.Run(":" + port); err != nil {
 		log.Fatal(err)
 	}
