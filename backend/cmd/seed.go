@@ -19,6 +19,9 @@ func seed() {
 
 	// Database connection
 	dbURL := os.Getenv("DATABASE_URL")
+	if dbURL == "" {
+		log.Fatal("環境変数 DATABASE_URL が設定されていません。DB接続に失敗しました。")
+	}
 	db, err := gorm.Open("postgres", dbURL)
 	if err != nil {
 		log.Fatal("シーダー実行時にDB接続に失敗しました: ", err)
