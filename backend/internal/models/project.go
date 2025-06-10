@@ -1,3 +1,4 @@
+// データベースのテーブルと同じ構造を持つ
 package models
 
 import (

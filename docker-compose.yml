@@ -14,9 +14,12 @@ services:
   backend-go:
     build:
       context: ./backend
-      dockerfile: ../docker/backend/Dockerfile
+      dockerfile: ../docker/backend/Dockerfile.dev
     ports:
       - "8080:8080"
+    volumes:
+      - ./backend:/app
+      - go-mod:/go/pkg/mod
     env_file:
       - ./backend/.env
     depends_on:
@@ -36,3 +39,4 @@ services:
 volumes:
   frontend_node_modules:
   postgres_data:
+  go-mod:
