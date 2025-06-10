@@ -60,7 +60,7 @@
     "postcss": "^8.4.31",
     "prettier": "^2.8.7",
     "simple-git-hooks": "^2.8.1",
-    "storybook": "^7.5.0",
+    "storybook": "^9.0.8",
     "tailwindcss": "^3.3.1",
     "tsconfig-paths-webpack-plugin": "^4.0.1",
     "typescript-eslint": "^0.0.1-alpha.0"
