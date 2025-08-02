@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import AnimatedText from '../components/AnimatedText';
 import { HireMe } from '../components/HireMe';
-import { LinkArrow } from '../components/Icons';
+import { GithubIcon, LinkArrow } from '../components/Icons';
 import { Layout } from '../components/Layout';
 import ThemeImage from '../components/ThemeImage';
 import TransitionEffect from '../components/TransitionEffect';
@@ -48,6 +48,13 @@ export default function Home() {
                   className="ml-4 text-lg font-medium capitalize text-dark underline dark:text-light md:text-base"
                 >
                   Contact
+                </Link>
+                <Link
+                  href="https://github.com/joji-iba/My-SPA-Portfolio"
+                  target={'_blank'}
+                  className="ml-4"
+                >
+                  <GithubIcon className="!w-10" />
                 </Link>
               </div>
             </div>

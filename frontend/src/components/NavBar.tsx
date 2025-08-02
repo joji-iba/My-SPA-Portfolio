@@ -150,7 +150,7 @@ export default function NavBar() {
             <TwitterIcon />
           </motion.a>
           <motion.a
-            href="https://github.com/joji-iba"
+            href="https://github.com/joji-iba/My-SPA-Portfolio"
             target={'_blank'}
             className="w-6 ml-3"
             whileHover={{ y: -2 }}
