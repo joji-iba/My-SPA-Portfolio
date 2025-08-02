@@ -55,7 +55,11 @@ export function ProjectsClient() {
         <div key={project.id} className="col-span-12">
           <FeaturedProject
             title={project.title}
-            img={staticImages[project.image] || Coming}
+            img={
+              project.image === '/images/myportfolio.jpg'
+                ? imgSrc
+                : staticImages[project.image] || Coming
+            }
             summary={project.description}
             link={project.link}
             github={project.github}
