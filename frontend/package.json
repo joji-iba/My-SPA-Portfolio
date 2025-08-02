@@ -2,6 +2,9 @@
   "name": "2023_nextjs_portfolio",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
