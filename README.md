@@ -22,7 +22,7 @@ React/Next.js、TypeScript, Go/Gin、PostgreSQLを用いて構築されたフル
     ├── handlers/     # 1. プレゼンテーション層 (HTTP)
     ├── service/      # 2. ビジネスロジック層 (Core Logic)
     ├── repository/   # 3. データアクセス層 (Database)
-    └── models/       # ドメインモデル
+    └── models/       # 4. ドメインモデル
 ```
 
 ### 各レイヤーの責務
@@ -55,8 +55,7 @@ React/Next.js、TypeScript, Go/Gin、PostgreSQLを用いて構築されたフル
 | :------------- | :--------------------------------- |
 | **Backend**    | Go/Gin, GORM, PostgreSQL |
 | **Frontend**   | React/Next.js(App Router), TypeScript, Tailwind CSS |
-| **Infra**      | Docker, Docker Compose             |
-| **Deployment** | Vercel (Frontend), AWS (Backend予定) |
+| **Infra**      | Docker, Vercel (Frontend), AWS (Backend予定), Terraform             |
 
 ## 🏁 ローカルでの起動方法
 
@@ -89,8 +88,6 @@ React/Next.js、TypeScript, Go/Gin、PostgreSQLを用いて構築されたフル
 
 ## 🗺️ 今後のロードマップ
 
-- [ ] **Backend**: AWS (App Runner, RDS, ECR) へのデプロイ
-- [ ] **Frontend**: AWS (Amplify) へのデプロイ or Vercel継続
+- [ ] **Backend**: AWS へのデプロイ
 - [ ] **CI/CD**: GitHub Actions を利用したテストとデプロイの自動化
-- [ ] **API**: 認証・認可機能の実装 (JWT)
 - [ ] **Test**: バックエンドの単体テスト・結合テストのカバレッジ向上
