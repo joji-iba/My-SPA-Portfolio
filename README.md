@@ -53,8 +53,8 @@ React/Next.js、TypeScript, Go/Gin、PostgreSQLを用いて構築されたフル
 
 | カテゴリ       | 技術                               |
 | :------------- | :--------------------------------- |
-| **Backend**    | Go, Gin, GORM (or sqlx), PostgreSQL |
-| **Frontend**   | Next.js, React, TypeScript, Tailwind CSS |
+| **Backend**    | Go/Gin, GORM, PostgreSQL |
+| **Frontend**   | React/Next.js(App Router), TypeScript, Tailwind CSS |
 | **Infra**      | Docker, Docker Compose             |
 | **Deployment** | Vercel (Frontend), AWS (Backend予定) |
 
@@ -78,7 +78,7 @@ React/Next.js、TypeScript, Go/Gin、PostgreSQLを用いて構築されたフル
 
 3.  Dockerコンテナをビルドして起動します。
     ```bash
-    docker-compose up --build -d
+    docker compose up --build -d
     ```
 
 4.  ブラウザでアクセスします。
