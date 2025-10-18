@@ -41,3 +41,14 @@ next-env.d.ts
 # cursor
 .cursorrules
 .cursor
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+!terraform.tfvars.example
+crash.log
+*.tfplan
+*.tfplan.*
