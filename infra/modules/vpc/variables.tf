@@ -28,3 +28,9 @@ variable "private_subnet_cidrs" {
   description = "プライベートサブネットのIPアドレス範囲"
   type        = list(string)
 }
+
+variable "enable_nat_gateway" {
+  description = "NAT Gatewayを有効にするかどうか"
+  type        = bool
+  default     = true
+}

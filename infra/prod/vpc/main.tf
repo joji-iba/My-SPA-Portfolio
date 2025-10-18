@@ -25,4 +25,7 @@ module "vpc" {
     "10.0.64.0/20",
     "10.0.80.0/20",
   ]
+
+  # 開発中はNAT Gatewayを無効化してコスト削減
+  enable_nat_gateway = false
 }
