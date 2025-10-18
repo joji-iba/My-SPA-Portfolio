@@ -43,12 +43,21 @@ next-env.d.ts
 .cursor
 
 # Terraform
+.terraform/
+
+# .tfstate files
 *.tfstate
 *.tfstate.*
-.terraform/
-.terraform.lock.hcl
-*.tfvars
-!terraform.tfvars.example
+
+# Crash log files
 crash.log
+crash.*.log
+
+.terraform.lock.hcl
+
+*.tfvars
+*.tfvars.json
+
+!terraform.tfvars.example
 *.tfplan
 *.tfplan.*
