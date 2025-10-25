@@ -2,6 +2,7 @@ import axios from 'axios';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+export const runtime = 'nodejs';
 // Config
 const mailConfig = {
   host: 'smtp.gmail.com',
