@@ -11,7 +11,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
-    "format": "eslint src --fix"
+    "format": "eslint src --fix",
+    "prettier": "prettier --check \"src/**/*.{ts,tsx,js,jsx,css,scss,md}\"",
+    "prettier:fix": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,md}\"",
+    "fix": "eslint src --fix && prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,md}\""
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
