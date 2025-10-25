@@ -28,7 +28,7 @@ export default [
     },
     rules: {
       'react/react-in-jsx-scope': 'off',
-      // 'react-hooks/set-state-in-effect': 'off', // plugin removed
+      'react-hooks/set-state-in-effect': 'off',
       'import/order': 'off',
       'prettier/prettier': [
         'error',
