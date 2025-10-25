@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import nextPlugin from 'eslint-config-next';
 import prettierPlugin from 'eslint-plugin-prettier';
 import reactPlugin from 'eslint-plugin-react';
-import reactHooksPlugin from 'eslint-plugin-react-hooks';
+// react-hooks plugin removed due to peer dependency conflicts with eslint v9
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
@@ -28,7 +28,7 @@ export default [
     },
     rules: {
       'react/react-in-jsx-scope': 'off',
-      'react-hooks/set-state-in-effect': 'off',
+      // 'react-hooks/set-state-in-effect': 'off', // plugin removed
       'import/order': 'off',
       'prettier/prettier': [
         'error',
