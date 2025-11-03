@@ -1,6 +1,6 @@
 resource "aws_security_group" "alb" {
   name        = "${var.name}-alb-sg"
-  description = "ALB用セキュリティグループ"
+  description = "ALB security group"
   vpc_id      = var.vpc_id
 
   dynamic "ingress" {
@@ -42,7 +42,7 @@ resource "aws_security_group" "alb" {
 resource "aws_security_group" "bastion" {
   count       = var.enable_bastion ? 1 : 0
   name        = "${var.name}-bastion-sg"
-  description = "踏み台サーバー用セキュリティグループ"
+  description = "Bastion host security group"
   vpc_id      = var.vpc_id
 
   dynamic "ingress" {
