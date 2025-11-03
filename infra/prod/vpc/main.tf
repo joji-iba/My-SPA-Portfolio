@@ -1,5 +1,11 @@
 terraform {
   required_version = ">= 1.5.0"
+  backend "s3" {
+    bucket  = "tf-state-portfolio-prod"
+    key     = "prod/vpc/terraform.tfstate"
+    region  = "ap-northeast-1"
+    encrypt = true
+  }
 }
 
 module "vpc" {
