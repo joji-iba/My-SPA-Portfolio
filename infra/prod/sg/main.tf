@@ -8,12 +8,6 @@ terraform {
   }
 }
 
-variable "allowed_ssh_cidrs" {
-  type        = list(string)
-  description = "SSH許可CIDR一覧"
-  default     = []
-}
-
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
