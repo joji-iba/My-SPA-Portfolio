@@ -8,6 +8,12 @@ terraform {
   }
 }
 
+variable "allowed_ssh_cidrs" {
+  type        = list(string)
+  description = "SSH許可CIDR一覧"
+  default     = []
+}
+
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
@@ -25,6 +31,6 @@ module "security" {
 
   allowed_http_cidrs  = ["0.0.0.0/0"]
   allowed_https_cidrs = ["0.0.0.0/0"]
-  enable_bastion      = true
-  allowed_ssh_cidrs   = ["203.0.113.10/32"]
+  enable_bastion = true
+  allowed_ssh_cidrs = var.allowed_ssh_cidrs
 }
