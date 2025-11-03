@@ -35,6 +35,7 @@ resource "aws_security_group" "alb" {
   tags = {
     Name        = "${var.name}-alb-sg"
     Environment = var.environment
+    Component   = "alb"
   }
 }
 
@@ -65,5 +66,6 @@ resource "aws_security_group" "bastion" {
   tags = {
     Name        = "${var.name}-bastion-sg"
     Environment = var.environment
+    Component   = "bastion"
   }
 }
