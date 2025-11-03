@@ -31,6 +31,6 @@ module "security" {
 
   allowed_http_cidrs  = ["0.0.0.0/0"]
   allowed_https_cidrs = ["0.0.0.0/0"]
-  enable_bastion = true
-  allowed_ssh_cidrs = var.allowed_ssh_cidrs
+  enable_bastion      = true
+  allowed_ssh_cidrs   = var.allowed_ssh_cidrs
 }
