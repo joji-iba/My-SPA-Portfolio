@@ -42,6 +42,9 @@ next-env.d.ts
 .cursorrules
 .cursor
 
+# copilot
+copilot-instructions.md
+
 # Terraform
 .terraform/
 
