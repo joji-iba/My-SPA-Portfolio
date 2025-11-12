@@ -1,0 +1,7 @@
+.git
+infra
+docker/frontend
+node_modules
+**/tmp
+*.log
+backend/go_modules
