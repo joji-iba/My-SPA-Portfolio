@@ -9,10 +9,10 @@ terraform {
 }
 
 module "ecr_web" {
-  source             = "../../modules/ecr"
-  name               = "portfolio-web"
-  environment        = "prod"
-  image_tag_mutability = "MUTABLE"
-  scan_on_push       = true
-  lifecycle_keep     = 10
+  source               = "../../modules/ecr"
+  name                 = "portfolio-web"
+  environment          = "prod"
+  image_tag_mutability = "IMMUTABLE" // 意図しないタグの上書きを防止
+  scan_on_push         = true
+  lifecycle_keep       = 10
 }
