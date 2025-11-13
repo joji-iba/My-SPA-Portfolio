@@ -1,6 +1,6 @@
 FROM golang:1.25-alpine
 
-WORKDIR /app
+WORKDIR /app/backend
 
 # 依存関係用のパッケージをインストール
 RUN apk add --no-cache git
@@ -12,11 +12,11 @@ RUN go install github.com/air-verse/air@latest
 ENV PATH="/go/bin:$PATH"
 
 # Go module 関連ファイルをコピー
-COPY go.mod go.sum ./
+COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 
 # アプリケーションのソースをコピー
-COPY . .
+COPY backend/ ./
 
 # ポート公開
 EXPOSE 8080
