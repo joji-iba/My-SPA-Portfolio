@@ -8,7 +8,7 @@ resource "aws_ecr_repository" "this" {
     scan_on_push = var.scan_on_push
   }
 
-  // 画像の暗号化方式
+  // イメージの暗号化方式
   encryption_configuration {
     encryption_type = "AES256"
   }
