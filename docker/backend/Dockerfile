@@ -1,39 +1,31 @@
 # Stage 1: builder
 FROM golang:1.25-alpine AS builder
 
-WORKDIR /app
+WORKDIR /app/backend
 
 # 依存関係用のパッケージをインストール
 RUN apk add --no-cache git
 
-# Airをインストール（開発用）
-RUN go install github.com/air-verse/air@latest
-
-# PATH を通す（Go install は /go/bin に入る）
-ENV PATH="/go/bin:$PATH"
-
 # Go module 関連ファイルをコピー
-COPY go.mod go.sum ./
+COPY backend/go.mod backend/go.sum ./
 RUN go mod download
 
 # アプリケーションのソースをコピー
-COPY . .
+COPY backend/ ./
 
 # ビルドしてバイナリファイル（main）を作成
-RUN go build -o main ./cmd/main.go
+RUN go build -o main ./cmd
 
 # Stage 2: production runner
 FROM alpine:latest
 
-WORKDIR /app
+WORKDIR /app/backend
 
 # 必要に応じて、環境変数や CA 証明書を追加
 RUN apk add --no-cache ca-certificates
 
 # ビルド済みのバイナリをコピー
-COPY --from=builder /app/main .
-COPY --from=builder /app/.env .
-COPY --from=builder /app/.air.toml .
+COPY --from=builder /app/backend/main .
 
 # ポート公開（必要に応じて）
 EXPOSE 8080
