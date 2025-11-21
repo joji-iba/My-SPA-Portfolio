@@ -1,0 +1,91 @@
+name: backend-ecr-build-push
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - 'docker/backend/**'
+      - '.github/workflows/ecr-backend-build-push.yml'
+      - 'infra/prod/ecr/**'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: backend-ecr-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  AWS_REGION: ap-northeast-1
+  ECR_REPOSITORY: portfolio-web
+  SEMVER_TAG: v0.1.1 # 次リリース時に更新。将来 VERSION ファイル化検討。
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials (OIDC AssumeRole)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GHA_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Resolve AWS Account ID
+        id: account
+        run: |
+          ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+          echo "ACCOUNT_ID=$ACCOUNT_ID" >> $GITHUB_ENV
+          echo "account_id=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+
+      - name: Login to Amazon ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Compute Tags
+        id: tags
+        run: |
+          SHORT_SHA=${GITHUB_SHA::8}
+          IMAGE_URI="${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}"
+          echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+          echo "image_uri=$IMAGE_URI" >> $GITHUB_OUTPUT
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -f docker/backend/Dockerfile \
+            -t ${ECR_REPOSITORY}:build .
+
+      - name: Tag image (sha + semver)
+        run: |
+          docker tag ${ECR_REPOSITORY}:build ${IMAGE_URI}:sha-${SHORT_SHA}
+          docker tag ${ECR_REPOSITORY}:build ${IMAGE_URI}:${SEMVER_TAG}
+
+      - name: Push image (sha)
+        run: |
+          docker push ${IMAGE_URI}:sha-${SHORT_SHA}
+
+      - name: Push image (semver)
+        run: |
+          docker push ${IMAGE_URI}:${SEMVER_TAG}
+
+      - name: Output digest
+        id: digest
+        run: |
+          DIGEST=$(aws ecr batch-get-image --repository-name ${ECR_REPOSITORY} --image-ids imageTag=sha-${SHORT_SHA} --query 'images[0].imageId.imageDigest' --output text)
+          echo "IMAGE_DIGEST=$DIGEST" >> $GITHUB_ENV
+          echo "image_digest=$DIGEST" >> $GITHUB_OUTPUT
+
+      - name: Summary
+        run: |
+          echo "Image URI: ${IMAGE_URI}" >> $GITHUB_STEP_SUMMARY
+          echo "SHA Tag : sha-${SHORT_SHA}" >> $GITHUB_STEP_SUMMARY
+          echo "SemVer   : ${SEMVER_TAG}" >> $GITHUB_STEP_SUMMARY
+          echo "Digest   : ${IMAGE_DIGEST}" >> $GITHUB_STEP_SUMMARY
+
+  # 追加案: ここに Trivy スキャンや Cache 最適化を後で拡張可能。
