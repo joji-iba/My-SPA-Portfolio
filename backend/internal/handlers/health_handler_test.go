@@ -14,7 +14,7 @@ func TestHealthHandler(t *testing.T) {
 
 	recorder := httptest.NewRecorder()
 	c, _ := gin.CreateTestContext(recorder)
-	c.Request = httptest.NewRequest(http.MethodGet, "/health", nil)
+	c.Request = httptest.NewRequest(http.MethodGet, "/api/health", nil)
 
 	HealthHandler(c)
 
