@@ -76,6 +76,7 @@ func main() {
 	// Routes
 	api := r.Group("/api")
 	{
+		api.GET("/health", handlers.HealthHandler) // Health check endpoint
 		projects := api.Group("/projects")
 		{
 			projects.GET("", projectHandler.GetAllProjects)
