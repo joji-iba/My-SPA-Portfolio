@@ -7,3 +7,8 @@ output "bastion_security_group_id" {
   value       = module.security.bastion_security_group_id
   description = "Bastion SG ID"
 }
+
+output "vpc_endpoint_security_group_id" {
+  value       = module.security.vpc_endpoint_security_group_id
+  description = "VPC endpoint SG ID"
+}
