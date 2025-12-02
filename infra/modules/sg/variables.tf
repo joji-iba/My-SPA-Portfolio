@@ -36,3 +36,21 @@ variable "enable_bastion" {
   type        = bool
   default     = false
 }
+
+variable "enable_vpc_endpoint_sg" {
+  description = "VPCエンドポイント用のセキュリティグループを作成するか"
+  type        = bool
+  default     = false
+}
+
+variable "vpc_cidr_block" {
+  description = "VPC全体のCIDR (VPCエンドポイントSGのデフォルト許可元として使用)"
+  type        = string
+  default     = ""
+}
+
+variable "vpc_endpoint_allowed_cidrs" {
+  description = "VPCエンドポイントSGでHTTPSを許可するCIDR一覧 (未指定ならvpc_cidr_blockを利用)"
+  type        = list(string)
+  default     = []
+}

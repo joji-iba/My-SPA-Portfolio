@@ -7,3 +7,8 @@ output "bastion_security_group_id" {
   description = "踏み台サーバー用セキュリティグループID"
   value       = try(aws_security_group.bastion[0].id, null)
 }
+
+output "vpc_endpoint_security_group_id" {
+  description = "VPCエンドポイント用セキュリティグループID"
+  value       = try(aws_security_group.vpc_endpoints[0].id, null)
+}

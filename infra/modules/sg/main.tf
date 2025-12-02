@@ -69,3 +69,35 @@ resource "aws_security_group" "bastion" {
     Component   = "bastion"
   }
 }
+
+locals {
+  endpoint_ingress_cidrs = length(var.vpc_endpoint_allowed_cidrs) > 0 ? var.vpc_endpoint_allowed_cidrs : (var.vpc_cidr_block != "" ? [var.vpc_cidr_block] : [])
+}
+
+resource "aws_security_group" "vpc_endpoints" {
+  count       = var.enable_vpc_endpoint_sg ? 1 : 0
+  name        = "${var.name}-endpoints-sg"
+  description = "Security group for VPC interface endpoints"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow HTTPS from VPC"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = local.endpoint_ingress_cidrs
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.name}-vpc-endpoints-sg"
+    Environment = var.environment
+    Component   = "vpc-endpoints"
+  }
+}
