@@ -70,6 +70,36 @@ resource "aws_security_group" "bastion" {
   }
 }
 
+resource "aws_security_group" "ecs_service" {
+  name        = "${var.name}-ecs-service-sg"
+  description = "Security group for ECS Fargate service"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    # NOTE: 現時点では学習用途として VPC 内からの直接アクセスを許可している。
+    # 将来 ALB を導入した際には、ALB のセキュリティグループからの通信のみに
+    # 絞り込む想定。
+    description = "Allow HTTP from within VPC (temporary)"
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.name}-ecs-service-sg"
+    Environment = var.environment
+    Component   = "ecs-service"
+  }
+}
+
 locals {
   endpoint_ingress_cidrs = length(var.vpc_endpoint_allowed_cidrs) > 0 ? var.vpc_endpoint_allowed_cidrs : (var.vpc_cidr_block != "" ? [var.vpc_cidr_block] : [])
 }

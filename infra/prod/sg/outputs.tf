@@ -12,3 +12,8 @@ output "vpc_endpoint_security_group_id" {
   value       = module.security.vpc_endpoint_security_group_id
   description = "VPC endpoint SG ID"
 }
+
+output "ecs_service_security_group_id" {
+  value       = module.security.ecs_service_security_group_id
+  description = "ECS Fargate service SG ID"
+}
