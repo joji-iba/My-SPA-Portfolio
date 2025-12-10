@@ -93,3 +93,48 @@ resource "aws_iam_role_policy_attachment" "ecr_attach" {
   role       = aws_iam_role.github_actions.name
   policy_arn = aws_iam_policy.ecr_push.arn
 }
+
+# ECS task execution role for Fargate tasks
+resource "aws_iam_role" "ecs_task_execution" {
+  count = var.enable_ecs_task_execution_role ? 1 : 0
+
+  name = var.ecs_task_execution_role_name
+
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Service = "ecs-tasks.amazonaws.com"
+        }
+        Action = "sts:AssumeRole"
+      }
+    ]
+  })
+
+  tags = {
+    Environment = var.environment
+    Component   = "iam-ecs-task-execution"
+  }
+}
+
+data "aws_iam_policy" "ecs_task_execution_managed" {
+  count = var.enable_ecs_task_execution_role ? 1 : 0
+
+  arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_managed_attach" {
+  count = var.enable_ecs_task_execution_role ? 1 : 0
+
+  role       = aws_iam_role.ecs_task_execution[0].name
+  policy_arn = data.aws_iam_policy.ecs_task_execution_managed[0].arn
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_additional_attach" {
+  count = var.enable_ecs_task_execution_role ? length(var.ecs_task_execution_additional_policies) : 0
+
+  role       = aws_iam_role.ecs_task_execution[0].name
+  policy_arn = var.ecs_task_execution_additional_policies[count.index]
+}

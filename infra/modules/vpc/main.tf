@@ -10,6 +10,8 @@ resource "aws_vpc" "main" {
   }
 }
 
+data "aws_region" "current" {}
+
 # Internet Gateway
 resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
@@ -129,4 +131,74 @@ resource "aws_route_table_association" "private" {
 
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private[count.index].id
+}
+
+locals {
+  interface_endpoint_sg_ids = var.interface_endpoint_security_group_id == null ? [] : [var.interface_endpoint_security_group_id]
+}
+
+// ECS FargateがECRのAPIエンドポイントに接続するためのVPCエンドポイント
+resource "aws_vpc_endpoint" "ecr_api" {
+  count = var.enable_interface_endpoints ? 1 : 0
+
+  vpc_id              = aws_vpc.main.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.api"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private[*].id
+  security_group_ids  = local.interface_endpoint_sg_ids
+  private_dns_enabled = true
+
+  tags = {
+    Name        = "${var.name}-ecr-api-endpoint"
+    Environment = var.environment
+  }
+}
+
+# ECS FargateがECRのDockerイメージを取得するためのVPCエンドポイント
+resource "aws_vpc_endpoint" "ecr_dkr" {
+  count = var.enable_interface_endpoints ? 1 : 0
+
+  vpc_id              = aws_vpc.main.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.ecr.dkr"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private[*].id
+  security_group_ids  = local.interface_endpoint_sg_ids
+  private_dns_enabled = true
+
+  tags = {
+    Name        = "${var.name}-ecr-dkr-endpoint"
+    Environment = var.environment
+  }
+}
+
+// ECS FargateがCloudWatch LogsにアクセスするためのVPCエンドポイント
+resource "aws_vpc_endpoint" "cloudwatch_logs" {
+  count = var.enable_interface_endpoints ? 1 : 0
+
+  vpc_id              = aws_vpc.main.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.logs"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private[*].id
+  security_group_ids  = local.interface_endpoint_sg_ids
+  private_dns_enabled = true
+
+  tags = {
+    Name        = "${var.name}-logs-endpoint"
+    Environment = var.environment
+  }
+}
+
+// S3にアクセスするためのゲートウェイ型VPCエンドポイント
+resource "aws_vpc_endpoint" "s3" {
+  count = var.enable_gateway_endpoints ? 1 : 0
+
+  vpc_id            = aws_vpc.main.id
+  service_name      = "com.amazonaws.${data.aws_region.current.name}.s3"
+  vpc_endpoint_type = "Gateway"
+  route_table_ids   = aws_route_table.private[*].id
+
+  tags = {
+    Name        = "${var.name}-s3-endpoint"
+    Environment = var.environment
+  }
 }

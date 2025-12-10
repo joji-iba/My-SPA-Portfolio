@@ -27,4 +27,7 @@ module "iam_oidc" {
   ecr_repository_arns = [
     data.terraform_remote_state.ecr.outputs.ecr_repository_arn
   ]
+
+  # ここで ECS タスク実行ロールも一緒に作る
+  enable_ecs_task_execution_role = true
 }

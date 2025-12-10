@@ -18,13 +18,15 @@ data "terraform_remote_state" "vpc" {
 }
 
 module "security" {
-  source      = "../../modules/sg"
-  name        = "portfolio"
-  environment = "prod"
-  vpc_id      = data.terraform_remote_state.vpc.outputs.vpc_id
+  source         = "../../modules/sg"
+  name           = "portfolio"
+  environment    = "prod"
+  vpc_id         = data.terraform_remote_state.vpc.outputs.vpc_id
+  vpc_cidr_block = data.terraform_remote_state.vpc.outputs.vpc_cidr_block
 
-  allowed_http_cidrs  = ["0.0.0.0/0"]
-  allowed_https_cidrs = ["0.0.0.0/0"]
-  enable_bastion      = true
-  allowed_ssh_cidrs   = var.allowed_ssh_cidrs
+  allowed_http_cidrs     = ["0.0.0.0/0"]
+  allowed_https_cidrs    = ["0.0.0.0/0"]
+  enable_bastion         = true
+  allowed_ssh_cidrs      = var.allowed_ssh_cidrs
+  enable_vpc_endpoint_sg = true
 }

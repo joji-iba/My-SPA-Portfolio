@@ -34,3 +34,21 @@ variable "ecr_repository_arns" {
   type        = list(string)
   description = "アクセスを許可するECRリポジトリのARNリスト"
 }
+
+variable "enable_ecs_task_execution_role" {
+  type        = bool
+  description = "ECSタスク実行ロールを作成するかどうか"
+  default     = false
+}
+
+variable "ecs_task_execution_role_name" {
+  type        = string
+  description = "ECSタスク実行ロールの名前"
+  default     = "ecs-task-execution-role"
+}
+
+variable "ecs_task_execution_additional_policies" {
+  type        = list(string)
+  description = "ECSタスク実行ロールにアタッチする追加ポリシーARNのリスト"
+  default     = []
+}

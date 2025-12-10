@@ -34,4 +34,19 @@ module "vpc" {
 
   # 開発中はNAT Gatewayを無効化してコスト削減
   enable_nat_gateway = false
+
+  # Private subnet から ECR/S3/CloudWatch へ出られるよう VPC Endpoint を有効化（開発中はVPC Endpointも一旦無効化しておく）
+  enable_interface_endpoints = false
+  enable_gateway_endpoints   = false
+
+  interface_endpoint_security_group_id = data.terraform_remote_state.sg.outputs.vpc_endpoint_security_group_id
+}
+
+data "terraform_remote_state" "sg" {
+  backend = "s3"
+  config = {
+    bucket = "tf-state-portfolio-prod"
+    key    = "prod/sg/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
 }

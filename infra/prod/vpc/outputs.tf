@@ -13,3 +13,7 @@ output "private_subnet_ids" {
 output "internet_gateway_id" {
   value = module.vpc.internet_gateway_id
 }
+
+output "vpc_cidr_block" {
+  value = module.vpc.vpc_cidr_block
+}

@@ -27,3 +27,13 @@ output "nat_gateway_ids" {
   description = "IDs of the NAT Gateways"
   value       = aws_nat_gateway.main[*].id
 }
+
+output "vpc_endpoint_ids" {
+  description = "IDs of created VPC endpoints"
+  value = {
+    ecr_api        = aws_vpc_endpoint.ecr_api[*].id
+    ecr_dkr        = aws_vpc_endpoint.ecr_dkr[*].id
+    cloudwatch_log = aws_vpc_endpoint.cloudwatch_logs[*].id
+    s3_gateway     = aws_vpc_endpoint.s3[*].id
+  }
+}
