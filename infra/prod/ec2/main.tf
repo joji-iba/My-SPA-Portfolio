@@ -31,7 +31,7 @@ module "bastion" {
   source            = "../../modules/ec2"
   name              = "portfolio"
   environment       = "prod"
-  enable_bastion    = false
+  enable_bastion    = false // 踏み台サーバーを動かす時はここをtrueに変更する
   subnet_id         = data.terraform_remote_state.vpc.outputs.public_subnet_ids[0]
   security_group_id = data.terraform_remote_state.sg.outputs.bastion_security_group_id
   instance_type     = "t3.micro"
