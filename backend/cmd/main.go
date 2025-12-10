@@ -27,34 +27,10 @@ func main() {
 		return
 	}
 
-	// Load .env file
+	// Load .env file（ローカル開発用）。本番環境では環境変数を利用する。
 	if err := godotenv.Load(); err != nil {
 		log.Println("Warning: .env file not found, using environment variables")
 	}
-
-	// Database connection
-	dbURL := os.Getenv("DATABASE_URL")
-	if dbURL == "" {
-		log.Fatal("DATABASE_URL environment variable is not set")
-	}
-	log.Printf("Connecting to database: %s", dbURL)
-
-	db, err := gorm.Open("postgres", dbURL)
-	if err != nil {
-		log.Fatal("アプリケーション起動時にDB接続に失敗しました: ", err)
-	}
-	defer db.Close()
-
-	// Auto migrate the schema
-	if err := db.AutoMigrate(&models.Project{}).Error; err != nil {
-		log.Fatal("スキーマのマイグレーションに失敗しました: ", err)
-	}
-	log.Println("スキーマのマイグレーションが完了しました")
-
-	// Initialize dependencies
-	projectRepo := repository.NewProjectRepository(db)
-	projectService := service.NewProjectService(projectRepo)
-	projectHandler := handlers.NewProjectHandler(projectService)
 
 	// Setup Gin router
 	r := gin.Default()
@@ -75,8 +51,35 @@ func main() {
 
 	// Routes
 	api := r.Group("/api")
-	{
-		api.GET("/health", handlers.HealthHandler) // Health check endpoint
+
+	// Health check endpoint は常に有効
+	api.GET("/health", handlers.HealthHandler)
+
+	// Database connection（存在する場合のみ初期化）
+	dbURL := os.Getenv("DATABASE_URL")
+	if dbURL == "" {
+		log.Println("DATABASE_URL environment variable is not set; skipping DB initialization. /api/projects は利用できません。")
+	} else {
+		log.Printf("Connecting to database: %s", dbURL)
+
+		db, err := gorm.Open("postgres", dbURL)
+		if err != nil {
+			log.Fatal("アプリケーション起動時にDB接続に失敗しました: ", err)
+		}
+		defer db.Close()
+
+		// Auto migrate the schema
+		if err := db.AutoMigrate(&models.Project{}).Error; err != nil {
+			log.Fatal("スキーマのマイグレーションに失敗しました: ", err)
+		}
+		log.Println("スキーマのマイグレーションが完了しました")
+
+		// Initialize dependencies
+		projectRepo := repository.NewProjectRepository(db)
+		projectService := service.NewProjectService(projectRepo)
+		projectHandler := handlers.NewProjectHandler(projectService)
+
+		// /api/projects 系のルートは DB がある場合のみ登録
 		projects := api.Group("/projects")
 		{
 			projects.GET("", projectHandler.GetAllProjects)
