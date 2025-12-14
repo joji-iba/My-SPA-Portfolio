@@ -104,14 +104,16 @@ resource "aws_security_group" "ecs_service" {
   vpc_id      = var.vpc_id
 
   ingress {
-    # NOTE: 現時点では学習用途として VPC 内からの直接アクセスを許可している。
-    # 将来 ALB を導入した際には、ALB のセキュリティグループからの通信のみに
-    # 絞り込む想定。
-    description = "Allow HTTP from within VPC (temporary)"
+    # ALB 経由のトラフィックのみを許可し、本番構成に近づける
+    # 外向き ALB / 内向き ALB いずれからの 8080/TCP を許可する
+    description = "Allow HTTP from ALBs only"
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = [var.vpc_cidr_block]
+    security_groups = [
+      aws_security_group.alb.id,
+      aws_security_group.alb_internal.id,
+    ]
   }
 
   egress {
