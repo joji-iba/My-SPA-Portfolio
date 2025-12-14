@@ -55,6 +55,15 @@ data "terraform_remote_state" "ecr" {
   }
 }
 
+data "terraform_remote_state" "alb" {
+  backend = "s3"
+  config = {
+    bucket = "tf-state-portfolio-prod"
+    key    = "prod/alb/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
+}
+
 locals {
   container_image = "${data.terraform_remote_state.ecr.outputs.ecr_repository_url}:${var.image_tag}"
 }
@@ -77,4 +86,7 @@ module "ecs" {
   desired_count               = var.desired_count
   log_group_name              = var.log_group_name
   log_retention_in_days       = var.log_retention_in_days
+
+  load_balancer_enabled = true
+  target_group_arn      = data.terraform_remote_state.alb.outputs.external_target_group_arn
 }

@@ -46,7 +46,7 @@ resource "aws_ecs_task_definition" "this" {
         logDriver = "awslogs"
         options = {
           awslogs-group         = aws_cloudwatch_log_group.this.name
-          awslogs-region        = data.aws_region.current.name
+          awslogs-region        = data.aws_region.current.id
           awslogs-stream-prefix = var.container_name
         }
       }
@@ -67,6 +67,15 @@ resource "aws_ecs_service" "this" {
   task_definition = aws_ecs_task_definition.this.arn
   desired_count   = var.desired_count
   launch_type     = "FARGATE"
+
+  dynamic "load_balancer" {
+    for_each = var.load_balancer_enabled && var.target_group_arn != "" ? [1] : []
+    content {
+      target_group_arn = var.target_group_arn
+      container_name   = var.container_name
+      container_port   = var.container_port
+    }
+  }
 
   network_configuration {
     subnets          = var.subnet_ids
