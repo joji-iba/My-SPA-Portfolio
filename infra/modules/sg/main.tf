@@ -39,6 +39,34 @@ resource "aws_security_group" "alb" {
   }
 }
 
+resource "aws_security_group" "alb_internal" {
+  name        = "${var.name}-alb-internal-sg"
+  description = "Internal ALB security group"
+  vpc_id      = var.vpc_id
+
+  # 内部ALBは通常VPC内からのアクセスのみを想定するため、デフォルトではVPC CIDRを許可しておく
+  ingress {
+    description = "Allow HTTP from within VPC"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr_block]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.name}-alb-internal-sg"
+    Environment = var.environment
+    Component   = "alb-internal"
+  }
+}
+
 resource "aws_security_group" "bastion" {
   count       = var.enable_bastion ? 1 : 0
   name        = "${var.name}-bastion-sg"
