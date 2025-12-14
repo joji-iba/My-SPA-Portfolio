@@ -75,3 +75,15 @@ variable "log_retention_in_days" {
   description = "Retention days for application logs"
   default     = 30
 }
+
+variable "load_balancer_enabled" {
+  type        = bool
+  description = "Whether to attach the ECS service to an ALB target group"
+  default     = false
+}
+
+variable "target_group_arn" {
+  type        = string
+  description = "ALB target group ARN for this ECS service (used when load_balancer_enabled is true)"
+  default     = ""
+}
