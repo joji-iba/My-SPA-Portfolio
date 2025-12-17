@@ -18,9 +18,10 @@ variable "private_subnet_ids" {
   description = "Private subnet IDs for the DB subnet group (at least 2 for Multi-AZ)"
 }
 
-variable "db_security_group_id" {
+variable "engine" {
   type        = string
-  description = "Security group ID to attach to the RDS instance"
+  description = "Database engine (e.g. postgres)"
+  default     = "postgres"
 }
 
 variable "engine_version" {
@@ -41,6 +42,17 @@ variable "allocated_storage" {
   default     = 20
 }
 
+variable "storage_type" {
+  type        = string
+  description = "Storage type for the RDS instance (e.g. gp3)"
+  default     = "gp3"
+}
+
+variable "db_security_group_id" {
+  type        = string
+  description = "Security group ID to attach to the RDS instance"
+}
+
 variable "db_name" {
   type        = string
   description = "Initial database name"
@@ -49,6 +61,7 @@ variable "db_name" {
 variable "master_username" {
   type        = string
   description = "Master username for PostgreSQL"
+  sensitive   = true
 }
 
 variable "master_password" {
@@ -57,16 +70,47 @@ variable "master_password" {
   sensitive   = true
 }
 
+variable "port" {
+  type        = number
+  description = "Port number for PostgreSQL"
+  default     = 5432
+}
+
+variable "publicly_accessible" {
+  type        = bool
+  description = "RDSインスタンスをパブリックにアクセス可能にするかどうか"
+  default     = false
+}
+
+// 学習目的でコスト削減のため、Multi-AZは無効化しておく。本番運用時はこれを有効化すれば耐障害性が向上する。
+variable "multi_az" {
+  type        = bool
+  description = "Whether to enable Multi-AZ deployment"
+  default     = false
+}
+
 variable "backup_retention_period" {
   type        = number
   description = "Number of days to retain automated backups"
   default     = 7
 }
 
-variable "multi_az" {
+variable "copy_tags_to_snapshot" {
   type        = bool
-  description = "Whether to enable Multi-AZ deployment"
-  default     = false
+  description = "Whether to copy tags to DB snapshots"
+  default     = true
+}
+
+variable "auto_minor_version_upgrade" {
+  type        = bool
+  description = "Whether to enable auto minor version upgrades"
+  default     = true
+}
+
+variable "apply_immediately" {
+  type        = bool
+  description = "Whether to apply modifications immediately"
+  default     = true
 }
 
 variable "deletion_protection" {
