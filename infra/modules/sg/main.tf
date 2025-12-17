@@ -173,10 +173,10 @@ resource "aws_security_group" "db" {
   vpc_id      = var.vpc_id
 
   ingress {
-    description = "Allow PostgreSQL from ECS service and Bastion"
-    from_port   = 5432
-    to_port     = 5432
-    protocol    = "tcp"
+    description     = "Allow PostgreSQL from ECS service and Bastion"
+    from_port       = 5432
+    to_port         = 5432
+    protocol        = "tcp"
     security_groups = local.db_allowed_sg_ids
   }
 
