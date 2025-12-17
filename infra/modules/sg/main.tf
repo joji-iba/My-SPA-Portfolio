@@ -132,6 +132,11 @@ resource "aws_security_group" "ecs_service" {
 
 locals {
   endpoint_ingress_cidrs = length(var.vpc_endpoint_allowed_cidrs) > 0 ? var.vpc_endpoint_allowed_cidrs : (var.vpc_cidr_block != "" ? [var.vpc_cidr_block] : [])
+
+  db_allowed_sg_ids = concat(
+    [aws_security_group.ecs_service.id],
+    var.enable_bastion ? [aws_security_group.bastion[0].id] : [],
+  )
 }
 
 resource "aws_security_group" "vpc_endpoints" {
@@ -159,5 +164,32 @@ resource "aws_security_group" "vpc_endpoints" {
     Name        = "${var.name}-vpc-endpoints-sg"
     Environment = var.environment
     Component   = "vpc-endpoints"
+  }
+}
+
+resource "aws_security_group" "db" {
+  name        = "${var.name}-db-sg"
+  description = "Security group for RDS PostgreSQL"
+  vpc_id      = var.vpc_id
+
+  ingress {
+    description = "Allow PostgreSQL from ECS service and Bastion"
+    from_port   = 5432
+    to_port     = 5432
+    protocol    = "tcp"
+    security_groups = local.db_allowed_sg_ids
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name        = "${var.name}-db-sg"
+    Environment = var.environment
+    Component   = "db"
   }
 }

@@ -22,3 +22,8 @@ output "ecs_service_security_group_id" {
   value       = module.security.ecs_service_security_group_id
   description = "ECS Fargate service SG ID"
 }
+
+output "db_security_group_id" {
+  value       = module.security.db_security_group_id
+  description = "RDS PostgreSQL SG ID"
+}
