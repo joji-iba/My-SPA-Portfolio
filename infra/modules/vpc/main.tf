@@ -188,6 +188,23 @@ resource "aws_vpc_endpoint" "cloudwatch_logs" {
   }
 }
 
+// ECS FargateがSecrets ManagerにアクセスするためのVPCエンドポイント
+resource "aws_vpc_endpoint" "secretsmanager" {
+  count = var.enable_interface_endpoints ? 1 : 0
+
+  vpc_id              = aws_vpc.main.id
+  service_name        = "com.amazonaws.${data.aws_region.current.name}.secretsmanager"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private[*].id
+  security_group_ids  = local.interface_endpoint_sg_ids
+  private_dns_enabled = true
+
+  tags = {
+    Name        = "${var.name}-secretsmanager-endpoint"
+    Environment = var.environment
+  }
+}
+
 // S3にアクセスするためのゲートウェイ型VPCエンドポイント
 resource "aws_vpc_endpoint" "s3" {
   count = var.enable_gateway_endpoints ? 1 : 0
