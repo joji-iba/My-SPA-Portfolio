@@ -37,3 +37,27 @@ resource "aws_db_instance" "this" {
     Component   = "db"
   }
 }
+
+locals {
+  database_url = format(
+    "postgres://%s:%s@%s:%d/%s",
+    var.master_username,
+    var.master_password,
+    aws_db_instance.this.address,
+    var.port,
+    var.db_name,
+  )
+}
+
+resource "aws_secretsmanager_secret" "database_url" {
+  count = var.create_db_secret ? 1 : 0
+
+  name = var.db_secret_name != "" ? var.db_secret_name : "rds/${var.db_name}/database_url"
+}
+
+resource "aws_secretsmanager_secret_version" "database_url" {
+  count = var.create_db_secret ? 1 : 0
+
+  secret_id     = aws_secretsmanager_secret.database_url[0].id
+  secret_string = local.database_url
+}

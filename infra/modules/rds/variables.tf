@@ -124,3 +124,15 @@ variable "skip_final_snapshot" {
   description = "Whether to skip final snapshot on DB instance deletion (for learning environments)"
   default     = true
 }
+
+variable "create_db_secret" {
+  type        = bool
+  description = "Whether to create a Secrets Manager secret containing the DATABASE_URL for this RDS instance"
+  default     = false
+}
+
+variable "db_secret_name" {
+  type        = string
+  description = "Name of the Secrets Manager secret for DATABASE_URL"
+  default     = ""
+}
