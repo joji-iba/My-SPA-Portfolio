@@ -64,6 +64,15 @@ data "terraform_remote_state" "alb" {
   }
 }
 
+data "terraform_remote_state" "rds" {
+  backend = "s3"
+  config = {
+    bucket = "tf-state-portfolio-prod"
+    key    = "prod/rds/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
+}
+
 locals {
   container_image = "${data.terraform_remote_state.ecr.outputs.ecr_repository_url}:${var.image_tag}"
 }
@@ -89,4 +98,6 @@ module "ecs" {
 
   load_balancer_enabled = true
   target_group_arn      = data.terraform_remote_state.alb.outputs.external_target_group_arn
+
+  database_url_secret_arn = data.terraform_remote_state.rds.outputs.db_secret_arn
 }

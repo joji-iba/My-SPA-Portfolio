@@ -87,3 +87,9 @@ variable "target_group_arn" {
   description = "ALB target group ARN for this ECS service (used when load_balancer_enabled is true)"
   default     = ""
 }
+
+variable "database_url_secret_arn" {
+  type        = string
+  description = "ARN of the Secrets Manager secret that contains DATABASE_URL for the application"
+  default     = ""
+}
