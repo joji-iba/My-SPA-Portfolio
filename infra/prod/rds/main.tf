@@ -47,4 +47,7 @@ module "rds" {
   master_password = var.master_password
 
   multi_az = var.multi_az
+
+  create_db_secret = var.create_db_secret
+  db_secret_name   = var.db_secret_name
 }
