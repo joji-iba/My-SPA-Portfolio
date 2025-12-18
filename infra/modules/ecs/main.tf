@@ -22,6 +22,47 @@ resource "aws_cloudwatch_log_group" "this" {
   }
 }
 
+data "aws_region" "current" {}
+
+locals {
+  container_base_definition = {
+    name      = var.container_name
+    image     = var.container_image
+    essential = true
+    portMappings = [
+      {
+        containerPort = var.container_port
+        hostPort      = var.container_port
+        protocol      = "tcp"
+      }
+    ]
+    logConfiguration = {
+      logDriver = "awslogs"
+      options = {
+        awslogs-group         = aws_cloudwatch_log_group.this.name
+        awslogs-region        = data.aws_region.current.id
+        awslogs-stream-prefix = var.container_name
+      }
+    }
+  }
+
+  // DATABASE_URL シークレットがあれば1件入る。なければ空リスト。
+  container_secrets = var.database_url_secret_arn != "" ? [
+    {
+      name      = "DATABASE_URL"
+      valueFrom = var.database_url_secret_arn
+    }
+  ] : []
+
+  // ベース定義 + secrets（中身は空 or 1件）
+  container_definition = merge(
+    local.container_base_definition,
+    {
+      secrets = local.container_secrets
+    }
+  )
+}
+
 resource "aws_ecs_task_definition" "this" {
   family                   = var.task_family
   requires_compatibilities = ["FARGATE"]
@@ -31,26 +72,7 @@ resource "aws_ecs_task_definition" "this" {
   execution_role_arn       = var.ecs_task_execution_role_arn
 
   container_definitions = jsonencode([
-    {
-      name      = var.container_name
-      image     = var.container_image
-      essential = true
-      portMappings = [
-        {
-          containerPort = var.container_port
-          hostPort      = var.container_port
-          protocol      = "tcp"
-        }
-      ]
-      logConfiguration = {
-        logDriver = "awslogs"
-        options = {
-          awslogs-group         = aws_cloudwatch_log_group.this.name
-          awslogs-region        = data.aws_region.current.id
-          awslogs-stream-prefix = var.container_name
-        }
-      }
-    }
+    local.container_definition
   ])
 
   tags = {
@@ -58,9 +80,6 @@ resource "aws_ecs_task_definition" "this" {
     Component   = "ecs-task-definition"
   }
 }
-
-data "aws_region" "current" {}
-
 resource "aws_ecs_service" "this" {
   name            = "${var.environment}-${var.container_name}-service"
   cluster         = aws_ecs_cluster.this.id

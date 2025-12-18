@@ -4,6 +4,18 @@ variable "environment" {
   default     = "prod"
 }
 
+variable "engine_version" {
+  type        = string
+  description = "PostgreSQL engine version to use in prod"
+  default     = "17"
+}
+
+variable "instance_class" {
+  type        = string
+  description = "RDS instance class for prod"
+  default     = "db.t4g.micro"
+}
+
 variable "db_name" {
   type        = string
   description = "Initial database name for the portfolio app"
@@ -28,14 +40,14 @@ variable "multi_az" {
   default     = false
 }
 
-variable "engine_version" {
-  type        = string
-  description = "PostgreSQL engine version to use in prod"
-  default     = "17"
+variable "create_db_secret" {
+  type        = bool
+  description = "Whether to create a Secrets Manager secret for the database URL"
+  default     = true
 }
 
-variable "instance_class" {
+variable "db_secret_name" {
   type        = string
-  description = "RDS instance class for prod"
-  default     = "db.t4g.micro"
+  description = "Name of the Secrets Manager secret for the database URL"
+  default     = "portfolio/prod/backend/DATABASE_URL"
 }

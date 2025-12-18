@@ -17,3 +17,8 @@ output "db_instance_arn" {
   description = "ARN of the RDS instance"
   value       = aws_db_instance.this.arn
 }
+
+output "db_secret_arn" {
+  description = "The ARN of the Secrets Manager secret that stores DATABASE_URL for this RDS instance"
+  value       = var.create_db_secret ? aws_secretsmanager_secret.database_url[0].arn : null
+}
