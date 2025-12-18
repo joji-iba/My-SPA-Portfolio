@@ -46,17 +46,21 @@ locals {
     }
   }
 
-  container_definition = var.database_url_secret_arn != "" ? merge(
+  // DATABASE_URL シークレットがあれば1件入る。なければ空リスト。
+  container_secrets = var.database_url_secret_arn != "" ? [
+    {
+      name      = "DATABASE_URL"
+      valueFrom = var.database_url_secret_arn
+    }
+  ] : []
+
+  // ベース定義 + secrets（中身は空 or 1件）
+  container_definition = merge(
     local.container_base_definition,
     {
-      secrets = [
-        {
-          name      = "DATABASE_URL"
-          valueFrom = var.database_url_secret_arn
-        }
-      ]
+      secrets = local.container_secrets
     }
-  ) : local.container_base_definition
+  )
 }
 
 resource "aws_ecs_task_definition" "this" {
