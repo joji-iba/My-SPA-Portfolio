@@ -3,6 +3,11 @@ output "external_alb_dns_name" {
   value       = module.alb.external_alb_dns_name
 }
 
+output "external_alb_zone_id" {
+  description = "外部向けALBのホストゾーンID"
+  value       = module.alb.external_alb_zone_id
+}
+
 output "internal_alb_dns_name" {
   description = "内部向けALBのDNS名"
   value       = module.alb.internal_alb_dns_name

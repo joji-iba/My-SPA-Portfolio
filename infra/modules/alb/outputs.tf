@@ -3,6 +3,11 @@ output "external_alb_dns_name" {
   value       = aws_lb.external.dns_name
 }
 
+output "external_alb_zone_id" {
+  description = "外部向けALBのホストゾーンID"
+  value       = aws_lb.external.zone_id
+}
+
 output "external_alb_arn" {
   description = "外部向けALBのARN"
   value       = aws_lb.external.arn
