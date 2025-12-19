@@ -7,7 +7,7 @@ variable "environment" {
 variable "enable_https_external" {
   type        = bool
   description = "Whether to create HTTPS listener for internet-facing ALB"
-  default     = false
+  default     = true
 }
 
 variable "external_certificate_arn" {
