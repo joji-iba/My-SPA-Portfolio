@@ -12,6 +12,15 @@ provider "aws" {
   region = "ap-northeast-1"
 }
 
+data "terraform_remote_state" "acm" {
+  backend = "s3"
+  config = {
+    bucket = "tf-state-portfolio-prod"
+    key    = "prod/acm/terraform.tfstate"
+    region = "ap-northeast-1"
+  }
+}
+
 data "terraform_remote_state" "vpc" {
   backend = "s3"
   config = {
@@ -46,5 +55,5 @@ module "alb" {
 
   health_check_path        = "/api/health"
   enable_https_external    = var.enable_https_external // 外部向けALBのHTTPSを有効化するかどうか
-  external_certificate_arn = var.external_certificate_arn
+  external_certificate_arn = var.external_certificate_arn != "" ? var.external_certificate_arn : data.terraform_remote_state.acm.outputs.certificate_arn
 }
