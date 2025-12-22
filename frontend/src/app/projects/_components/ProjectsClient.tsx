@@ -32,7 +32,7 @@ export function ProjectsClient() {
     data: projects,
     error,
     isLoading,
-  } = useSWR<ProjectType[]>('http://localhost:8080/api/projects');
+  } = useSWR<ProjectType[]>(`${process.env.NEXT_PUBLIC_API_ROUTE}/projects`);
 
   useEffect(() => {
     setMounted(true);
