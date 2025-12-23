@@ -1,6 +1,13 @@
-# Full-Stack Portfolio (Go/Gin & PostgreSQL & React/Next.js)
+# Full-Stack Portfolio
+| Category       | Stack                               |
+| :------------- | :--------------------------------- |
+| **Backend**    | Go/Gin, GORM, PostgreSQL |
+| **Frontend**   | React/Next.js(App Router), TypeScript, Tailwind CSS |
+| **Infrastructure**      | Docker, AWS（VPC、IAM、ECR、ECS Fargate、EC2、S3、ALB、RDS、Secrets Manager、Route53、ACM、CloudWatch）、Terraform、Vercel             |
 
-Go/Gin、PostgreSQL, React/Next.js、TypeScriptを用いて構築されたフルスタックアプリケーションです。フロントエンドとバックエンドを疎結合に分離した構成を採用し、Dockerによるコンテナ化によって、ポータビリティとスケーラビリティを確保しています。
+This is a microarchitecture-oriented SPA configuration with loosely coupled frontend and backend separation. The backend is deployed on AWS ECS Fargate using Terraform as an API server. The frontend is deployed on Vercel.
+
+<img src="infra/infra-architecture.svg">
 
 ## ✨ 主な特徴
 
@@ -49,14 +56,6 @@ Go/Gin、PostgreSQL, React/Next.js、TypeScriptを用いて構築されたフル
 
 ---
 
-## 🛠️ 技術スタック
-
-| カテゴリ       | 技術                               |
-| :------------- | :--------------------------------- |
-| **Backend**    | Go/Gin, GORM, PostgreSQL |
-| **Frontend**   | React/Next.js(App Router), TypeScript, Tailwind CSS |
-| **Infra**      | Docker, Vercel (Frontend), AWS (Backend予定), Terraform             |
-
 ## 🏁 ローカルでの起動方法
 
 ### 1. 前提条件
@@ -83,11 +82,3 @@ Go/Gin、PostgreSQL, React/Next.js、TypeScriptを用いて構築されたフル
 4.  ブラウザでアクセスします。
     - フロントエンド: `http://localhost:3000`
     - バックエンドAPI: `http://localhost:8080`
-
----
-
-## 🗺️ 今後のロードマップ
-
-- [ ] **Backend**: AWS へのデプロイ
-- [ ] **CI/CD**: GitHub Actions を利用したテストとデプロイの自動化
-- [ ] **Test**: バックエンドの単体テスト・結合テストのカバレッジ向上
