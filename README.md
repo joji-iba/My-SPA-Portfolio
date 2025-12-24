@@ -1,7 +1,14 @@
 # Full-Stack Portfolio
+
+URL：https://joji-iba-portfolio.vercel.app/
+
+Please login to check the Google login functionality implemented in Firebase.
+
+For cost savings, I have currently turned off AWS VPC-endpoints. Therefore, API responses for `/projects` is currently stopped.
+
 | Category       | Stack                               |
 | :------------- | :--------------------------------- |
-| **Backend**    | Go/Gin, GORM, PostgreSQL |
+| **Backend**    | Go/Gin, GORM, PostgreSQL, Firebase |
 | **Frontend**   | React/Next.js(App Router), TypeScript, Tailwind CSS |
 | **Infrastructure**      | Docker, AWS（VPC、IAM、ECR、ECS Fargate、EC2、S3、ALB、RDS、Secrets Manager、Route53、ACM、CloudWatch）、Terraform、Vercel             |
 
