@@ -2,6 +2,8 @@
 
 URL：https://joji-iba-portfolio.vercel.app/
 
+This is a microarchitecture-oriented SPA configuration with loosely coupled frontend and backend separation. The backend is deployed on AWS ECS Fargate using Terraform as an API server. The frontend is deployed on Vercel.
+
 Please log in with your Google account because I've implemented the authentication function with Firebase.
 
 For cost savings, I have currently turned off AWS VPC-endpoints. Therefore, API responses for `/projects` is currently stopped.
@@ -11,8 +13,6 @@ For cost savings, I have currently turned off AWS VPC-endpoints. Therefore, API 
 | **Backend**    | Go/Gin, GORM, PostgreSQL, Firebase |
 | **Frontend**   | React/Next.js(App Router), TypeScript, Tailwind CSS |
 | **Infrastructure**      | Docker, AWS（VPC、IAM、ECR、ECS Fargate、EC2、S3、ALB、RDS、Secrets Manager、Route53、ACM、CloudWatch）、Terraform、Vercel             |
-
-This is a microarchitecture-oriented SPA configuration with loosely coupled frontend and backend separation. The backend is deployed on AWS ECS Fargate using Terraform as an API server. The frontend is deployed on Vercel.
 
 <img src="infra/infra-architecture.svg">
 
