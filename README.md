@@ -2,7 +2,7 @@
 
 URL：https://joji-iba-portfolio.vercel.app/
 
-Please login to check the Google login functionality implemented in Firebase.
+Please log in with your Google account because I've implemented the authentication function with Firebase.
 
 For cost savings, I have currently turned off AWS VPC-endpoints. Therefore, API responses for `/projects` is currently stopped.
 
