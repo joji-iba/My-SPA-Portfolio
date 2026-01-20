@@ -2,7 +2,7 @@
 
 URL：https://joji-iba-portfolio.vercel.app/
 
-This is a microarchitecture-oriented SPA configuration with loosely coupled frontend and backend separation. The backend is deployed on AWS ECS Fargate using Terraform as an API server. The frontend is deployed on Vercel.
+This is a micro service architecture-oriented SPA configuration with loosely coupled frontend and backend separation. The backend is deployed on AWS ECS Fargate using Terraform as an API server. The frontend is deployed on Vercel.
 
 Please log in with your Google account because I've implemented the authentication function with Firebase.
 
