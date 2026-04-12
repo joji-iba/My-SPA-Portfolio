@@ -178,3 +178,82 @@ func TestGetProjectByID(t *testing.T) {
 		})
 	}
 }
+
+func TestContextCancellation(t *testing.T) {
+	t.Run("GetAllProjects はキャンセルされたContextを伝播する", func(t *testing.T) {
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+
+		mock := &mockProjectRepository{
+			getAllFunc: func(ctx context.Context) ([]models.Project, error) {
+				if ctx.Err() == nil {
+					t.Error("expected cancelled context, but ctx.Err() is nil")
+				}
+				return nil, ctx.Err()
+			},
+		}
+
+		svc := NewProjectService(mock)
+		_, err := svc.GetAllProjects(ctx)
+		if !errors.Is(err, context.Canceled) {
+			t.Errorf("expected context.Canceled, got %v", err)
+		}
+	})
+
+	t.Run("GetFeaturedProjects はキャンセルされたContextを伝播する", func(t *testing.T) {
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+
+		mock := &mockProjectRepository{
+			getFeaturedFunc: func(ctx context.Context) ([]models.Project, error) {
+				if ctx.Err() == nil {
+					t.Error("expected cancelled context, but ctx.Err() is nil")
+				}
+				return nil, ctx.Err()
+			},
+		}
+
+		svc := NewProjectService(mock)
+		_, err := svc.GetFeaturedProjects(ctx)
+		if !errors.Is(err, context.Canceled) {
+			t.Errorf("expected context.Canceled, got %v", err)
+		}
+	})
+
+	t.Run("GetProjectByID はキャンセルされたContextを伝播する", func(t *testing.T) {
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+
+		mock := &mockProjectRepository{
+			getByIDFunc: func(ctx context.Context, id uint) (*models.Project, error) {
+				if ctx.Err() == nil {
+					t.Error("expected cancelled context, but ctx.Err() is nil")
+				}
+				return nil, ctx.Err()
+			},
+		}
+
+		svc := NewProjectService(mock)
+		_, err := svc.GetProjectByID(ctx, 1)
+		if !errors.Is(err, context.Canceled) {
+			t.Errorf("expected context.Canceled, got %v", err)
+		}
+	})
+
+	t.Run("モックに渡されるContextがnilでないことを検証する", func(t *testing.T) {
+		mock := &mockProjectRepository{
+			getAllFunc: func(ctx context.Context) ([]models.Project, error) {
+				if ctx == nil {
+					t.Fatal("context must not be nil")
+				}
+				return []models.Project{}, nil
+			},
+		}
+
+		svc := NewProjectService(mock)
+		_, err := svc.GetAllProjects(context.Background())
+		if err != nil {
+			t.Errorf("unexpected error: %v", err)
+		}
+	})
+}

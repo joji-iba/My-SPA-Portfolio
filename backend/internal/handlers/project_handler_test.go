@@ -223,3 +223,57 @@ func TestProjectHandler_GetProjectByID(t *testing.T) {
 		})
 	}
 }
+
+func TestProjectHandler_CancelledContext(t *testing.T) {
+	t.Run("キャンセルされたリクエストでService層にキャンセル済みContextが伝播する", func(t *testing.T) {
+		var receivedCtx context.Context
+		mockSvc := &mockProjectService{
+			getAllFunc: func(ctx context.Context) ([]models.Project, error) {
+				receivedCtx = ctx
+				return nil, ctx.Err()
+			},
+			getFeaturedFunc: func(ctx context.Context) ([]models.Project, error) { return nil, nil },
+			getByIDFunc:     func(ctx context.Context, id uint) (*models.Project, error) { return nil, nil },
+		}
+
+		handler := NewProjectHandler(mockSvc)
+		r := setupRouter(handler)
+
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+		req := httptest.NewRequest(http.MethodGet, "/api/projects", nil).WithContext(ctx)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+
+		if receivedCtx == nil {
+			t.Fatal("service was not called")
+		}
+		if receivedCtx.Err() != context.Canceled {
+			t.Errorf("expected cancelled context in service, got err=%v", receivedCtx.Err())
+		}
+	})
+
+	t.Run("Handlerに渡されるContextがnilでないことを検証する", func(t *testing.T) {
+		mockSvc := &mockProjectService{
+			getAllFunc: func(ctx context.Context) ([]models.Project, error) {
+				if ctx == nil {
+					t.Fatal("context must not be nil")
+				}
+				return []models.Project{}, nil
+			},
+			getFeaturedFunc: func(ctx context.Context) ([]models.Project, error) { return nil, nil },
+			getByIDFunc:     func(ctx context.Context, id uint) (*models.Project, error) { return nil, nil },
+		}
+
+		handler := NewProjectHandler(mockSvc)
+		r := setupRouter(handler)
+
+		req := httptest.NewRequest(http.MethodGet, "/api/projects", nil)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+
+		if w.Code != http.StatusOK {
+			t.Errorf("status = %d, want %d", w.Code, http.StatusOK)
+		}
+	})
+}
