@@ -6,16 +6,24 @@ import (
 	"net/http"
 	"strconv"
 
-	"portfolio/backend/internal/service"
+	"portfolio/backend/internal/models"
 
 	"github.com/gin-gonic/gin"
 )
 
-type ProjectHandler struct {
-	service *service.ProjectService
+// ProjectServicer はHandler層が必要とするService操作を定義する。
+// Goの慣習に従い、使う側（consumer）がinterfaceを定義する。
+type ProjectServicer interface {
+	GetAllProjects() ([]models.Project, error)
+	GetFeaturedProjects() ([]models.Project, error)
+	GetProjectByID(id uint) (*models.Project, error)
 }
 
-func NewProjectHandler(service *service.ProjectService) *ProjectHandler {
+type ProjectHandler struct {
+	service ProjectServicer
+}
+
+func NewProjectHandler(service ProjectServicer) *ProjectHandler {
 	return &ProjectHandler{service: service}
 }
 

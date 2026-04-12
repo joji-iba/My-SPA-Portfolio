@@ -4,14 +4,21 @@ package service
 
 import (
 	"portfolio/backend/internal/models"
-	"portfolio/backend/internal/repository"
 )
 
-type ProjectService struct {
-	repo *repository.ProjectRepository
+// ProjectRepository はService層が必要とするRepository操作を定義する。
+// Goの慣習に従い、使う側（consumer）がinterfaceを定義する。
+type ProjectRepository interface {
+	GetAllProjects() ([]models.Project, error)
+	GetFeaturedProjects() ([]models.Project, error)
+	GetProjectByID(id uint) (*models.Project, error)
 }
 
-func NewProjectService(repo *repository.ProjectRepository) *ProjectService {
+type ProjectService struct {
+	repo ProjectRepository
+}
+
+func NewProjectService(repo ProjectRepository) *ProjectService {
 	return &ProjectService{repo: repo}
 }
 
