@@ -3,6 +3,7 @@
 package handlers
 
 import (
+	"context"
 	"net/http"
 	"strconv"
 
@@ -14,9 +15,9 @@ import (
 // ProjectServicer はHandler層が必要とするService操作を定義する。
 // Goの慣習に従い、使う側（consumer）がinterfaceを定義する。
 type ProjectServicer interface {
-	GetAllProjects() ([]models.Project, error)
-	GetFeaturedProjects() ([]models.Project, error)
-	GetProjectByID(id uint) (*models.Project, error)
+	GetAllProjects(ctx context.Context) ([]models.Project, error)
+	GetFeaturedProjects(ctx context.Context) ([]models.Project, error)
+	GetProjectByID(ctx context.Context, id uint) (*models.Project, error)
 }
 
 type ProjectHandler struct {
@@ -28,7 +29,8 @@ func NewProjectHandler(service ProjectServicer) *ProjectHandler {
 }
 
 func (h *ProjectHandler) GetAllProjects(c *gin.Context) {
-	projects, err := h.service.GetAllProjects()
+	ctx := c.Request.Context()
+	projects, err := h.service.GetAllProjects(ctx)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -37,7 +39,8 @@ func (h *ProjectHandler) GetAllProjects(c *gin.Context) {
 }
 
 func (h *ProjectHandler) GetFeaturedProjects(c *gin.Context) {
-	projects, err := h.service.GetFeaturedProjects()
+	ctx := c.Request.Context()
+	projects, err := h.service.GetFeaturedProjects(ctx)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -52,7 +55,8 @@ func (h *ProjectHandler) GetProjectByID(c *gin.Context) {
 		return
 	}
 
-	project, err := h.service.GetProjectByID(uint(id))
+	ctx := c.Request.Context()
+	project, err := h.service.GetProjectByID(ctx, uint(id))
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "Project not found"})
 		return
