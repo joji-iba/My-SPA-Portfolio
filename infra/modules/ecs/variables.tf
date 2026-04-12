@@ -93,3 +93,15 @@ variable "database_url_secret_arn" {
   description = "ARN of the Secrets Manager secret that contains DATABASE_URL for the application"
   default     = ""
 }
+
+variable "cors_origins" {
+  type        = string
+  description = "Comma-separated list of allowed CORS origins (e.g. https://example.com,https://staging.example.com)"
+  default     = "http://localhost:3000"
+}
+
+variable "gin_mode" {
+  type        = string
+  description = "Gin framework mode (debug, release, test). Empty string defaults to release in the app."
+  default     = ""
+}
