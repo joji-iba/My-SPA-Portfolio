@@ -122,3 +122,19 @@ func TestParseCORSOrigins_WildcardPanics(t *testing.T) {
 	}()
 	parseCORSOrigins("*")
 }
+
+func TestParseCORSOrigins_TrailingSlash(t *testing.T) {
+	t.Setenv("CORS_ORIGINS", "https://example.com/, https://staging.example.com/")
+
+	cfg := Load()
+
+	if len(cfg.CORSOrigins) != 2 {
+		t.Fatalf("CORSOrigins length: got %d, want 2", len(cfg.CORSOrigins))
+	}
+	if cfg.CORSOrigins[0] != "https://example.com" {
+		t.Errorf("CORSOrigins[0]: got %q, want %q (trailing slash should be stripped)", cfg.CORSOrigins[0], "https://example.com")
+	}
+	if cfg.CORSOrigins[1] != "https://staging.example.com" {
+		t.Errorf("CORSOrigins[1]: got %q, want %q (trailing slash should be stripped)", cfg.CORSOrigins[1], "https://staging.example.com")
+	}
+}

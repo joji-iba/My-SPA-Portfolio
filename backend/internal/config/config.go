@@ -32,6 +32,7 @@ func getEnvOrDefault(key, fallback string) string {
 
 // parseCORSOrigins はカンマ区切りのオリジン文字列をスライスに変換する。
 // 空文字列・空白のみのエントリは除外し、結果が空ならデフォルト値を返す。
+// 末尾スラッシュは自動的に除去する（ブラウザのOriginヘッダーはスラッシュを含まないため）。
 // "*" は AllowCredentials: true と併用不可のため拒否する。
 func parseCORSOrigins(raw string) []string {
 	if raw == "" {
@@ -47,6 +48,7 @@ func parseCORSOrigins(raw string) []string {
 		if o == "*" {
 			panic("CORS_ORIGINS must not contain '*' (incompatible with AllowCredentials)")
 		}
+		o = strings.TrimRight(o, "/")
 		origins = append(origins, o)
 	}
 	if len(origins) == 0 {
