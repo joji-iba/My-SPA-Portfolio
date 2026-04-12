@@ -6,7 +6,7 @@ import (
 )
 
 type Project struct {
-	ID          uint      `json:"id" gorm:"primary_key"`
+	ID          uint      `json:"id" gorm:"primaryKey"`
 	Title       string    `json:"title" gorm:"not null"`
 	Description string    `json:"description"`
 	Type        string    `json:"type"`
