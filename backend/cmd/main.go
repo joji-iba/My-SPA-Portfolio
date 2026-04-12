@@ -33,6 +33,11 @@ func main() {
 		log.Println("Warning: .env file not found, using environment variables")
 	}
 
+	// 本番環境ではGinをリリースモードに設定（デバッグ情報の出力を抑制）
+	if os.Getenv("GIN_MODE") == "" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	// Setup Gin router
 	r := gin.Default()
 
