@@ -2,6 +2,7 @@
 package repository
 
 import (
+	"context"
 	"log"
 	"portfolio/backend/internal/models"
 
@@ -17,9 +18,9 @@ func NewProjectRepository(db *gorm.DB) *ProjectRepository {
 }
 
 // projects一覧取得
-func (r *ProjectRepository) GetAllProjects() ([]models.Project, error) {
+func (r *ProjectRepository) GetAllProjects(ctx context.Context) ([]models.Project, error) {
 	var projects []models.Project
-	err := r.db.Find(&projects).Error
+	err := r.db.WithContext(ctx).Find(&projects).Error
 	if err != nil {
 		log.Printf("Error fetching all projects: %v", err)
 		return nil, err
@@ -29,9 +30,9 @@ func (r *ProjectRepository) GetAllProjects() ([]models.Project, error) {
 }
 
 // featured projectの取得
-func (r *ProjectRepository) GetFeaturedProjects() ([]models.Project, error) {
+func (r *ProjectRepository) GetFeaturedProjects(ctx context.Context) ([]models.Project, error) {
 	var projects []models.Project
-	err := r.db.Where("featured = ?", true).Find(&projects).Error
+	err := r.db.WithContext(ctx).Where("featured = ?", true).Find(&projects).Error
 	if err != nil {
 		log.Printf("Error fetching featured projects: %v", err)
 		return nil, err
@@ -41,9 +42,9 @@ func (r *ProjectRepository) GetFeaturedProjects() ([]models.Project, error) {
 }
 
 // 特定のproject取得
-func (r *ProjectRepository) GetProjectByID(id uint) (*models.Project, error) {
+func (r *ProjectRepository) GetProjectByID(ctx context.Context, id uint) (*models.Project, error) {
 	var project models.Project
-	err := r.db.First(&project, id).Error
+	err := r.db.WithContext(ctx).First(&project, id).Error
 	if err != nil {
 		log.Printf("Error fetching project with ID %d: %v", id, err)
 		return nil, err

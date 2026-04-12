@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -14,21 +15,21 @@ import (
 
 // mockProjectService は ProjectServicer interface のモック実装
 type mockProjectService struct {
-	getAllFunc     func() ([]models.Project, error)
-	getFeaturedFunc func() ([]models.Project, error)
-	getByIDFunc    func(id uint) (*models.Project, error)
+	getAllFunc     func(ctx context.Context) ([]models.Project, error)
+	getFeaturedFunc func(ctx context.Context) ([]models.Project, error)
+	getByIDFunc    func(ctx context.Context, id uint) (*models.Project, error)
 }
 
-func (m *mockProjectService) GetAllProjects() ([]models.Project, error) {
-	return m.getAllFunc()
+func (m *mockProjectService) GetAllProjects(ctx context.Context) ([]models.Project, error) {
+	return m.getAllFunc(ctx)
 }
 
-func (m *mockProjectService) GetFeaturedProjects() ([]models.Project, error) {
-	return m.getFeaturedFunc()
+func (m *mockProjectService) GetFeaturedProjects(ctx context.Context) ([]models.Project, error) {
+	return m.getFeaturedFunc(ctx)
 }
 
-func (m *mockProjectService) GetProjectByID(id uint) (*models.Project, error) {
-	return m.getByIDFunc(id)
+func (m *mockProjectService) GetProjectByID(ctx context.Context, id uint) (*models.Project, error) {
+	return m.getByIDFunc(ctx, id)
 }
 
 func setupRouter(handler *ProjectHandler) *gin.Engine {
@@ -53,7 +54,7 @@ func TestProjectHandler_GetAllProjects(t *testing.T) {
 		{
 			name: "正常系: プロジェクト一覧を返す",
 			mockSvc: &mockProjectService{
-				getAllFunc: func() ([]models.Project, error) {
+				getAllFunc: func(ctx context.Context) ([]models.Project, error) {
 					return []models.Project{
 						{ID: 1, Title: "Project 1"},
 						{ID: 2, Title: "Project 2"},
@@ -66,7 +67,7 @@ func TestProjectHandler_GetAllProjects(t *testing.T) {
 		{
 			name: "異常系: Service層エラーで500を返す",
 			mockSvc: &mockProjectService{
-				getAllFunc: func() ([]models.Project, error) {
+				getAllFunc: func(ctx context.Context) ([]models.Project, error) {
 					return nil, errors.New("db error")
 				},
 			},
@@ -110,7 +111,7 @@ func TestProjectHandler_GetFeaturedProjects(t *testing.T) {
 		{
 			name: "正常系: Featuredプロジェクトを返す",
 			mockSvc: &mockProjectService{
-				getFeaturedFunc: func() ([]models.Project, error) {
+				getFeaturedFunc: func(ctx context.Context) ([]models.Project, error) {
 					return []models.Project{
 						{ID: 1, Title: "Featured", Featured: true},
 					}, nil
@@ -122,7 +123,7 @@ func TestProjectHandler_GetFeaturedProjects(t *testing.T) {
 		{
 			name: "異常系: Service層エラーで500を返す",
 			mockSvc: &mockProjectService{
-				getFeaturedFunc: func() ([]models.Project, error) {
+				getFeaturedFunc: func(ctx context.Context) ([]models.Project, error) {
 					return nil, errors.New("db error")
 				},
 			},
@@ -168,7 +169,7 @@ func TestProjectHandler_GetProjectByID(t *testing.T) {
 			name: "正常系: IDでプロジェクトを取得",
 			path: "/api/projects/1",
 			mockSvc: &mockProjectService{
-				getByIDFunc: func(id uint) (*models.Project, error) {
+				getByIDFunc: func(ctx context.Context, id uint) (*models.Project, error) {
 					return &models.Project{ID: 1, Title: "Test Project"}, nil
 				},
 			},
@@ -179,7 +180,7 @@ func TestProjectHandler_GetProjectByID(t *testing.T) {
 			name: "異常系: 不正なIDでBadRequest",
 			path: "/api/projects/abc",
 			mockSvc: &mockProjectService{
-				getByIDFunc: func(id uint) (*models.Project, error) {
+				getByIDFunc: func(ctx context.Context, id uint) (*models.Project, error) {
 					return nil, nil
 				},
 			},
@@ -189,7 +190,7 @@ func TestProjectHandler_GetProjectByID(t *testing.T) {
 			name: "異常系: 存在しないIDでNotFound",
 			path: "/api/projects/9999",
 			mockSvc: &mockProjectService{
-				getByIDFunc: func(id uint) (*models.Project, error) {
+				getByIDFunc: func(ctx context.Context, id uint) (*models.Project, error) {
 					return nil, errors.New("record not found")
 				},
 			},
@@ -221,4 +222,58 @@ func TestProjectHandler_GetProjectByID(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestProjectHandler_CancelledContext(t *testing.T) {
+	t.Run("キャンセルされたリクエストでService層にキャンセル済みContextが伝播する", func(t *testing.T) {
+		var receivedCtx context.Context
+		mockSvc := &mockProjectService{
+			getAllFunc: func(ctx context.Context) ([]models.Project, error) {
+				receivedCtx = ctx
+				return nil, ctx.Err()
+			},
+			getFeaturedFunc: func(ctx context.Context) ([]models.Project, error) { return nil, nil },
+			getByIDFunc:     func(ctx context.Context, id uint) (*models.Project, error) { return nil, nil },
+		}
+
+		handler := NewProjectHandler(mockSvc)
+		r := setupRouter(handler)
+
+		ctx, cancel := context.WithCancel(context.Background())
+		cancel()
+		req := httptest.NewRequest(http.MethodGet, "/api/projects", nil).WithContext(ctx)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+
+		if receivedCtx == nil {
+			t.Fatal("service was not called")
+		}
+		if receivedCtx.Err() != context.Canceled {
+			t.Errorf("expected cancelled context in service, got err=%v", receivedCtx.Err())
+		}
+	})
+
+	t.Run("Handlerに渡されるContextがnilでないことを検証する", func(t *testing.T) {
+		mockSvc := &mockProjectService{
+			getAllFunc: func(ctx context.Context) ([]models.Project, error) {
+				if ctx == nil {
+					t.Fatal("context must not be nil")
+				}
+				return []models.Project{}, nil
+			},
+			getFeaturedFunc: func(ctx context.Context) ([]models.Project, error) { return nil, nil },
+			getByIDFunc:     func(ctx context.Context, id uint) (*models.Project, error) { return nil, nil },
+		}
+
+		handler := NewProjectHandler(mockSvc)
+		r := setupRouter(handler)
+
+		req := httptest.NewRequest(http.MethodGet, "/api/projects", nil)
+		w := httptest.NewRecorder()
+		r.ServeHTTP(w, req)
+
+		if w.Code != http.StatusOK {
+			t.Errorf("status = %d, want %d", w.Code, http.StatusOK)
+		}
+	})
 }
