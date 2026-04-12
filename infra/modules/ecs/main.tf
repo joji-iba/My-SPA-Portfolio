@@ -54,11 +54,28 @@ locals {
     }
   ] : []
 
-  // ベース定義 + secrets（中身は空 or 1件）
+  // 平文の環境変数（シークレットでないもの）
+  container_environment = concat(
+    var.cors_origins != "" ? [
+      {
+        name  = "CORS_ORIGINS"
+        value = var.cors_origins
+      }
+    ] : [],
+    var.gin_mode != "" ? [
+      {
+        name  = "GIN_MODE"
+        value = var.gin_mode
+      }
+    ] : [],
+  )
+
+  // ベース定義 + secrets + environment
   container_definition = merge(
     local.container_base_definition,
     {
-      secrets = local.container_secrets
+      secrets     = local.container_secrets
+      environment = local.container_environment
     }
   )
 }

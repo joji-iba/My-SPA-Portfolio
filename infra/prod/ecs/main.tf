@@ -100,4 +100,7 @@ module "ecs" {
   target_group_arn      = data.terraform_remote_state.alb.outputs.external_target_group_arn
 
   database_url_secret_arn = data.terraform_remote_state.rds.outputs.db_secret_arn
+
+  cors_origins = var.cors_origins
+  gin_mode     = var.gin_mode
 }

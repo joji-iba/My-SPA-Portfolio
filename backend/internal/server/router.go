@@ -17,7 +17,7 @@ func NewRouter(cfg *config.Config) *gin.Engine {
 	}
 
 	r := gin.Default()
-	r.Use(middleware.CORS(cfg.AllowOrigin))
+	r.Use(middleware.CORS(cfg.CORSOrigins))
 
 	api := r.Group("/api")
 	api.GET("/health", handlers.HealthHandler)

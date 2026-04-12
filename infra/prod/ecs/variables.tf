@@ -62,3 +62,14 @@ variable "log_retention_in_days" {
   description = "Retention days for application logs"
   default     = 30
 }
+
+variable "cors_origins" {
+  type        = string
+  description = "Comma-separated list of allowed CORS origins for the backend"
+}
+
+variable "gin_mode" {
+  type        = string
+  description = "Gin framework mode (debug, release, test)"
+  default     = "release"
+}
