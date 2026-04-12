@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
@@ -67,12 +68,17 @@ func main() {
 			log.Fatal("アプリケーション起動時にDB接続に失敗しました: ", err)
 		}
 
-		// GORM v2: *sql.DB を取得して defer Close
+		// GORM v2: *sql.DB を取得して接続プール設定 & defer Close
 		sqlDB, err := db.DB()
 		if err != nil {
 			log.Fatal("DB接続プールの取得に失敗しました: ", err)
 		}
 		defer sqlDB.Close()
+
+		sqlDB.SetMaxOpenConns(25)
+		sqlDB.SetMaxIdleConns(5)
+		sqlDB.SetConnMaxLifetime(5 * time.Minute)
+		sqlDB.SetConnMaxIdleTime(30 * time.Second)
 
 		// Auto migrate the schema
 		if err := db.AutoMigrate(&models.Project{}); err != nil {
