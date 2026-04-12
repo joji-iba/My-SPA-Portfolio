@@ -1,6 +1,7 @@
 package config
 
 import (
+	"strings"
 	"testing"
 )
 
@@ -80,4 +81,44 @@ func TestLoad_PartialOverride(t *testing.T) {
 	if len(cfg.CORSOrigins) != 1 || cfg.CORSOrigins[0] != "http://localhost:3000" {
 		t.Errorf("CORSOrigins: got %v, want default [http://localhost:3000]", cfg.CORSOrigins)
 	}
+}
+
+func TestParseCORSOrigins_TrailingComma(t *testing.T) {
+	t.Setenv("CORS_ORIGINS", "https://a.com, https://b.com,")
+
+	cfg := Load()
+
+	if len(cfg.CORSOrigins) != 2 {
+		t.Fatalf("CORSOrigins length: got %d, want 2 (empty entry should be filtered)", len(cfg.CORSOrigins))
+	}
+	if cfg.CORSOrigins[0] != "https://a.com" {
+		t.Errorf("CORSOrigins[0]: got %q, want %q", cfg.CORSOrigins[0], "https://a.com")
+	}
+	if cfg.CORSOrigins[1] != "https://b.com" {
+		t.Errorf("CORSOrigins[1]: got %q, want %q", cfg.CORSOrigins[1], "https://b.com")
+	}
+}
+
+func TestParseCORSOrigins_WhitespaceOnly(t *testing.T) {
+	t.Setenv("CORS_ORIGINS", "  ,  , ")
+
+	cfg := Load()
+
+	if len(cfg.CORSOrigins) != 1 || cfg.CORSOrigins[0] != "http://localhost:3000" {
+		t.Errorf("CORSOrigins: got %v, want default [http://localhost:3000]", cfg.CORSOrigins)
+	}
+}
+
+func TestParseCORSOrigins_WildcardPanics(t *testing.T) {
+	defer func() {
+		r := recover()
+		if r == nil {
+			t.Fatal("expected panic for wildcard origin, but did not panic")
+		}
+		msg, ok := r.(string)
+		if !ok || !strings.Contains(msg, "AllowCredentials") {
+			t.Errorf("unexpected panic message: %v", r)
+		}
+	}()
+	parseCORSOrigins("*")
 }

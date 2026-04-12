@@ -31,14 +31,26 @@ func getEnvOrDefault(key, fallback string) string {
 }
 
 // parseCORSOrigins はカンマ区切りのオリジン文字列をスライスに変換する。
-// 空文字列の場合はデフォルト値を返す。
+// 空文字列・空白のみのエントリは除外し、結果が空ならデフォルト値を返す。
+// "*" は AllowCredentials: true と併用不可のため拒否する。
 func parseCORSOrigins(raw string) []string {
 	if raw == "" {
 		return []string{"http://localhost:3000"}
 	}
-	origins := strings.Split(raw, ",")
-	for i := range origins {
-		origins[i] = strings.TrimSpace(origins[i])
+	parts := strings.Split(raw, ",")
+	var origins []string
+	for _, p := range parts {
+		o := strings.TrimSpace(p)
+		if o == "" {
+			continue
+		}
+		if o == "*" {
+			panic("CORS_ORIGINS must not contain '*' (incompatible with AllowCredentials)")
+		}
+		origins = append(origins, o)
+	}
+	if len(origins) == 0 {
+		return []string{"http://localhost:3000"}
 	}
 	return origins
 }
