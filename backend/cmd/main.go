@@ -6,9 +6,9 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
-	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 
 	"portfolio/backend/internal/handlers"
 	"portfolio/backend/internal/models"
@@ -62,14 +62,20 @@ func main() {
 	} else {
 		log.Printf("Connecting to database: %s", dbURL)
 
-		db, err := gorm.Open("postgres", dbURL)
+		db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 		if err != nil {
 			log.Fatal("アプリケーション起動時にDB接続に失敗しました: ", err)
 		}
-		defer db.Close()
+
+		// GORM v2: *sql.DB を取得して defer Close
+		sqlDB, err := db.DB()
+		if err != nil {
+			log.Fatal("DB接続プールの取得に失敗しました: ", err)
+		}
+		defer sqlDB.Close()
 
 		// Auto migrate the schema
-		if err := db.AutoMigrate(&models.Project{}).Error; err != nil {
+		if err := db.AutoMigrate(&models.Project{}); err != nil {
 			log.Fatal("スキーマのマイグレーションに失敗しました: ", err)
 		}
 		log.Println("スキーマのマイグレーションが完了しました")

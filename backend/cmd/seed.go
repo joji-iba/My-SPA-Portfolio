@@ -4,9 +4,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 
 	"portfolio/backend/internal/models"
 )
@@ -22,14 +22,22 @@ func seed() {
 	if dbURL == "" {
 		log.Fatal("環境変数 DATABASE_URL が設定されていません。DB接続に失敗しました。")
 	}
-	db, err := gorm.Open("postgres", dbURL)
+	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 	if err != nil {
 		log.Fatal("シーダー実行時にDB接続に失敗しました: ", err)
 	}
-	defer db.Close()
+
+	// GORM v2: *sql.DB を取得して defer Close
+	sqlDB, err := db.DB()
+	if err != nil {
+		log.Fatal("DB接続プールの取得に失敗しました: ", err)
+	}
+	defer sqlDB.Close()
 
 	// Auto migrate the schema
-	db.AutoMigrate(&models.Project{})
+	if err := db.AutoMigrate(&models.Project{}); err != nil {
+		log.Fatal("マイグレーションに失敗しました: ", err)
+	}
 
 	// シーダーファイルを読み込む
 	seedSQL, err := os.ReadFile("db/seed.sql")

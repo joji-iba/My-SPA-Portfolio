@@ -5,7 +5,7 @@ import (
 	"log"
 	"portfolio/backend/internal/models"
 
-	"github.com/jinzhu/gorm"
+	"gorm.io/gorm"
 )
 
 type ProjectRepository struct {
