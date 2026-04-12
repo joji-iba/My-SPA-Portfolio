@@ -10,7 +10,9 @@ import (
 
 // NewRouter はGinルーターを初期化し、共通ミドルウェアとヘルスチェックを登録する。
 func NewRouter(cfg *config.Config) *gin.Engine {
-	if cfg.GinMode == "" {
+	if cfg.GinMode != "" {
+		gin.SetMode(cfg.GinMode)
+	} else {
 		gin.SetMode(gin.ReleaseMode)
 	}
 

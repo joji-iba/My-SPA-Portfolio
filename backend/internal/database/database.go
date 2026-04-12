@@ -2,6 +2,7 @@ package database
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"time"
 
@@ -46,6 +47,11 @@ func Connect(databaseURL string) (*gorm.DB, func(), error) {
 	sqlDB, err := db.DB()
 	if err != nil {
 		return nil, nil, err
+	}
+
+	// 接続確認: gorm.Open は遅延接続のため、Ping で実際の疎通を検証
+	if err := sqlDB.Ping(); err != nil {
+		return nil, nil, fmt.Errorf("database ping failed: %w", err)
 	}
 
 	pool := DefaultPoolConfig()

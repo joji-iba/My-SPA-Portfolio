@@ -1,16 +1,14 @@
 package config
 
 import (
-	"os"
 	"testing"
 )
 
 func TestLoad_DefaultValues(t *testing.T) {
-	// 環境変数をクリア
-	os.Unsetenv("PORT")
-	os.Unsetenv("DATABASE_URL")
-	os.Unsetenv("GIN_MODE")
-	os.Unsetenv("ALLOW_ORIGIN")
+	t.Setenv("PORT", "")
+	t.Setenv("DATABASE_URL", "")
+	t.Setenv("GIN_MODE", "")
+	t.Setenv("ALLOW_ORIGIN", "")
 
 	cfg := Load()
 
@@ -51,8 +49,8 @@ func TestLoad_CustomValues(t *testing.T) {
 }
 
 func TestLoad_PartialOverride(t *testing.T) {
-	os.Unsetenv("PORT")
-	os.Unsetenv("ALLOW_ORIGIN")
+	t.Setenv("PORT", "")
+	t.Setenv("ALLOW_ORIGIN", "")
 	t.Setenv("DATABASE_URL", "postgres://localhost/mydb")
 
 	cfg := Load()
