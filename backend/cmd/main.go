@@ -61,7 +61,7 @@ func main() {
 	if dbURL == "" {
 		log.Println("DATABASE_URL environment variable is not set; skipping DB initialization. /api/projects は利用できません。")
 	} else {
-		log.Printf("Connecting to database: %s", dbURL)
+		log.Println("Connecting to database...")
 
 		db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 		if err != nil {
