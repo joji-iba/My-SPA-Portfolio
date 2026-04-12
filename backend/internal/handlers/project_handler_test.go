@@ -11,6 +11,7 @@ import (
 	"portfolio/backend/internal/models"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 // mockProjectService は ProjectServicer interface のモック実装
@@ -95,6 +96,16 @@ func TestProjectHandler_GetAllProjects(t *testing.T) {
 				}
 				if len(projects) != tt.wantCount {
 					t.Errorf("count = %d, want %d", len(projects), tt.wantCount)
+				}
+			}
+
+			if tt.wantStatus == http.StatusInternalServerError {
+				var body map[string]string
+				if err := json.Unmarshal(w.Body.Bytes(), &body); err != nil {
+					t.Fatalf("failed to decode response: %v", err)
+				}
+				if body["error"] != "Internal server error" {
+					t.Errorf("expected generic error message, got %q", body["error"])
 				}
 			}
 		})
@@ -191,10 +202,20 @@ func TestProjectHandler_GetProjectByID(t *testing.T) {
 			path: "/api/projects/9999",
 			mockSvc: &mockProjectService{
 				getByIDFunc: func(ctx context.Context, id uint) (*models.Project, error) {
-					return nil, errors.New("record not found")
+					return nil, gorm.ErrRecordNotFound
 				},
 			},
 			wantStatus: http.StatusNotFound,
+		},
+		{
+			name: "異常系: DB障害で500を返す（NotFoundではない）",
+			path: "/api/projects/1",
+			mockSvc: &mockProjectService{
+				getByIDFunc: func(ctx context.Context, id uint) (*models.Project, error) {
+					return nil, errors.New("connection refused")
+				},
+			},
+			wantStatus: http.StatusInternalServerError,
 		},
 	}
 

@@ -33,6 +33,11 @@ func main() {
 		log.Println("Warning: .env file not found, using environment variables")
 	}
 
+	// 本番環境ではGinをリリースモードに設定（デバッグ情報の出力を抑制）
+	if os.Getenv("GIN_MODE") == "" {
+		gin.SetMode(gin.ReleaseMode)
+	}
+
 	// Setup Gin router
 	r := gin.Default()
 
@@ -61,7 +66,7 @@ func main() {
 	if dbURL == "" {
 		log.Println("DATABASE_URL environment variable is not set; skipping DB initialization. /api/projects は利用できません。")
 	} else {
-		log.Printf("Connecting to database: %s", dbURL)
+		log.Println("Connecting to database...")
 
 		db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
 		if err != nil {
