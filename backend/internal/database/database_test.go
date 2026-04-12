@@ -23,10 +23,12 @@ func TestDefaultPoolConfig(t *testing.T) {
 }
 
 func TestConnect_EmptyURL(t *testing.T) {
-	_, _, err := Connect("")
+	_, cleanup, err := Connect("")
 	if err == nil {
 		t.Error("Connect with empty URL should return error")
 	}
+	// cleanup は nil ではなく no-op であること（defer cleanup() がパニックしない）
+	cleanup()
 }
 
 func TestMigrate_NilDB(t *testing.T) {

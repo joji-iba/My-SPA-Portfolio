@@ -8,9 +8,11 @@ import (
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-
-	"portfolio/backend/internal/models"
 )
+
+// noop はエラー時に返す安全なクリーンアップ関数。
+// defer cleanup() がパニックしないことをAPI契約として保証する。
+var noop = func() {}
 
 // PoolConfig はDB接続プールの設定を保持する。
 type PoolConfig struct {
@@ -32,26 +34,28 @@ func DefaultPoolConfig() PoolConfig {
 
 // Connect はPostgreSQLに接続し、接続プールを設定して返す。
 // 戻り値の cleanup 関数を defer で呼ぶことでDB接続を安全にクローズできる。
+// エラー時もcleanupは安全に呼び出し可能（no-op）。
 func Connect(databaseURL string) (*gorm.DB, func(), error) {
 	if databaseURL == "" {
-		return nil, nil, errors.New("database URL is empty")
+		return nil, noop, errors.New("database URL is empty")
 	}
 
 	log.Println("Connecting to database...")
 
 	db, err := gorm.Open(postgres.Open(databaseURL), &gorm.Config{})
 	if err != nil {
-		return nil, nil, err
+		return nil, noop, err
 	}
 
 	sqlDB, err := db.DB()
 	if err != nil {
-		return nil, nil, err
+		return nil, noop, err
 	}
 
 	// 接続確認: gorm.Open は遅延接続のため、Ping で実際の疎通を検証
 	if err := sqlDB.Ping(); err != nil {
-		return nil, nil, fmt.Errorf("database ping failed: %w", err)
+		sqlDB.Close()
+		return nil, noop, fmt.Errorf("database ping failed: %w", err)
 	}
 
 	pool := DefaultPoolConfig()
@@ -70,11 +74,12 @@ func Connect(databaseURL string) (*gorm.DB, func(), error) {
 }
 
 // Migrate はDBスキーマのAutoMigrateを実行する。
-func Migrate(db *gorm.DB) error {
+// モデルは呼び出し側から渡すことで、databaseパッケージがドメインモデルに依存しない。
+func Migrate(db *gorm.DB, models ...interface{}) error {
 	if db == nil {
 		return errors.New("db is nil")
 	}
-	if err := db.AutoMigrate(&models.Project{}); err != nil {
+	if err := db.AutoMigrate(models...); err != nil {
 		return err
 	}
 	log.Println("スキーマのマイグレーションが完了しました")

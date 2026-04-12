@@ -9,6 +9,7 @@ import (
 	"portfolio/backend/internal/config"
 	"portfolio/backend/internal/database"
 	"portfolio/backend/internal/handlers"
+	"portfolio/backend/internal/models"
 	"portfolio/backend/internal/repository"
 	"portfolio/backend/internal/server"
 	"portfolio/backend/internal/service"
@@ -37,7 +38,7 @@ func main() {
 		}
 		defer cleanup()
 
-		if err := database.Migrate(db); err != nil {
+		if err := database.Migrate(db, &models.Project{}); err != nil {
 			log.Fatal("マイグレーションに失敗しました: ", err)
 		}
 

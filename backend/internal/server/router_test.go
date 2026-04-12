@@ -11,12 +11,9 @@ import (
 	"portfolio/backend/internal/config"
 )
 
-func init() {
-	gin.SetMode(gin.TestMode)
-}
-
 func TestNewRouter_HasHealthEndpoint(t *testing.T) {
 	cfg := &config.Config{
+		GinMode:     gin.TestMode,
 		AllowOrigin: "http://localhost:3000",
 	}
 	router := NewRouter(cfg)
@@ -40,6 +37,7 @@ func TestNewRouter_HasHealthEndpoint(t *testing.T) {
 
 func TestNewRouter_CORSHeaders(t *testing.T) {
 	cfg := &config.Config{
+		GinMode:     gin.TestMode,
 		AllowOrigin: "https://mysite.com",
 	}
 	router := NewRouter(cfg)
@@ -79,7 +77,7 @@ func (m *mockHandler) getProjectByID(c *gin.Context) {
 }
 
 func TestRegisterProjectRoutes(t *testing.T) {
-	cfg := &config.Config{AllowOrigin: "http://localhost:3000"}
+	cfg := &config.Config{GinMode: gin.TestMode, AllowOrigin: "http://localhost:3000"}
 	router := NewRouter(cfg)
 	mock := newMockHandler()
 
@@ -112,7 +110,7 @@ func TestRegisterProjectRoutes(t *testing.T) {
 }
 
 func TestNewRouter_UnknownRoute_Returns404(t *testing.T) {
-	cfg := &config.Config{AllowOrigin: "http://localhost:3000"}
+	cfg := &config.Config{GinMode: gin.TestMode, AllowOrigin: "http://localhost:3000"}
 	router := NewRouter(cfg)
 
 	w := httptest.NewRecorder()
