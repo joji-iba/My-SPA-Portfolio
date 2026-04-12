@@ -14,7 +14,7 @@ import (
 func TestNewRouter_HasHealthEndpoint(t *testing.T) {
 	cfg := &config.Config{
 		GinMode:     gin.TestMode,
-		AllowOrigin: "http://localhost:3000",
+		CORSOrigins: []string{"http://localhost:3000"},
 	}
 	router := NewRouter(cfg)
 
@@ -38,12 +38,14 @@ func TestNewRouter_HasHealthEndpoint(t *testing.T) {
 func TestNewRouter_CORSHeaders(t *testing.T) {
 	cfg := &config.Config{
 		GinMode:     gin.TestMode,
-		AllowOrigin: "https://mysite.com",
+		CORSOrigins: []string{"https://mysite.com"},
 	}
 	router := NewRouter(cfg)
 
 	w := httptest.NewRecorder()
 	req := httptest.NewRequest("GET", "/api/health", nil)
+	req.Header.Set("Origin", "https://mysite.com")
+	req.Host = "api.localhost"
 	router.ServeHTTP(w, req)
 
 	got := w.Header().Get("Access-Control-Allow-Origin")
@@ -77,7 +79,7 @@ func (m *mockHandler) getProjectByID(c *gin.Context) {
 }
 
 func TestRegisterProjectRoutes(t *testing.T) {
-	cfg := &config.Config{GinMode: gin.TestMode, AllowOrigin: "http://localhost:3000"}
+	cfg := &config.Config{GinMode: gin.TestMode, CORSOrigins: []string{"http://localhost:3000"}}
 	router := NewRouter(cfg)
 	mock := newMockHandler()
 
@@ -110,7 +112,7 @@ func TestRegisterProjectRoutes(t *testing.T) {
 }
 
 func TestNewRouter_UnknownRoute_Returns404(t *testing.T) {
-	cfg := &config.Config{GinMode: gin.TestMode, AllowOrigin: "http://localhost:3000"}
+	cfg := &config.Config{GinMode: gin.TestMode, CORSOrigins: []string{"http://localhost:3000"}}
 	router := NewRouter(cfg)
 
 	w := httptest.NewRecorder()
