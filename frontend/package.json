@@ -27,7 +27,7 @@
     "axios": "^1.15.2",
     "firebase": "^11.9.0",
     "framer-motion": "^12.4.7",
-    "next": "^16.2.3",
+    "next": "^16.2.6",
     "nodemailer": "^8.0.5",
     "prop-types": "^15.8.1",
     "react": "^19.2.0",
