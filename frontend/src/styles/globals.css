@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-@config '../../tailwind.config.js';
+@config '../../tailwind.config.ts';
 
 /* Use native max-* variants so narrower layouts win in the cascade. */
 @theme {

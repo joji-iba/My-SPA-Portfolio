@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, type FirebaseOptions } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -8,7 +8,7 @@ const firebaseConfig = {
   storageBucket: 'nextjs-portfolio-53ca9.appspot.com',
   messagingSenderId: '711734396270',
   appId: '1:711734396270:web:0b7f327e899c935b75ad7f',
-};
+} satisfies FirebaseOptions;
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);

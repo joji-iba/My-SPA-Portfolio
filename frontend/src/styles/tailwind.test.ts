@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import postcss, { type Root, type Rule, type AtRule } from 'postcss';
 import { beforeAll, describe, expect, it } from 'vitest';
-import config from '../../postcss.config.js';
+import config from '../../postcss.config';
 
 describe('compiled portfolio styles', () => {
   let css: Root;

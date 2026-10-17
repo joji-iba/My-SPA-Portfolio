@@ -1,5 +1,5 @@
 # 開発・ビルドステージ
-FROM node:22-alpine AS base
+FROM node:24.22.0-alpine AS base
 # npm only bootstraps the pinned package manager; app dependencies use pnpm.
 RUN npm install --global pnpm@12.14.0
 
@@ -25,6 +25,7 @@ WORKDIR /app
 # 本番に必要なファイルだけをコピー
 COPY --from=builder /app/.next .next
 COPY --from=builder /app/public public
+COPY --from=builder /app/next.config.ts ./
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml /app/pnpm-workspace.yaml ./
 COPY --from=builder /app/node_modules node_modules
 

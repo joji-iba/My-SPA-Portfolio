@@ -35,7 +35,7 @@ jobs:
           package_json_file: frontend/package.json
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24.22.0'
           cache: pnpm
           cache-dependency-path: frontend/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
@@ -55,6 +55,14 @@ jobs:
           for route in / /about /projects /contact; do
             curl --fail --retry 20 --retry-delay 2 --retry-all-errors --connect-timeout 2 --max-time 10 "http://localhost:3000$route" --output /dev/null
           done
+          docker exec frontend-check node --input-type=module -e '
+            const response = await fetch("http://localhost:3000/_next/image?url=%2Fimages%2FpatternC01.png&w=64&q=75", { headers: { Accept: "image/webp" } });
+            if (!response.ok || !response.headers.get("content-type")?.startsWith("image/")) {
+              throw new Error(`Image optimization failed: ${response.status}`);
+            }
+            if ((await response.arrayBuffer()).byteLength === 0) throw new Error("Empty optimized image");
+            console.log(`Image optimization passed on Node ${process.version}`);
+          '
       - name: Build development container
         working-directory: .
         run: docker build -f docker/frontend/Dockerfile.dev -t portfolio-frontend:dev-check frontend
