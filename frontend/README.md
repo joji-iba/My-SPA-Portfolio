@@ -14,7 +14,7 @@ I'm planning to implement a number of functions using React/Next.js, such as pag
 
 ## Next.js and TypeScript
 
-Use Node.js 22 and pnpm 12.14.0 (`packageManager` pins the version). React and
+Use Node.js 24.22.0 (latest supported LTS) and pnpm 12.14.0 (`packageManager` pins the version). React and
 React DOM are pinned to 19.3.1, with React type packages at 19.3.0. Next.js is pinned to 16.4.2 and the application compiler is
 TypeScript 7.0.2. Biome 2.5.15 handles linting and formatting without a legacy
 TypeScript compiler or a separate tooling workspace. Run the following from `frontend/`:
@@ -94,7 +94,7 @@ These replace the old maximum-width `lg:`, `md:`, `sm:`, and `xs:` variants
 and preserve the ordering of narrower overrides.
 
 Validate with `pnpm install --frozen-lockfile`, `pnpm test --run`, `pnpm run ci`, and `pnpm run build`
-on Node.js 22. Tailwind v4 requires Safari 16.4+, Chrome 111+, or Firefox 128+;
+on Node.js 24.22.0. Tailwind v4 requires Safari 16.4+, Chrome 111+, or Firefox 128+;
 see the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide).
 
 ## Contact form validation
@@ -171,3 +171,22 @@ the three legacy Babel proposal plugins, SVGR, tsconfig-paths-webpack-plugin,
 and the direct esbuild entry. Optional tool peers are not added unless the project needs them.
 Type declarations, TypeScript, and Tailwind build dependencies are development
 dependencies. `@testing-library/dom` remains a required testing-library peer.
+
+## Node.js runtime
+
+The package is named `2026_portfolio`. Volta, GitHub Actions, and both Docker
+images pin Node.js 24.22.0. `engines.node` selects `24.x` for Vercel, which manages
+patch/minor updates within that major. pnpm enforces the engine range during
+installation, so switch Node versions before installing dependencies.
+
+As of 2026-10-17, Node.js 26.12.0 is the latest Current release, while 24.22.0 is
+the latest LTS and Vercel supports 24.x and 22.x. This project uses the latest
+supported LTS to keep local, container, CI, and hosted runtime majors aligned.
+See [Node.js releases](https://nodejs.org/en/about/previous-releases) and
+[Vercel runtime support](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions).
+
+`src/styles/globals.css` is the Tailwind/PostCSS build entry point, imported once
+by the root layout. Its import, theme directives, and global base rules are
+compiled into CSS at build time. It is intentionally kept as CSS; moving those
+strings into TSX would need a different styling/build integration and would not
+remove the need to generate CSS for the browser.

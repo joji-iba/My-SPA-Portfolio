@@ -1,3 +1,4 @@
+engineStrict: true
 strictPeerDependencies: true
 verifyDepsBeforeRun: error
 allowBuilds:
