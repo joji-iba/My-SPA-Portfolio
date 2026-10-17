@@ -7,6 +7,7 @@ on:
       - 'docker/frontend/**'
       - 'docker-compose.yml'
       - '.github/workflows/frontend-checks.yml'
+      - 'vercel.json'
   push:
     branches: [main]
     paths:
@@ -14,6 +15,7 @@ on:
       - 'docker/frontend/**'
       - 'docker-compose.yml'
       - '.github/workflows/frontend-checks.yml'
+      - 'vercel.json'
 
 permissions:
   contents: read
@@ -28,17 +30,39 @@ jobs:
       NEXT_TELEMETRY_DISABLED: '1'
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: frontend/package.json
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
-          cache-dependency-path: frontend/package-lock.json
-      - run: npm ci
-      - run: npm ls --all
-      - run: npm run typecheck
-      - run: npm run ci
-      - run: npm test -- --run
-      - run: npm run build
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm peers check
+      - run: pnpm run typecheck
+      - run: pnpm run ci
+      - run: pnpm test --run
+      - run: pnpm run build
       - name: Build production container
         working-directory: .
         run: docker build -f docker/frontend/Dockerfile -t portfolio-frontend:check frontend
+      - name: Smoke test production container
+        working-directory: .
+        run: |
+          docker run -d --name frontend-check -p 3000:3000 portfolio-frontend:check
+          trap 'docker logs frontend-check; docker rm -f frontend-check' EXIT
+          for route in / /about /projects /contact; do
+            curl --fail --retry 20 --retry-delay 2 --retry-connrefused "http://localhost:3000$route" --output /dev/null
+          done
+      - name: Build development container
+        working-directory: .
+        run: docker build -f docker/frontend/Dockerfile.dev -t portfolio-frontend:dev-check frontend
+      - name: Smoke test development bind mounts
+        working-directory: .
+        run: |
+          docker run -d --name frontend-dev-check -p 3001:3000 \
+            -v "$PWD/frontend:/app" -v frontend-check-deps:/app/node_modules \
+            portfolio-frontend:dev-check
+          trap 'docker logs frontend-dev-check; docker rm -f frontend-dev-check; docker volume rm frontend-check-deps' EXIT
+          curl --fail --retry 20 --retry-delay 2 --retry-connrefused http://localhost:3001/ --output /dev/null
