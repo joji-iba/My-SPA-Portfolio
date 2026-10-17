@@ -78,30 +78,30 @@ export default function NavBar() {
   };
 
   return (
-    <header className="w-full px-32 py-8 font-medium flex items-center justify-between dark:text-light relative z-10 lg:px-16 md:px-12 sm:px-8">
+    <header className="w-full px-32 py-8 font-medium flex items-center justify-between dark:text-light relative z-10 max-lg:px-16 max-md:px-12 max-sm:px-8">
       {/* ハンバーガーメニュー */}
       <button
-        className="flex-col justify-center items-center hidden lg:flex"
+        className="flex-col justify-center items-center hidden max-lg:flex"
         onClick={handleClick}
       >
         <span
-          className={`bg-dark dark:bg-light block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${
+          className={`bg-dark dark:bg-light block transition-all duration-300 ease-out h-0.5 w-6 rounded-xs ${
             isOpen ? `rotate-45 translate-y-1` : `-translate-y-0.5`
           }`}
         ></span>
         <span
-          className={`bg-dark dark:bg-light block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${
+          className={`bg-dark dark:bg-light block transition-all duration-300 ease-out h-0.5 w-6 rounded-xs my-0.5 ${
             isOpen ? `opacity-0` : `opacity-100`
           }`}
         ></span>
         <span
-          className={`bg-dark dark:bg-light block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm  ${
+          className={`bg-dark dark:bg-light block transition-all duration-300 ease-out h-0.5 w-6 rounded-xs  ${
             isOpen ? `-rotate-45 -translate-y-1` : `translate-y-0.5`
           }`}
         ></span>
       </button>
 
-      <div className="w-full flex justify-between items-center lg:hidden">
+      <div className="w-full flex justify-between items-center max-lg:hidden">
         {/* ヘッダーメニュー */}
         <nav className="flex items-center justify-center">
           <CustomLink
@@ -180,7 +180,7 @@ export default function NavBar() {
           {/* サインアウトボタン */}
           <button
             onClick={() => auth.signOut()}
-            className="ml-3 bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-light hover:text-dark hover:bg-transparent hover:border-dark dark:bg-light dark:text-dark hover:dark:bg-dark  hover:dark:text-light hover:dark:border-light sm:!p-2 sm:!px-4 sm:!text-base"
+            className="ml-3 bg-dark text-light p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-light hover:text-dark hover:bg-transparent hover:border-dark dark:bg-light dark:text-dark hover:dark:bg-dark  hover:dark:text-light hover:dark:border-light max-sm:p-2! max-sm:px-4! max-sm:text-base!"
           >
             Sign Out
           </button>
@@ -192,7 +192,7 @@ export default function NavBar() {
         <motion.div
           initial={{ scale: 0, opacity: 0, x: '-50%', y: '-50%' }}
           animate={{ scale: 1, opacity: 1 }}
-          className="min-w-[70vw] flex flex-col justify-between z-30 items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-32"
+          className="min-w-[70vw] flex flex-col justify-between z-30 items-center fixed top-1/2 left-1/2 bg-dark/90 dark:bg-light/75 rounded-lg backdrop-blur-md py-32"
         >
           {/* ヘッダーメニュー */}
           <nav className="flex items-center flex-col justify-center">
@@ -229,14 +229,14 @@ export default function NavBar() {
               target={'_blank'}
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
-              className="w-6 mr-3 sm:mx-1"
+              className="w-6 mr-3 max-sm:mx-1"
             >
               <TwitterIcon />
             </motion.a>
             <motion.a
               href="https://github.com/joji-iba"
               target={'_blank'}
-              className="w-6 m-1 mx-3 bg-light rounded-full dark:bg-dark sm:mx-1"
+              className="w-6 m-1 mx-3 bg-light rounded-full dark:bg-dark max-sm:mx-1"
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -250,7 +250,7 @@ export default function NavBar() {
                   mode === 'light' ? 'dark' : 'light',
                 )
               }
-              className={`ease w-8 m-1 ml-3 sm:!mx-1 flex items-center justify-center rounded-full p-1
+              className={`ease w-8 m-1 ml-3 max-sm:mx-1! flex items-center justify-center rounded-full p-1
             ${mode === 'light' ? 'bg-dark text-light' : 'bg-light text-dark'}
             `}
             >
@@ -264,7 +264,7 @@ export default function NavBar() {
             {/* サインアウトボタン */}
             <button
               onClick={() => auth.signOut()}
-              className="ml-3 bg-light text-dark p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-dark hover:text-light hover:bg-transparent hover:border-light dark:bg-dark dark:text-light hover:dark:bg-light  hover:dark:text-dark hover:dark:border-light sm:!p-2 sm:!px-4 sm:!text-base"
+              className="ml-3 bg-light text-dark p-2.5 px-6 rounded-lg text-lg font-semibold border-2 border-solid border-transparent capitalize hover:bg-dark hover:text-light hover:bg-transparent hover:border-light dark:bg-dark dark:text-light hover:dark:bg-light  hover:dark:text-dark hover:dark:border-light max-sm:p-2! max-sm:px-4! max-sm:text-base!"
             >
               Sign Out
             </button>

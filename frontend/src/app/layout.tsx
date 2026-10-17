@@ -1,6 +1,5 @@
 import { Montserrat } from 'next/font/google';
 import '../styles/globals.css';
-import '../styles/tailwind-util.css';
 import Script from 'next/script';
 import AuthProvider from '@/components/AuthProvider';
 import SWRProvider from '@/components/SWRProvider';

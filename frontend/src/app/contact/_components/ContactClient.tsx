@@ -54,8 +54,8 @@ export function ContactClient() {
   };
 
   return (
-    <div className="relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 sm:p-5 dark:bg-dark dark:border-light xl:col-span-4 md:order-1 md:col-span-8">
-      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark dark:bg-light rounded-br-3xl xs:-right-2 sm:h-[102%] xs:w-full xs:rounded-[1.5rem]" />
+    <div className="relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 max-sm:p-5 dark:bg-dark dark:border-light max-xl:col-span-4 max-md:order-1 max-md:col-span-8">
+      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark dark:bg-light rounded-br-3xl max-xs:-right-2 max-sm:h-[102%] max-xs:w-full max-xs:rounded-[1.5rem]" />
       {!isSubmitted ? (
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
           <div className="mb-4">
@@ -71,7 +71,7 @@ export function ContactClient() {
               // name="name"
               placeholder="田中 太郎"
               {...register('name')}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
+              className="shadow-sm appearance-none border rounded-sm bg-white w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
             />
             <p className="text-errorRed">
               {errors.name?.message as React.ReactNode}
@@ -90,7 +90,7 @@ export function ContactClient() {
               // name="email"
               placeholder="sample@gmail.com"
               {...register('email')}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
+              className="shadow-sm appearance-none border rounded-sm bg-white w-full py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
             />
             <p className="text-errorRed">
               {errors.email?.message as React.ReactNode}
@@ -108,7 +108,7 @@ export function ContactClient() {
               // name="message"
               placeholder="お問い合わせ内容を入力してください。"
               {...register('message')}
-              className="shadow appearance-none border rounded w-full h-52 py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
+              className="shadow-sm appearance-none border rounded-sm bg-white w-full h-52 py-2 px-3 text-gray-700 leading-tight focus:shadow-outline focus:border-primary-sky"
             />
             <p className="text-errorRed">
               {errors.message?.message as React.ReactNode}
@@ -117,7 +117,7 @@ export function ContactClient() {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm focus:outline-hidden focus:shadow-outline"
             >
               {isSubmitting ? '送信中...' : '送信する'}
             </button>
@@ -126,7 +126,7 @@ export function ContactClient() {
       ) : (
         // 送信後に出力
         <div>
-          <p className="w-full block text-center text-gray-700 font-bold mb-2 dark:text-light md:text-start sm:p-3">
+          <p className="w-full block text-center text-gray-700 font-bold mb-2 dark:text-light max-md:text-start max-sm:p-3">
             この度は、お問い合わせ頂き、誠にありがとうございました。
             <br />
             お送り頂いた内容を確認の上、担当者より折り返しご連絡致します。

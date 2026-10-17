@@ -20,8 +20,8 @@ export function AboutClient() {
   if (!mounted) return null;
 
   return (
-    <div className="grid w-full grid-cols-8 gap-16 sm:gap-8">
-      <div className="col-span-3 flex flex-col items-center justify-start xl:col-span-4 md:order-2 md:col-span-8">
+    <div className="grid w-full grid-cols-8 gap-16 max-sm:gap-8">
+      <div className="col-span-3 flex flex-col items-center justify-start max-xl:col-span-4 max-md:order-2 max-md:col-span-8">
         <h2 className="mb-4 text-lg font-bold uppercase text-dark/75 dark:text-light/75">
           私について
         </h2>
@@ -51,7 +51,7 @@ export function AboutClient() {
         </p>
       </div>
 
-      <div className="col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light xl:col-span-4 md:order-1 md:col-span-8">
+      <div className="col-span-3 relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 dark:bg-dark dark:border-light max-xl:col-span-4 max-md:order-1 max-md:col-span-8">
         <div className="absolute top-0 -right-3 -z-10 w-[102%] h-[103%] rounded-[2rem] bg-dark dark:bg-light" />
         <Image
           src={imgSrc}
@@ -64,28 +64,28 @@ export function AboutClient() {
         />
       </div>
 
-      <div className="col-span-2 flex flex-col items-end justify-between xl:col-span-8 xl:flex-row xl:items-center md:order-3">
-        <div className="flex flex-col items-end justify-center xl:items-center">
-          <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
+      <div className="col-span-2 flex flex-col items-end justify-between max-xl:col-span-8 max-xl:flex-row max-xl:items-center max-md:order-3">
+        <div className="flex flex-col items-end justify-center max-xl:items-center">
+          <span className="inline-block text-7xl font-bold max-md:text-6xl max-sm:text-5xl max-xs:text-4xl">
             <AnimatedNumbers value={new Date().getFullYear() - 1993} />+
           </span>
-          <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm">
+          <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 max-xl:text-center max-md:text-lg max-sm:text-base max-xs:text-sm">
             age
           </h2>
         </div>
-        <div className="flex flex-col items-end justify-center xl:items-center">
-          <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
+        <div className="flex flex-col items-end justify-center max-xl:items-center">
+          <span className="inline-block text-7xl font-bold max-md:text-6xl max-sm:text-5xl max-xs:text-4xl">
             <AnimatedNumbers value={5} />+
           </span>
-          <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm">
+          <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 max-xl:text-center max-md:text-lg max-sm:text-base max-xs:text-sm">
             years of experience
           </h2>
         </div>
-        <div className="flex flex-col items-end justify-center xl:items-center">
-          <span className="inline-block text-7xl font-bold md:text-6xl sm:text-5xl xs:text-4xl">
+        <div className="flex flex-col items-end justify-center max-xl:items-center">
+          <span className="inline-block text-7xl font-bold max-md:text-6xl max-sm:text-5xl max-xs:text-4xl">
             <AnimatedNumbers value={100} />+
           </span>
-          <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 xl:text-center md:text-lg sm:text-base xs:text-sm">
+          <h2 className="text-xl font-medium capitalize text-dark/75 dark:text-light/75 max-xl:text-center max-md:text-lg max-sm:text-base max-xs:text-sm">
             willingness
           </h2>
         </div>
