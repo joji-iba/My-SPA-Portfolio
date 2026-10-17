@@ -14,16 +14,21 @@ I'm planning to implement a number of functions using React/Next.js, such as pag
 
 ## Next.js and TypeScript
 
-Use Node.js 22. Next.js is pinned to 16.4.2 and the application compiler is
+Use Node.js 22 and pnpm 12.14.0 (`packageManager` pins the version). React and
+React DOM are pinned to 19.3.1, with React type packages at 19.3.0. Next.js is pinned to 16.4.2 and the application compiler is
 TypeScript 7.0.2. Biome 2.5.15 handles linting and formatting without a legacy
 TypeScript compiler or a separate tooling workspace. Run the following from `frontend/`:
 
+Install pnpm with `npm install --global pnpm@12.14.0` once (npm is only used
+to bootstrap pnpm), then use pnpm for all project commands. When switching an
+existing checkout from npm, remove its `frontend/node_modules` before installing.
+
 ```sh
-npm ci
-npm run typecheck
-npm run ci
-npm test -- --run
-npm run build
+pnpm install --frozen-lockfile
+pnpm run typecheck
+pnpm run ci
+pnpm test --run
+pnpm run build
 ```
 
 `typecheck` generates Next.js route types before running TypeScript 7. The build
@@ -41,19 +46,19 @@ Run these commands from `frontend/`:
 
 | Command | Purpose |
 | --- | --- |
-| `npm run ci` | Read-only lint and formatting checks used in CI |
-| `npm run check` | The same checks for local development |
-| `npm run lint` | Lint only |
-| `npm run format:check` | Check formatting without editing files |
-| `npm run format` | Format supported files |
-| `npm run fix` | Format and apply safe lint fixes (no unsafe fixes) |
+| `pnpm run ci` | Read-only lint and formatting checks used in CI |
+| `pnpm run check` | The same checks for local development |
+| `pnpm run lint` | Lint only |
+| `pnpm run format:check` | Check formatting without editing files |
+| `pnpm run format` | Format supported files |
+| `pnpm run fix` | Format and apply safe lint fixes (no unsafe fixes) |
 
 `biome.json` is the single configuration. It retains two-space indentation,
 single quotes in JavaScript, double quotes in JSX, semicolons, trailing commas,
 LF endings, and an 80-column target. Import sorting stays disabled, matching
 the previous `import/order` policy. Tailwind v4 directives are parsed explicitly.
 Checks cover source and frontend configuration files, including tests. Generated
-Next.js files, dependencies, build outputs, public assets/templates, and the npm
+Next.js files, dependencies, build outputs, public assets/templates, and the pnpm
 lockfile are excluded. Markdown documentation is not formatted by this setup.
 
 The lint rules were migrated from the previous ESLint configuration, including
@@ -88,7 +93,7 @@ Responsive layouts use `max-*` variants: `max-lg:` applies below 1024px,
 These replace the old maximum-width `lg:`, `md:`, `sm:`, and `xs:` variants
 and preserve the ordering of narrower overrides.
 
-Validate with `npm ci`, `npm test -- --run`, `npm run ci`, and `npm run build`
+Validate with `pnpm install --frozen-lockfile`, `pnpm test --run`, `pnpm run ci`, and `pnpm run build`
 on Node.js 22. Tailwind v4 requires Safari 16.4+, Chrome 111+, or Firefox 128+;
 see the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide).
 
@@ -105,7 +110,7 @@ The email check intentionally retains the previous regular expression: Valibot's
 apostrophes previously accepted by the form. Default diagnostics for non-string
 values come from Valibot; normal form inputs retain their Japanese messages.
 
-Run `npm test -- --run` for schema boundary cases and the actual form/resolver
+Run `pnpm test --run` for schema boundary cases and the actual form/resolver
 integration, including rejected submissions, correction of errors, submission
 payloads, and retry after a network failure. These tests mock fetch and do not
 send email.
@@ -131,5 +136,38 @@ The Next.js contact route fetches its five mail templates with `cache: 'no-store
 and reads them as text. Any template HTTP/network failure stops the route before
 sending email. The SMTP behavior and endpoint remain unchanged.
 
-`npm test -- --run` covers the production SWR provider, the real contact component
+`pnpm test --run` covers the production SWR provider, the real contact component
 and mutation hook, and the route with mocked fetch/SMTP. No real email is sent.
+
+## Package management and deployment
+
+`pnpm-lock.yaml` is the only frontend lockfile. Install with
+`pnpm install --frozen-lockfile`; dependency updates intentionally use `pnpm add`,
+`pnpm update`, or `pnpm remove` and commit both the manifest and lockfile.
+`pnpm-workspace.yaml` enables strict peer checks and allows only the listed
+packages' installation scripts. Review new build scripts before allowing them.
+Uninstalled manifest changes fail before scripts run; run install explicitly.
+The release-age exception is limited to `@hookform/resolvers@5.9.2`, already
+validated and merged before this migration; other packages retain pnpm's default
+release-age policy.
+
+CI uses the pinned pnpm version, checks peers, types, Biome, tests, and production
+builds, and builds both Docker images with production HTTP and development bind-mount
+smoke tests.
+Docker also pins pnpm 12.14.0. Compose uses a new `frontend_pnpm_node_modules`
+volume so an old npm dependency volume cannot mask the pnpm installation. Rebuild
+with `docker compose up --build frontend-nextjs` after switching.
+
+Vercel's project root is `frontend/`, where `vercel.json` specifies a frozen install
+and build through pinned pnpm. The root configuration mirrors those commands.
+`npx` only bootstraps pnpm; it does not install application dependencies. This
+avoids relying on Vercel's default pnpm version or an extra dashboard setting.
+When changing pnpm versions, update `packageManager`, both Dockerfiles, and both
+Vercel configurations together.
+
+Unused direct dependencies removed: Heroicons, PropTypes, React Intersection
+Observer, styled-components (including its types and Next.js compiler option),
+the three legacy Babel proposal plugins, SVGR, tsconfig-paths-webpack-plugin,
+and the direct esbuild entry. Optional tool peers are not added unless the project needs them.
+Type declarations, TypeScript, and Tailwind build dependencies are development
+dependencies. `@testing-library/dom` remains a required testing-library peer.

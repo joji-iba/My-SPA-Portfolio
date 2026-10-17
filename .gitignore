@@ -65,3 +65,7 @@ crash.*.log
 !terraform.tfvars.example
 *.tfplan
 *.tfplan.*
+
+# pnpm
+.pnpm-store/
+pnpm-debug.log*
