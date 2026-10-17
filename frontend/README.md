@@ -86,7 +86,7 @@ been removed. Backend and infrastructure editor settings are unaffected.
 
 `src/styles/globals.css` is the single Tailwind entry point. PostCSS uses
 `@tailwindcss/postcss`; the existing colors, fonts, backgrounds, and class-based
-dark mode are loaded explicitly with `@config '../../tailwind.config.js'`.
+dark mode are loaded explicitly with `@config '../../tailwind.config.ts'`.
 
 Responsive layouts use `max-*` variants: `max-lg:` applies below 1024px,
 `max-md:` below 768px, `max-sm:` below 640px, and `max-xs:` below 480px.
@@ -190,3 +190,16 @@ by the root layout. Its import, theme directives, and global base rules are
 compiled into CSS at build time. It is intentionally kept as CSS; moving those
 strings into TSX would need a different styling/build integration and would not
 remove the need to generate CSS for the browser.
+
+## TypeScript configuration files
+
+Next.js, PostCSS, Tailwind, and the Firebase client initialization use `.ts`
+files. The TypeScript project includes root `*.config.ts` files, so the CI
+`typecheck` covers configuration as well as application code. JavaScript input
+is disabled with `allowJs: false`. Next.js and Tailwind configurations use their
+exported types; Firebase options and Tailwind's PostCSS plugin options are also
+checked without adding runtime dependencies.
+
+The project uses Turbopack (`next dev` / `next build`), which discovers
+`postcss.config.ts`. Tailwind loads `tailwind.config.ts` through the explicit
+`@config` directive in `globals.css`.
