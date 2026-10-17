@@ -5,7 +5,7 @@ Live：[joji-iba-portfolio.vercel.app](https://joji-iba-portfolio.vercel.app/)
 - ①Dark mode switching function
 - ②Screen transition animation by framer-motion
 - ③Inquiry form with React-Hook-Form
-- ④Validation management by introducing zod
+- ④Validation management with Valibot
 - ⑤G-mail sending function by linking API with nodemailer
 - ⑥Authentication function with FireBase
 
@@ -91,3 +91,21 @@ and preserve the ordering of narrower overrides.
 Validate with `npm ci`, `npm test -- --run`, `npm run ci`, and `npm run build`
 on Node.js 22. Tailwind v4 requires Safari 16.4+, Chrome 111+, or Firefox 128+;
 see the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide).
+
+## Contact form validation
+
+The contact form uses Valibot 1.5.0, React Hook Form 7.90.0, and
+`@hookform/resolvers` 5.9.2. `ContactForm` is inferred from the schema in
+`src/utils/validationSchema.ts`.
+
+The migration preserves required-field messages, the two-character name minimum
+(JavaScript string length), and submitted values without trimming or coercion.
+The email check intentionally retains the previous regular expression: Valibot's
+`email()` has different acceptance rules, including rejecting local-part
+apostrophes previously accepted by the form. Default diagnostics for non-string
+values come from Valibot; normal form inputs retain their Japanese messages.
+
+Run `npm test -- --run` for schema boundary cases and the actual form/resolver
+integration, including rejected submissions, correction of errors, submission
+payloads, and retry after a network failure. These tests mock fetch and do not
+send email.

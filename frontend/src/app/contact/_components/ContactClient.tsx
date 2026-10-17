@@ -1,34 +1,30 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
+import { valibotResolver } from '@hookform/resolvers/valibot';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { validationSchema } from '../../../utils/validationSchema';
-
-// フォーム内の型定義
-interface Form {
-  name: string;
-  email: string;
-  message: string;
-}
+import {
+  validationSchema,
+  type ContactForm,
+} from '../../../utils/validationSchema';
 
 export function ContactClient() {
   // 送信中/後の状態管理
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // React Hook Form(zodでバリデーション管理)
+  // React Hook Form(Valibotでバリデーション管理)
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Form>({
+  } = useForm<ContactForm>({
     mode: 'onChange',
-    resolver: zodResolver(validationSchema), // zodの導入
+    resolver: valibotResolver(validationSchema),
   });
 
   // フォーム送信後、API叩く
-  const onSubmit = async (data: Form) => {
+  const onSubmit = async (data: ContactForm) => {
     setIsSubmitting(true);
     try {
       const res = await fetch('/api/contact-form', {
