@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
@@ -18,8 +17,15 @@ const adminEmail = '管理人 <jojojo.sub@gmail.com>';
 
 // テンプレファイルの取得
 async function getPubFile(file: string) {
-  const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}${file}`);
-  return res.data;
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}${file}`, {
+    cache: 'no-store',
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Email template request failed with status ${response.status}`,
+    );
+  }
+  return response.text();
 }
 
 export async function POST(request: Request) {
