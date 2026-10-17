@@ -70,8 +70,12 @@ Next.js/React rule (such as `no-html-link-for-pages`, `no-css-tags`,
 and `next build` remain separate required CI checks; they do not replace those
 missing lint rules. See [Biome's migration guide](https://biomejs.dev/installation/migrate-eslint-prettier/).
 
-Use the official Biome editor extension with `frontend/biome.json`; remove local
-ESLint/Prettier format-on-save overrides if you have configured them.
+Open `frontend/` as the VS Code workspace (or as a folder in a multi-root
+workspace). Its `.vscode/settings.json` selects the official Biome extension,
+formats supported frontend languages on save, and applies safe fixes. The
+extension discovers the local Biome package and configuration automatically.
+The old repository-root `.vscode/setting.json` had the wrong filename and has
+been removed. Backend and infrastructure editor settings are unaffected.
 
 ## Tailwind CSS v4
 
