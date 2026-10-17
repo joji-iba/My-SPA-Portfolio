@@ -109,3 +109,27 @@ Run `npm test -- --run` for schema boundary cases and the actual form/resolver
 integration, including rejected submissions, correction of errors, submission
 payloads, and retry after a network failure. These tests mock fetch and do not
 send email.
+
+## HTTP requests and SWR
+
+HTTP requests use the platform `fetch`; Axios and the unused project API wrapper
+have been removed. `src/lib/fetchJson.ts` checks `response.ok` before parsing JSON,
+so HTTP failures (including JSON error bodies), malformed JSON, and network
+failures reach SWR's error state. The shared SWR provider uses this fetcher for
+project reads and retains its existing revalidation settings.
+
+The contact form uses `useSWRMutation` with an explicit POST fetcher. Success
+requires both a successful HTTP status and a JSON body with numeric `status: 1`.
+SWR manages pending, error, and success state. Sending disables the button and a
+synchronous guard blocks duplicate submit events. Errors appear inline and keep
+the input values; retry is manual. Focus/reconnect does not resend the POST, and
+mutation revalidation is disabled. A failed or unreadable response can occur after
+email was accepted, so the error message explains that retrying can duplicate it.
+This is a client-side duplicate guard, not server-side idempotency.
+
+The Next.js contact route fetches its five mail templates with `cache: 'no-store'`
+and reads them as text. Any template HTTP/network failure stops the route before
+sending email. The SMTP behavior and endpoint remain unchanged.
+
+`npm test -- --run` covers the production SWR provider, the real contact component
+and mutation hook, and the route with mocked fetch/SMTP. No real email is sent.

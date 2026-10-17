@@ -1,7 +1,9 @@
 'use client';
 
 import { valibotResolver } from '@hookform/resolvers/valibot';
-import { useState } from 'react';
+import { useRef } from 'react';
+import useSWRMutation from 'swr/mutation';
+import { sendContact } from '../../../lib/sendContact';
 import { useForm } from 'react-hook-form';
 import {
   validationSchema,
@@ -9,9 +11,14 @@ import {
 } from '../../../utils/validationSchema';
 
 export function ContactClient() {
-  // 送信中/後の状態管理
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const {
+    trigger,
+    data: result,
+    error,
+    isMutating,
+  } = useSWRMutation('/api/contact-form', sendContact, { revalidate: false });
+  // Block rapid submissions before React has rendered the disabled button.
+  const submissionStarted = useRef(false);
 
   // React Hook Form(Valibotでバリデーション管理)
   const {
@@ -23,36 +30,21 @@ export function ContactClient() {
     resolver: valibotResolver(validationSchema),
   });
 
-  // フォーム送信後、API叩く
   const onSubmit = async (data: ContactForm) => {
-    setIsSubmitting(true);
+    if (submissionStarted.current) return;
+    submissionStarted.current = true;
     try {
-      const res = await fetch('/api/contact-form', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-      const result = await res.json();
-
-      if (result.status === 1) {
-        setIsSubmitted(true);
-      } else {
-        console.log('Failed to submit form');
-      }
-    } catch (error) {
-      alert('An error occurred. See log for details.');
-      console.error(error);
-    } finally {
-      setIsSubmitting(false);
+      await trigger(data);
+    } catch {
+      // SWR exposes the error below. Only a deliberate retry sends another POST.
+      submissionStarted.current = false;
     }
   };
 
   return (
     <div className="relative h-max rounded-2xl border-2 border-solid border-dark bg-light p-8 max-sm:p-5 dark:bg-dark dark:border-light max-xl:col-span-4 max-md:order-1 max-md:col-span-8">
       <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark dark:bg-light rounded-br-3xl max-xs:-right-2 max-sm:h-[102%] max-xs:w-full max-xs:rounded-[1.5rem]" />
-      {!isSubmitted ? (
+      {result?.status !== 1 ? (
         <form onSubmit={handleSubmit((data) => onSubmit(data))}>
           <div className="mb-4">
             <label
@@ -110,12 +102,18 @@ export function ContactClient() {
               {errors.message?.message as React.ReactNode}
             </p>
           </div>
+          {error && (
+            <p role="alert" className="mb-4 text-errorRed">
+              送信結果を確認できませんでした。再送すると重複する可能性があります。時間をおいてご確認ください。
+            </p>
+          )}
           <div className="flex items-center justify-center">
             <button
               type="submit"
+              disabled={isMutating}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-sm focus:outline-hidden focus:shadow-outline"
             >
-              {isSubmitting ? '送信中...' : '送信する'}
+              {isMutating ? '送信中...' : '送信する'}
             </button>
           </div>
         </form>

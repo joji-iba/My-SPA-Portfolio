@@ -1,6 +1,7 @@
 'use client';
 
 import { SWRConfig } from 'swr';
+import { fetchJson } from '../lib/fetchJson';
 
 export default function SWRProvider({
   children,
@@ -10,7 +11,7 @@ export default function SWRProvider({
   return (
     <SWRConfig
       value={{
-        fetcher: (url: string) => fetch(url).then((res) => res.json()),
+        fetcher: fetchJson,
         revalidateOnFocus: false,
       }}
     >
