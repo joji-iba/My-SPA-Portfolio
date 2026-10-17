@@ -18,7 +18,7 @@ export default function About() {
         <Layout className="pt-16">
           <AnimatedText
             text="I'll continue to challenge technological innovation."
-            className="mb-16 lg:!text-7xl sm:!text-6xl xs:!text-4xl sm:mb-8"
+            className="mb-16 max-lg:text-7xl! max-sm:text-6xl! max-xs:text-4xl! max-sm:mb-8"
           />
           <AboutClient />
           <Skills />

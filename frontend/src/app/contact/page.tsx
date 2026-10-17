@@ -17,7 +17,7 @@ export default function Contact() {
         <Layout className="pt-16">
           <AnimatedText
             text="Contact"
-            className="mb-16 lg:!text-7xl sm:mb-8 sm:!text-6xl xs:!text-4xl"
+            className="mb-16 max-lg:text-7xl! max-sm:mb-8 max-sm:text-6xl! max-xs:text-4xl!"
           />
           <ContactClient />
         </Layout>

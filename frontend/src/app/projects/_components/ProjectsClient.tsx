@@ -50,7 +50,7 @@ export function ProjectsClient() {
   const regularProjects = projects.filter((project) => !project.featured);
 
   return (
-    <div className="grid grid-cols-12 gap-24 gap-y-32 xl:gap-x-16 lg:gap-x-8 md:gap-y-24 sm:gap-x-0">
+    <div className="grid grid-cols-12 gap-24 gap-y-32 max-xl:gap-x-16 max-lg:gap-x-8 max-md:gap-y-24 max-sm:gap-x-0">
       {featuredProjects.map((project) => (
         <div key={project.id} className="col-span-12">
           <FeaturedProject
@@ -69,7 +69,7 @@ export function ProjectsClient() {
       ))}
 
       {regularProjects.map((project) => (
-        <div key={project.id} className="col-span-6 sm:col-span-12">
+        <div key={project.id} className="col-span-6 max-sm:col-span-12">
           <Project
             title={project.title}
             img={staticImages[project.image] || Coming}
@@ -80,7 +80,7 @@ export function ProjectsClient() {
         </div>
       ))}
 
-      <div className="col-span-6 sm:col-span-12">
+      <div className="col-span-6 max-sm:col-span-12">
         <Project
           title="Coming Soon!!"
           img={Coming}

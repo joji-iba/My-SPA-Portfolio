@@ -17,8 +17,8 @@ interface ProjectProps {
 // サブプロジェクト
 export function Project({ title, type, img, link, github }: ProjectProps) {
   return (
-    <article className="w-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light p-6 relative dark:bg-dark dark:border-light xs:p-4">
-      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark rounded-br-3xl dark:bg-light md:-right-2 md:w-[101%] xs:h-[102%] xs:rounded-[1.5rem]" />
+    <article className="w-full flex flex-col items-center justify-center rounded-2xl border border-solid border-dark bg-light p-6 relative dark:bg-dark dark:border-light max-xs:p-4">
+      <div className="absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark rounded-br-3xl dark:bg-light max-md:-right-2 max-md:w-[101%] max-xs:h-[102%] max-xs:rounded-[1.5rem]" />
       <Link
         href={link}
         target="_blank"
@@ -33,7 +33,7 @@ export function Project({ title, type, img, link, github }: ProjectProps) {
         />
       </Link>
       <div className="w-full flex flex-col items-start justify-between mt-4">
-        <span className="text-primary font-medium text-xl dark:text-primaryDark lg:text-lg md:text-base">
+        <span className="text-primary font-medium text-xl dark:text-primaryDark max-lg:text-lg max-md:text-base">
           {type}
         </span>
         <Link
@@ -41,7 +41,7 @@ export function Project({ title, type, img, link, github }: ProjectProps) {
           target="_blank"
           className="hover:underline underline-offset-2"
         >
-          <h2 className="my-2 w-full text-left text-3xl font-bold lg:text-2xl">
+          <h2 className="my-2 w-full text-left text-3xl font-bold max-lg:text-2xl">
             {title}
           </h2>
         </Link>
@@ -49,11 +49,11 @@ export function Project({ title, type, img, link, github }: ProjectProps) {
           <Link
             href={link}
             target="_blank"
-            className="text-lg font-semibold underline md:text-base"
+            className="text-lg font-semibold underline max-md:text-base"
           >
             Visit
           </Link>
-          <Link href={github} target="_blank" className="w-8 md:w-6">
+          <Link href={github} target="_blank" className="w-8 max-md:w-6">
             <GithubIcon />
           </Link>
         </div>

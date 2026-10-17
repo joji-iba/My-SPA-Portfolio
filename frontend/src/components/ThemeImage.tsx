@@ -21,7 +21,7 @@ export default function ThemeImage() {
       <Image
         src={IconImage}
         alt="Joji.Iba"
-        className="w-full h-auto lg:hidden md:inline-block md:w-full"
+        className="w-full h-auto max-lg:hidden max-md:inline-block max-md:w-full"
         priority
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
       />
@@ -32,7 +32,7 @@ export default function ThemeImage() {
     <Image
       src={imgSrc}
       alt="Joji.Iba"
-      className="w-full h-auto lg:hidden md:inline-block md:w-full"
+      className="w-full h-auto max-lg:hidden max-md:inline-block max-md:w-full"
       priority
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
     />

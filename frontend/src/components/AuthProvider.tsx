@@ -49,7 +49,7 @@ function SignInButton() {
         </h2>
         <div>
           <button
-            className="w-full p-3 text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-300 focus:ring-opacity-50"
+            className="w-full p-3 text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-hidden focus:ring-4 focus:ring-indigo-300/50"
             type="submit"
             onClick={signInWithGoogle}
           >
