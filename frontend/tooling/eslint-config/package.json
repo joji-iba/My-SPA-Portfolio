@@ -1,0 +1,11 @@
+{
+  "name": "@portfolio/eslint-config",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./index.js",
+  "dependencies": {
+    "eslint-config-next": "16.4.2",
+    "typescript": "6.0.3"
+  }
+}
