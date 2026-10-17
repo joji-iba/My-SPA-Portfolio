@@ -1,10 +1,5 @@
-import js from '@eslint/js';
-import nextPlugin from 'eslint-config-next';
+import nextPlugin from '@portfolio/eslint-config';
 import prettierPlugin from 'eslint-plugin-prettier';
-import reactPlugin from 'eslint-plugin-react';
-// react-hooks plugin removed due to peer dependency conflicts with eslint v9
-import tseslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 
 export default [
@@ -17,12 +12,10 @@ export default [
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     languageOptions: {
-      parser: tsParser,
       ecmaVersion: 2020,
       sourceType: 'module',
     },
     plugins: {
-      '@typescript-eslint': tseslint,
       prettier: prettierPlugin,
       import: importPlugin,
     },

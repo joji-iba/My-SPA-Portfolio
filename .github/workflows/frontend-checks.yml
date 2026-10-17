@@ -1,0 +1,44 @@
+name: frontend-checks
+
+on:
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - 'docker/frontend/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/frontend-checks.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'frontend/**'
+      - 'docker/frontend/**'
+      - 'docker-compose.yml'
+      - '.github/workflows/frontend-checks.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm ls --all
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test -- --run
+      - run: npm run build
+      - name: Build production container
+        working-directory: .
+        run: docker build -f docker/frontend/Dockerfile -t portfolio-frontend:check frontend
