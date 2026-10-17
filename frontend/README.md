@@ -14,13 +14,14 @@ I'm planning to implement a number of functions using React/Next.js, such as pag
 
 ## Next.js and TypeScript
 
-Use Node.js 22. Next.js and its ESLint configuration are pinned to 16.4.2;
-the application compiler is TypeScript 7.0.2. Run the following from `frontend/`:
+Use Node.js 22. Next.js is pinned to 16.4.2 and the application compiler is
+TypeScript 7.0.2. Biome 2.5.15 handles linting and formatting without a legacy
+TypeScript compiler or a separate tooling workspace. Run the following from `frontend/`:
 
 ```sh
 npm ci
 npm run typecheck
-npm run lint
+npm run ci
 npm test -- --run
 npm run build
 ```
@@ -30,20 +31,47 @@ also checks types through `experimental.useTypeScriptCli`; type errors are not
 ignored. `baseUrl` was removed because TypeScript 7 no longer accepts it; the
 existing `@/*` paths remain relative to `tsconfig.json`.
 
-TypeScript 7 does not provide the legacy compiler API used by typescript-eslint.
-The private `tooling/eslint-config` npm workspace therefore contains TypeScript
-6.0.3 and `eslint-config-next`. The scoped override keeps the whole ESLint config
-dependency tree on that API, while `tsc` and Next.js resolve the root TypeScript
-7.0.2 package. Install from `frontend/` so npm installs both workspaces together;
-Docker copies the tooling workspace before installing dependencies as well.
-Compose keeps its nested dependencies in a separate named volume so the source
-bind mount does not hide the installed TypeScript 6 API.
-This compatibility package can be removed once typescript-eslint supports the
-new API. See Microsoft's [TypeScript 7 migration notes](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0).
-
 TypeScript 7's editor language service does not yet support language-service
 plugins, including Next.js's editor plugin. This does not disable CLI or build
 type checking.
+
+## Linting and formatting with Biome
+
+Run these commands from `frontend/`:
+
+| Command | Purpose |
+| --- | --- |
+| `npm run ci` | Read-only lint and formatting checks used in CI |
+| `npm run check` | The same checks for local development |
+| `npm run lint` | Lint only |
+| `npm run format:check` | Check formatting without editing files |
+| `npm run format` | Format supported files |
+| `npm run fix` | Format and apply safe lint fixes (no unsafe fixes) |
+
+`biome.json` is the single configuration. It retains two-space indentation,
+single quotes in JavaScript, double quotes in JSX, semicolons, trailing commas,
+LF endings, and an 80-column target. Import sorting stays disabled, matching
+the previous `import/order` policy. Tailwind v4 directives are parsed explicitly.
+Checks cover source and frontend configuration files, including tests. Generated
+Next.js files, dependencies, build outputs, public assets/templates, and the npm
+lockfile are excluded. Markdown documentation is not formatted by this setup.
+
+The lint rules were migrated from the previous ESLint configuration, including
+Hooks ordering/dependencies, JSX keys/duplicates, accessibility checks, and the
+supported Next.js rules. The preset is `none` to retain the project's existing
+rule policy rather than silently enabling unrelated style rules. Former warnings
+remain warnings; errors fail CI. ESLint, Prettier, their plugins, the unused hook
+tool packages, and the TypeScript 6 compatibility workspace are removed.
+
+This is not one-to-one rule coverage: Biome does not implement all of the
+React Compiler diagnostics from `eslint-plugin-react-hooks`, or every legacy
+Next.js/React rule (such as `no-html-link-for-pages`, `no-css-tags`,
+`no-page-custom-font`, `display-name`, and `no-unescaped-entities`). TypeScript 7
+and `next build` remain separate required CI checks; they do not replace those
+missing lint rules. See [Biome's migration guide](https://biomejs.dev/installation/migrate-eslint-prettier/).
+
+Use the official Biome editor extension with `frontend/biome.json`; remove local
+ESLint/Prettier format-on-save overrides if you have configured them.
 
 ## Tailwind CSS v4
 
@@ -56,6 +84,6 @@ Responsive layouts use `max-*` variants: `max-lg:` applies below 1024px,
 These replace the old maximum-width `lg:`, `md:`, `sm:`, and `xs:` variants
 and preserve the ordering of narrower overrides.
 
-Validate with `npm ci`, `npm test -- --run`, `npm run lint`, and `npm run build`
+Validate with `npm ci`, `npm test -- --run`, `npm run ci`, and `npm run build`
 on Node.js 22. Tailwind v4 requires Safari 16.4+, Chrome 111+, or Firefox 128+;
 see the [upgrade guide](https://tailwindcss.com/docs/upgrade-guide).
