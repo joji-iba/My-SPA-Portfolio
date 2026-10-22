@@ -174,10 +174,17 @@ dependencies. `@testing-library/dom` remains a required testing-library peer.
 
 ## Node.js runtime
 
-The package is named `2026_portfolio`. Volta, GitHub Actions, and both Docker
-images pin Node.js 24.22.1. `engines.node` selects `24.x` for Vercel, which manages
-patch/minor updates within that major. pnpm enforces the engine range during
-installation, so switch Node versions before installing dependencies.
+The package is named `2026_portfolio`. `engines.node`, Volta, GitHub Actions,
+and both Docker images pin Node.js 24.22.1. Use this exact version when installing
+dependencies. Vercel only supports selecting a major version and manages minor
+and patch updates itself, so this setting does not pin its hosted runtime to
+24.22.1.
+
+Deployment caveat: pnpm rejects a project whose `engines.node` does not match
+the Node.js version used for installation. Both Vercel configurations run pnpm
+installation, so a Vercel-managed version other than 24.22.1 will fail this step,
+even if it is a newer 24.x patch. Keep this constraint in mind before deploying
+or updating Node.js.
 
 Node.js 24.22.1 is the October 21, 2026 security release, including high-severity
 fixes in TLS, DNS, and Brotli. See the [24.22.1 release notes](https://nodejs.org/en/blog/release/v24.22.1).
