@@ -1,5 +1,5 @@
 # 開発・ビルドステージ
-FROM node:24.22.0-alpine AS base
+FROM node:24.22.1-alpine AS base
 # npm only bootstraps the pinned package manager; app dependencies use pnpm.
 RUN npm install --global pnpm@12.14.0
 
