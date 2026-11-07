@@ -1,7 +1,7 @@
 import { Montserrat } from 'next/font/google';
 import '../styles/globals.css';
 import Script from 'next/script';
-import AuthProvider from '@/components/AuthProvider';
+import SiteShell from '@/components/SiteShell';
 import SWRProvider from '@/components/SWRProvider';
 
 // ページ全体のフォント読込
@@ -36,7 +36,7 @@ export default function RootLayout({
           `}
         </Script>
         <SWRProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <SiteShell>{children}</SiteShell>
         </SWRProvider>
       </body>
     </html>

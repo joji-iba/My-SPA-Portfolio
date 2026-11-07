@@ -7,7 +7,8 @@ Live：[joji-iba-portfolio.vercel.app](https://joji-iba-portfolio.vercel.app/)
 - ③Inquiry form with React-Hook-Form
 - ④Validation management with Valibot
 - ⑤G-mail sending function by linking API with nodemailer
-- ⑥Authentication function with FireBase
+
+All pages are publicly accessible without an account.
 
 I have implemented many functions using React/Next.js.
 I'm planning to implement a number of functions using React/Next.js, such as page implementation with dynamic routing using microCMS.
@@ -201,11 +202,11 @@ remove the need to generate CSS for the browser.
 
 ## TypeScript configuration files
 
-Next.js, PostCSS, Tailwind, and the Firebase client initialization use `.ts`
+Next.js, PostCSS, and Tailwind configuration use `.ts`
 files. The TypeScript project includes root `*.config.ts` files, so the CI
 `typecheck` covers configuration as well as application code. JavaScript input
 is disabled with `allowJs: false`. Next.js and Tailwind configurations use their
-exported types; Firebase options and Tailwind's PostCSS plugin options are also
+exported types; Tailwind's PostCSS plugin options are also
 checked without adding runtime dependencies.
 
 The project uses Turbopack (`next dev` / `next build`), which discovers

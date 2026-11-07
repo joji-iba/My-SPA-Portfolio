@@ -11,7 +11,7 @@ INSERT INTO projects (
 ) VALUES
 (
     'Joji.Iba Portfolio Site',
-    'React/Next.js(App Router)、TypeScript、TailwindCSS、Firebaseを用いて作成した私のSPAポートフォリオです。①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④zod導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能、⑥FireBaseでの認証機能などのReact/Next.jsによる機能を数多く実装しています。現在Docker環境整備中及びデプロイ先をVercelからAWSへ移行中です。',
+    'React/Next.js(App Router)、TypeScript、TailwindCSSを用いて作成した私のSPAポートフォリオです。①ダークモード切替機能、②framer-motionによる画面遷移アニメーション、③React-Hook-Formでの問い合わせフォーム、④Valibot導入によるバリデーション管理、⑤nodemailerとAPI連携によるGメール送信機能などのReact/Next.jsによる機能を数多く実装しています。現在Docker環境整備中及びデプロイ先をVercelからAWSへ移行中です。',
     'Best Feature Project(個人開発)',
     '/images/myportfolio.jpg',
     '/',
