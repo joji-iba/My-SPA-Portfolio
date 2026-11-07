@@ -1,9 +1,7 @@
 engineStrict: true
 strictPeerDependencies: true
 verifyDepsBeforeRun: error
-allowBuilds:
-  '@firebase/util@1.12.1': true
-  protobufjs@7.6.6: true
+allowBuilds: {}
 # Already adopted and validated in the preceding form migration.
 minimumReleaseAgeExclude:
   - '@hookform/resolvers@5.9.2'

@@ -7,14 +7,15 @@ Live：[joji-iba-portfolio.vercel.app](https://joji-iba-portfolio.vercel.app/)
 - ③Inquiry form with React-Hook-Form
 - ④Validation management with Valibot
 - ⑤G-mail sending function by linking API with nodemailer
-- ⑥Authentication function with FireBase
+
+All pages are publicly accessible without an account.
 
 I have implemented many functions using React/Next.js.
 I'm planning to implement a number of functions using React/Next.js, such as page implementation with dynamic routing using microCMS.
 
 ## Next.js and TypeScript
 
-Use Node.js 24.22.1 (latest supported LTS) and pnpm 12.14.0 (`packageManager` pins the version). React and
+Use Node.js 24.22.1 for local development and pnpm 12.14.0 (`packageManager` pins the version). React and
 React DOM are pinned to 19.3.1, with React type packages at 19.3.0. Next.js is pinned to 16.4.2 and the application compiler is
 TypeScript 7.0.2. Biome 2.5.15 handles linting and formatting without a legacy
 TypeScript compiler or a separate tooling workspace. Run the following from `frontend/`:
@@ -174,17 +175,16 @@ dependencies. `@testing-library/dom` remains a required testing-library peer.
 
 ## Node.js runtime
 
-The package is named `2026_portfolio`. `engines.node`, Volta, GitHub Actions,
-and both Docker images pin Node.js 24.22.1. Use this exact version when installing
-dependencies. Vercel only supports selecting a major version and manages minor
-and patch updates itself, so this setting does not pin its hosted runtime to
-24.22.1.
+The package is named `2026_portfolio`. Volta, GitHub Actions, and both Docker
+images pin Node.js 24.22.1 for reproducible development and CI. `engines.node`
+accepts `>=24.22.1 <25`: Node.js 24.22.1 is the minimum, later stable 24.x releases
+are supported, and other major versions are excluded.
 
-Deployment caveat: pnpm rejects a project whose `engines.node` does not match
-the Node.js version used for installation. Both Vercel configurations run pnpm
-installation, so a Vercel-managed version other than 24.22.1 will fail this step,
-even if it is a newer 24.x patch. Keep this constraint in mind before deploying
-or updating Node.js.
+Vercel selects Node.js 24.x and manages minor and patch updates itself. The engine
+range allows its newer runtime patches (such as 24.22.2) to pass pnpm's strict
+engine check. `engineStrict: true` remains enabled, so older or incompatible
+runtimes are still rejected. Keep the local, CI, and Docker pins when updating
+the supported runtime range.
 
 Node.js 24.22.1 is the October 21, 2026 security release, including high-severity
 fixes in TLS, DNS, and Brotli. See the [24.22.1 release notes](https://nodejs.org/en/blog/release/v24.22.1).
@@ -201,11 +201,11 @@ remove the need to generate CSS for the browser.
 
 ## TypeScript configuration files
 
-Next.js, PostCSS, Tailwind, and the Firebase client initialization use `.ts`
+Next.js, PostCSS, and Tailwind configuration use `.ts`
 files. The TypeScript project includes root `*.config.ts` files, so the CI
 `typecheck` covers configuration as well as application code. JavaScript input
 is disabled with `allowJs: false`. Next.js and Tailwind configurations use their
-exported types; Firebase options and Tailwind's PostCSS plugin options are also
+exported types; Tailwind's PostCSS plugin options are also
 checked without adding runtime dependencies.
 
 The project uses Turbopack (`next dev` / `next build`), which discovers
